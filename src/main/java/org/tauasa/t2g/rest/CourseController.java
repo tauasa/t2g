@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.CourseRepository;
 import org.tauasa.t2g.model.Course;
-import org.tauasa.t2g.model.CourseModelAssembler;
 
 // tag::main[]
 @RestController
@@ -27,20 +26,20 @@ public class CourseController {
 	private static final Logger log = LoggerFactory.getLogger(CourseController.class);
 
 	private final CourseRepository courseRepository;
-	private final CourseModelAssembler assembler;
+	private final CourseModelAssembler courseAssembler;
 
 	public CourseController(CourseRepository courseRepository, CourseModelAssembler assembler) {
 		this.courseRepository = courseRepository;
-		this.assembler = assembler;
+		this.courseAssembler = assembler;
 	}
 
 	@GetMapping("/courses")
 	public CollectionModel<EntityModel<Course>> all() {
 		List<EntityModel<Course>> courses = courseRepository.findAll().stream() //
-				.map(assembler::toModel) //
+				.map(courseAssembler::toModel) //
 				.collect(Collectors.toList());
 
-		log.debug("all: {}", courses.size());
+		log.debug("Num Courses: {}", courses.size());
 
 		return CollectionModel.of(courses, //
 				linkTo(methodOn(CourseController.class).all()).withSelfRel());
@@ -51,9 +50,9 @@ public class CourseController {
 		Course course = courseRepository.findById(id) //
 				.orElseThrow(() -> new CourseNotFoundException(id));
 
-		log.debug("Num Courses: {}", course.toString());
+		log.debug("Course: {}", course.toString());
 
-		return assembler.toModel(course);
+		return courseAssembler.toModel(course);
 	}
 
 	@PostMapping("/courses")
@@ -62,14 +61,14 @@ public class CourseController {
 		log.debug("New course: {}", course.toString());
 		return ResponseEntity //
 				.created(linkTo(methodOn(CourseController.class).one(newCourse.getId())).toUri()) //
-				.body(assembler.toModel(newCourse));
+				.body(courseAssembler.toModel(newCourse));
 	}
 
 	@PutMapping("/courses")
 	public ResponseEntity<EntityModel<Course>> updateCourse(@RequestBody Course course) {
 		return ResponseEntity //
 				.created(linkTo(methodOn(CourseController.class).one(course.getId())).toUri()) //
-				.body(assembler.toModel(courseRepository.save(course)));
+				.body(courseAssembler.toModel(courseRepository.save(course)));
 	}
 	// end::main[]
 

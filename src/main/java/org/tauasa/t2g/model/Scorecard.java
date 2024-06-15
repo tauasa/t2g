@@ -24,6 +24,9 @@ public class Scorecard {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Tee tee;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Golfer golfer;
+
 	@Embedded
 	@AttributeOverrides({
   		@AttributeOverride(name = "strokes", column = @Column(name = "hole1_strokes")),
@@ -426,6 +429,14 @@ public class Scorecard {
 
     public void setTee(Tee tee) {
         this.tee = tee;
+    }
+
+    public Golfer getGolfer() {
+        return golfer;
+    }
+
+    public void setGolfer(Golfer golfer) {
+        this.golfer = golfer;
     }
 
 }
