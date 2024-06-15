@@ -1,5 +1,7 @@
 package org.tauasa.t2g.data;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.tauasa.t2g.model.Course;
 import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
+import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
 
 @Configuration
@@ -16,25 +19,40 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository) {
+	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScorecardRepository scorecardRepository) {
 		
 		// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
 		log.info("Initializting database");
 
 		return args -> {
-			// create some courses
-			initCourses(courseRepository);
-
-			// create some golfers
+			log.info("Create/pre-load some golfers");
 			initGolfers(golferRepository);
-
-			// preload stuffs
-			log.info("Pre-loading courses and golfers");
-			courseRepository.findAll().forEach(course -> {log.info("+Preloaded " + course);});
 			golferRepository.findAll().forEach(golfer -> log.info("+Preloaded " + golfer));
+
+			// create and preload some courses
+			log.info("Create/pre-load some golfers");
+			initCourses(courseRepository);
+			courseRepository.findAll().forEach(course -> {log.info("+Preloaded " + course);});
+
+			// create scorecards for each golfer
+			// initScorecards(golferRepository.findAll(), courseRepository.findAll(), scorecardRepository);			
+			// scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
 			
-			log.info("Database initialized and pre-loaded");
+			log.info("Database initialized");
 		};
+	}
+
+	private void initScorecards(List<Golfer> golfers, List<Course> courses, ScorecardRepository scorecardRepository){
+		// create a scorecard for every golfer, course and the first tee
+		for (Golfer golfer : golfers) {
+			for(Course course : courses){
+				Tee tee = course.getTees().iterator().next();
+				//create a scorecard for the current golfer and tee
+				scorecardRepository.save(new Scorecard(golfer, tee));
+				//Scorecard scorecard = new Scorecard(golfer, tee);
+				//scorecardRepository.save(scorecard);
+			}
+		}
 	}
 
 	private void initGolfers(GolferRepository golferRepository){
@@ -79,8 +97,6 @@ public class LoadDatabase {
 		tee.setHole7(new Hole(4, 390, 12));
 		tee.setHole8(new Hole(3, 126, 11));
 		tee.setHole9(new Hole(5, 440, 10));
-
-		/*
 		tee.setHole10(new Hole(5, 440, 9));
 		tee.setHole11(new Hole(4, 300, 8));
 		tee.setHole12(new Hole(4, 360, 7));
@@ -89,11 +105,9 @@ public class LoadDatabase {
 		tee.setHole15(new Hole(4, 420, 4));
 		tee.setHole16(new Hole(5, 450, 3));
 		tee.setHole17(new Hole(3, 120, 2));
-		tee.setHole18(new Hole(4, 360, 1));//*/
+		tee.setHole18(new Hole(4, 360, 1));
 
 		return tee;
 	}
-
-
 
 }

@@ -246,7 +246,8 @@ public class Scorecard {
 
 	public Scorecard() {}
 
-	public Scorecard(Tee tee) {
+	public Scorecard(Golfer golfer, Tee tee) {
+		this.golfer = golfer;
 		this.tee = tee;
 	}
 
@@ -262,7 +263,7 @@ public class Scorecard {
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof Tee))
+		if (!(o instanceof Scorecard))
 			return false;
 		Scorecard scorecard = (Scorecard) o;//TODO
 		return Objects.equals(this.id, scorecard.id);// && Objects.equals(this.name, tee.name)
