@@ -1,0 +1,92 @@
+package org.tauasa.t2g.rest;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.tauasa.t2g.data.GolferRepository;
+import org.tauasa.t2g.model.Golfer;
+import org.tauasa.t2g.model.GolferModelAssembler;
+
+// tag::constructor[]
+@RestController
+public class GolferController {
+
+	private final GolferRepository repository;
+
+	private final GolferModelAssembler golferAssembler;
+
+	public GolferController(GolferRepository repository, GolferModelAssembler golfAssembler) {
+		this.repository = repository;
+		this.golferAssembler = golfAssembler;
+	}
+	// end::constructor[]
+
+	// Aggregate root
+
+	@GetMapping("/golfers")
+	public CollectionModel<EntityModel<Golfer>> all() {
+
+		List<EntityModel<Golfer>> golfers = repository.findAll().stream() //
+				.map(golferAssembler::toModel) //
+				.collect(Collectors.toList());
+
+		return CollectionModel.of(golfers, linkTo(methodOn(GolferController.class).all()).withSelfRel());
+	}
+
+	@PostMapping("/golfers")
+	public ResponseEntity<?> newGolfer(@RequestBody Golfer newGolfer) {
+		EntityModel<Golfer> entityModel = golferAssembler.toModel(repository.save(newGolfer));
+
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
+	}
+
+	// Single item
+
+	@GetMapping("/golfers/{id}")
+	public EntityModel<Golfer> one(@PathVariable Long id) {
+
+		Golfer golfer = repository.findById(id) //
+				.orElseThrow(() -> new GolferNotFoundException(id));
+
+		return golferAssembler.toModel(golfer);
+	}
+
+	@PutMapping("/golfers/{id}")
+	public ResponseEntity<?> updateGolfer(@RequestBody Golfer newGolfer, @PathVariable Long id) {
+		Golfer updatedGolfer = repository.findById(id) //
+				.map(golfer -> {
+					golfer.setEmail(newGolfer.getEmail());
+					golfer.setFirstName(newGolfer.getFirstName());
+					golfer.setLastName(newGolfer.getLastName());
+					return repository.save(golfer);
+				}) //
+				.orElseGet(() -> {
+					return repository.save(newGolfer);
+				});
+
+		EntityModel<Golfer> entityModel = golferAssembler.toModel(updatedGolfer);
+
+		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
+	}
+
+	@DeleteMapping("/golfers/{id}")
+	public ResponseEntity<?> deleteGolfer(@PathVariable Long id) {
+
+		repository.deleteById(id);
+
+		return ResponseEntity.noContent().build();
+	}
+}
