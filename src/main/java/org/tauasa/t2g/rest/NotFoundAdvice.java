@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CourseNotFoundAdvice {
+public class NotFoundAdvice {
 
-	@ExceptionHandler(GolferNotFoundException.class)
+	@ExceptionHandler(NotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String courseNotFoundHandler(CourseNotFoundException ex) {
+	public String notFoundHandler(NotFoundException ex) {
 		return ex.getMessage();
 	}
 }

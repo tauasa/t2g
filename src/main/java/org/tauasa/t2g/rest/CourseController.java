@@ -48,7 +48,7 @@ public class CourseController {
 	@GetMapping("/courses/{id}")
 	public EntityModel<Course> one(@PathVariable Long id) {
 		Course course = courseRepository.findById(id) //
-				.orElseThrow(() -> new CourseNotFoundException(id));
+				.orElseThrow(() -> new NotFoundException(id));
 
 		log.debug("Course: {}", course.toString());
 

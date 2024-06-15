@@ -58,7 +58,7 @@ public class GolferController {
 	public EntityModel<Golfer> one(@PathVariable Long id) {
 
 		Golfer golfer = golferRepository.findById(id) //
-				.orElseThrow(() -> new GolferNotFoundException(id));
+				.orElseThrow(() -> new NotFoundException(id));
 
 		return golferAssembler.toModel(golfer);
 	}

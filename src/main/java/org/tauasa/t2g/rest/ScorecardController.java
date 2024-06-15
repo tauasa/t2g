@@ -48,7 +48,7 @@ public class ScorecardController {
 	@GetMapping("/scorecards/{id}")
 	public EntityModel<Scorecard> one(@PathVariable Long id) {
 		Scorecard scorecard = scorecardRepository.findById(id) //
-				.orElseThrow(() -> new CourseNotFoundException(id));
+				.orElseThrow(() -> new NotFoundException(id));
 
 		log.debug("Scorecard: {}", scorecard.toString());
 
