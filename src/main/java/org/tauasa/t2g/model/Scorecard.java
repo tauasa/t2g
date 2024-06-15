@@ -21,10 +21,10 @@ public class Scorecard {
 	@GeneratedValue
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Tee tee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Golfer golfer;
 
 	@Embedded
@@ -38,7 +38,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole1_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole1_sandy"))
 	})
-	private HoleScore hole1;
+	private HoleScore holeScore1;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole2_strokes")),
@@ -50,7 +50,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole2_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole2_sandy"))
   	})
-	private HoleScore hole2;
+	private HoleScore holeScore2;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole3_strokes")),
@@ -62,7 +62,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole3_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole3_sandy"))
   	})
-	private HoleScore hole3;
+	private HoleScore holeScore3;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole4_strokes")),
@@ -74,7 +74,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole4_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole4_sandy"))
   	})
-	private HoleScore hole4;
+	private HoleScore holeScore4;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole5_strokes")),
@@ -86,7 +86,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole5_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole5_sandy"))
   	})
-	private HoleScore hole5;
+	private HoleScore holeScore5;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole6_strokes")),
@@ -98,7 +98,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole6_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole6_sandy"))
   	})
-	private HoleScore hole6;
+	private HoleScore holeScore6;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole7_strokes")),
@@ -110,7 +110,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole7_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole7_sandy"))
   	})
-	private HoleScore hole7;
+	private HoleScore holeScore7;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole8_strokes")),
@@ -122,7 +122,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole8_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole8_sandy"))
   	})
-	private HoleScore hole8;
+	private HoleScore holeScore8;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole9_strokes")),
@@ -134,7 +134,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole9_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole9_sandy"))
   	})
-	private HoleScore hole9;
+	private HoleScore holeScore9;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole10_strokes")),
@@ -146,7 +146,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole10_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole10_sandy"))
   	})
-	private HoleScore hole10;
+	private HoleScore holeScore10;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole11_strokes")),
@@ -158,7 +158,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole11_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole11_sandy"))
   	})
-	private HoleScore hole11;
+	private HoleScore holeScore11;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole12_strokes")),
@@ -170,7 +170,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole12_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole12_sandy"))
   	})
-	private HoleScore hole12;
+	private HoleScore holeScore12;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole13_strokes")),
@@ -182,7 +182,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole13_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole13_sandy"))
   	})
-	private HoleScore hole13;
+	private HoleScore holeScore13;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole14_strokes")),
@@ -194,7 +194,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole14_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole14_sandy"))
   	})
-	private HoleScore hole14;
+	private HoleScore holeScore14;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole15_strokes")),
@@ -206,7 +206,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole15_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole15_sandy"))
   	})
-	private HoleScore hole15;
+	private HoleScore holeScore15;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole16_strokes")),
@@ -218,7 +218,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole16_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole16_sandy"))
   	})
-	private HoleScore hole16;
+	private HoleScore holeScore16;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole17_strokes")),
@@ -230,7 +230,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole17_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole17_sandy"))
   	})
-	private HoleScore hole17;
+	private HoleScore holeScore17;
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name = "strokes", column = @Column(name = "hole18_strokes")),
@@ -242,7 +242,7 @@ public class Scorecard {
 		@AttributeOverride(name = "gir", column = @Column(name = "hole18_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole18_sandy"))
   	})
-	private HoleScore hole18;
+	private HoleScore holeScore18;
 
 	public Scorecard() {}
 
@@ -280,150 +280,6 @@ public class Scorecard {
 		return "Scorecard{" + "id=" + this.id + "}";//TODO
 	}
 
-    public HoleScore getHole18() {
-        return hole18;
-    }
-
-    public void setHole18(HoleScore hole18) {
-        this.hole18 = hole18;
-    }
-
-    public HoleScore getHole17() {
-        return hole17;
-    }
-
-    public void setHole17(HoleScore hole17) {
-        this.hole17 = hole17;
-    }
-
-    public HoleScore getHole16() {
-        return hole16;
-    }
-
-    public void setHole16(HoleScore hole16) {
-        this.hole16 = hole16;
-    }
-
-    public HoleScore getHole15() {
-        return hole15;
-    }
-
-    public void setHole15(HoleScore hole15) {
-        this.hole15 = hole15;
-    }
-
-    public HoleScore getHole14() {
-        return hole14;
-    }
-
-    public void setHole14(HoleScore hole14) {
-        this.hole14 = hole14;
-    }
-
-    public HoleScore getHole13() {
-        return hole13;
-    }
-
-    public void setHole13(HoleScore hole13) {
-        this.hole13 = hole13;
-    }
-
-    public HoleScore getHole12() {
-        return hole12;
-    }
-
-    public void setHole12(HoleScore hole12) {
-        this.hole12 = hole12;
-    }
-
-    public HoleScore getHole11() {
-        return hole11;
-    }
-
-    public void setHole11(HoleScore hole11) {
-        this.hole11 = hole11;
-    }
-
-    public HoleScore getHole10() {
-        return hole10;
-    }
-
-    public void setHole10(HoleScore hole10) {
-        this.hole10 = hole10;
-    }
-
-    public HoleScore getHole9() {
-        return hole9;
-    }
-
-    public void setHole9(HoleScore hole9) {
-        this.hole9 = hole9;
-    }
-
-    public HoleScore getHole8() {
-        return hole8;
-    }
-
-    public void setHole8(HoleScore hole8) {
-        this.hole8 = hole8;
-    }
-
-    public HoleScore getHole7() {
-        return hole7;
-    }
-
-    public void setHole7(HoleScore hole7) {
-        this.hole7 = hole7;
-    }
-
-    public HoleScore getHole6() {
-        return hole6;
-    }
-
-    public void setHole6(HoleScore hole6) {
-        this.hole6 = hole6;
-    }
-
-    public HoleScore getHole5() {
-        return hole5;
-    }
-
-    public void setHole5(HoleScore hole5) {
-        this.hole5 = hole5;
-    }
-
-    public HoleScore getHole4() {
-        return hole4;
-    }
-
-    public void setHole4(HoleScore hole4) {
-        this.hole4 = hole4;
-    }
-
-    public HoleScore getHole3() {
-        return hole3;
-    }
-
-    public void setHole3(HoleScore hole3) {
-        this.hole3 = hole3;
-    }
-
-    public HoleScore getHole2() {
-        return hole2;
-    }
-
-    public void setHole2(HoleScore hole2) {
-        this.hole2 = hole2;
-    }
-
-    public HoleScore getHole1() {
-        return hole1;
-    }
-
-    public void setHole1(HoleScore hole1) {
-        this.hole1 = hole1;
-    }
-
     public Tee getTee() {
         return tee;
     }
@@ -438,6 +294,150 @@ public class Scorecard {
 
     public void setGolfer(Golfer golfer) {
         this.golfer = golfer;
+    }
+
+    public HoleScore getHoleScore1() {
+        return holeScore1;
+    }
+
+    public void setHoleScore1(HoleScore holeScore1) {
+        this.holeScore1 = holeScore1;
+    }
+
+    public HoleScore getHoleScore2() {
+        return holeScore2;
+    }
+
+    public void setHoleScore2(HoleScore holeScore2) {
+        this.holeScore2 = holeScore2;
+    }
+
+    public HoleScore getHoleScore3() {
+        return holeScore3;
+    }
+
+    public void setHoleScore3(HoleScore holeScore3) {
+        this.holeScore3 = holeScore3;
+    }
+
+    public HoleScore getHoleScore4() {
+        return holeScore4;
+    }
+
+    public void setHoleScore4(HoleScore holeScore4) {
+        this.holeScore4 = holeScore4;
+    }
+
+    public HoleScore getHoleScore5() {
+        return holeScore5;
+    }
+
+    public void setHoleScore5(HoleScore holeScore5) {
+        this.holeScore5 = holeScore5;
+    }
+
+    public HoleScore getHoleScore6() {
+        return holeScore6;
+    }
+
+    public void setHoleScore6(HoleScore holeScore6) {
+        this.holeScore6 = holeScore6;
+    }
+
+    public HoleScore getHoleScore7() {
+        return holeScore7;
+    }
+
+    public void setHoleScore7(HoleScore holeScore7) {
+        this.holeScore7 = holeScore7;
+    }
+
+    public HoleScore getHoleScore8() {
+        return holeScore8;
+    }
+
+    public void setHoleScore8(HoleScore holeScore8) {
+        this.holeScore8 = holeScore8;
+    }
+
+    public HoleScore getHoleScore9() {
+        return holeScore9;
+    }
+
+    public void setHoleScore9(HoleScore holeScore9) {
+        this.holeScore9 = holeScore9;
+    }
+
+    public HoleScore getHoleScore10() {
+        return holeScore10;
+    }
+
+    public void setHoleScore10(HoleScore holeScore10) {
+        this.holeScore10 = holeScore10;
+    }
+
+    public HoleScore getHoleScore11() {
+        return holeScore11;
+    }
+
+    public void setHoleScore11(HoleScore holeScore11) {
+        this.holeScore11 = holeScore11;
+    }
+
+    public HoleScore getHoleScore12() {
+        return holeScore12;
+    }
+
+    public void setHoleScore12(HoleScore holeScore12) {
+        this.holeScore12 = holeScore12;
+    }
+
+    public HoleScore getHoleScore14() {
+        return holeScore14;
+    }
+
+    public void setHoleScore14(HoleScore holeScore14) {
+        this.holeScore14 = holeScore14;
+    }
+
+    public HoleScore getHoleScore15() {
+        return holeScore15;
+    }
+
+    public void setHoleScore15(HoleScore holeScore15) {
+        this.holeScore15 = holeScore15;
+    }
+
+    public HoleScore getHoleScore16() {
+        return holeScore16;
+    }
+
+    public void setHoleScore16(HoleScore holeScore16) {
+        this.holeScore16 = holeScore16;
+    }
+
+    public HoleScore getHoleScore17() {
+        return holeScore17;
+    }
+
+    public void setHoleScore17(HoleScore holeScore17) {
+        this.holeScore17 = holeScore17;
+    }
+
+    public HoleScore getHoleScore18() {
+        return holeScore18;
+    }
+
+    public void setHoleScore18(HoleScore holeScore18) {
+        this.holeScore18 = holeScore18;
+    }
+
+    public HoleScore getHoleScore13() {
+        return holeScore13;
+    }
+
+    public void setHoleScore13(HoleScore holeScore13) {
+        this.holeScore13 = holeScore13;
     }
 
 }

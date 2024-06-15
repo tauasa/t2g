@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -23,7 +24,8 @@ public class Course {
 	@OneToMany(
         mappedBy = "course",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true,
+		fetch = FetchType.EAGER
     )
 	private Set<Tee> tees;
 

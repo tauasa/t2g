@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.tauasa.t2g.model.Course;
 import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
+import org.tauasa.t2g.model.HoleScore;
 import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
 
@@ -25,34 +26,69 @@ public class LoadDatabase {
 		log.info("Initializting database");
 
 		return args -> {
+
 			log.info("Create/pre-load some golfers");
 			initGolfers(golferRepository);
-			golferRepository.findAll().forEach(golfer -> log.info("+Preloaded " + golfer));
+			List<Golfer> golfers = golferRepository.findAll();
+			golfers.forEach(golfer -> log.info("+Preloaded " + golfer));
 
 			// create and preload some courses
-			log.info("Create/pre-load some golfers");
+			log.info("Create/pre-load some courses");
 			initCourses(courseRepository);
-			courseRepository.findAll().forEach(course -> {log.info("+Preloaded " + course);});
+			List<Course> courses = courseRepository.findAll();
+			courses.forEach(course -> {log.info("+Preloaded " + course);});
 
-			// create scorecards for each golfer
-			// initScorecards(golferRepository.findAll(), courseRepository.findAll(), scorecardRepository);			
-			// scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
+			// create scorecards
+			for (Golfer golfer : golfers) {//for every golfer...
+				for(Course course : courses){//and every course
+					Tee tee = course.getTees().iterator().next();//and the first tee
+					initScorecard(golfer, tee, scorecardRepository);
+				}
+			}
+	
+			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
 			
 			log.info("Database initialized");
 		};
 	}
 
-	private void initScorecards(List<Golfer> golfers, List<Course> courses, ScorecardRepository scorecardRepository){
+	private void initScorecard(Golfer golfer, Tee tee, ScorecardRepository scorecardRepository){
 		// create a scorecard for every golfer, course and the first tee
-		for (Golfer golfer : golfers) {
-			for(Course course : courses){
-				Tee tee = course.getTees().iterator().next();
-				//create a scorecard for the current golfer and tee
-				scorecardRepository.save(new Scorecard(golfer, tee));
-				//Scorecard scorecard = new Scorecard(golfer, tee);
-				//scorecardRepository.save(scorecard);
-			}
-		}
+
+		Scorecard scorecard = new Scorecard(golfer, tee);
+
+		scorecard.setHoleScore1(createHoleScore(tee.getHole1(), 3, 0, true, true, false));
+		scorecard.setHoleScore2(createHoleScore(tee.getHole2(), 3, 0, true, true, false));
+		scorecard.setHoleScore3(createHoleScore(tee.getHole3(), 3, 0, true, true, false));
+		scorecard.setHoleScore4(createHoleScore(tee.getHole4(), 3, 0, true, true, false));
+		scorecard.setHoleScore5(createHoleScore(tee.getHole5(), 3, 0, true, true, false));
+		scorecard.setHoleScore6(createHoleScore(tee.getHole6(), 3, 0, true, true, false));
+		scorecard.setHoleScore7(createHoleScore(tee.getHole7(), 3, 0, true, true, false));
+		scorecard.setHoleScore8(createHoleScore(tee.getHole8(), 3, 0, true, true, false));
+		scorecard.setHoleScore9(createHoleScore(tee.getHole9(), 3, 0, true, true, false));
+		scorecard.setHoleScore10(createHoleScore(tee.getHole10(), 3, 0, true, true, false));
+		scorecard.setHoleScore11(createHoleScore(tee.getHole11(), 3, 0, true, true, false));
+		scorecard.setHoleScore12(createHoleScore(tee.getHole12(), 3, 0, true, true, false));
+		scorecard.setHoleScore13(createHoleScore(tee.getHole13(), 3, 0, true, true, false));
+		scorecard.setHoleScore14(createHoleScore(tee.getHole14(), 3, 0, true, true, false));
+		scorecard.setHoleScore15(createHoleScore(tee.getHole15(), 3, 0, true, true, false));
+		scorecard.setHoleScore16(createHoleScore(tee.getHole16(), 3, 0, true, true, false));
+		scorecard.setHoleScore17(createHoleScore(tee.getHole17(), 3, 0, true, true, false));
+		scorecard.setHoleScore18(createHoleScore(tee.getHole18(), 3, 0, true, true, false));
+
+		scorecardRepository.save(scorecard);
+	}
+
+	private HoleScore createHoleScore(Hole hole, int putts, int penalties, boolean fairway, boolean gir, boolean sandy){
+		HoleScore hs = new HoleScore(hole.getPar()+1,//strokes (bogey golf)
+			(int)(hole.getDistance() * 0.70f),//drive 70% of distance
+			putts,
+			penalties,
+			0,
+			fairway,
+			gir,
+			sandy);
+		return hs;
 	}
 
 	private void initGolfers(GolferRepository golferRepository){
@@ -80,14 +116,14 @@ public class LoadDatabase {
 	}
 
 	private void populateCourse(Course c){
-		c.add(createTee("Blue", 126, 71.4F));
-		c.add(createTee("White", 113, 70.7F));
-		c.add(createTee("Red", 108, 69.9F));
+		c.add(createTee(c, "Blue", 126, 71.4F));
+		c.add(createTee(c, "White", 113, 70.7F));
+		c.add(createTee(c, "Red", 108, 69.9F));
 	}
 
-	private Tee createTee(String name, int slope, float rating){
+	private Tee createTee(Course c, String name, int slope, float rating){
 		Tee tee = new Tee(name, slope, rating);
-
+		tee.setCourse(c);
 		tee.setHole1(new Hole(4, 370, 18));
 		tee.setHole2(new Hole(4, 340, 17));
 		tee.setHole3(new Hole(4, 360, 16));
