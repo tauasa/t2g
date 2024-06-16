@@ -1,6 +1,5 @@
 package org.tauasa.t2g.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tee")
-public class Tee implements Serializable{
+public class Tee{
 
 	@Id 
 	@GeneratedValue

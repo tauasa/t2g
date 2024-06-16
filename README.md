@@ -1,8 +1,8 @@
-# T2G
+# T2G (Tee-2-Green)
 
-T2G is a HATEOAS REST service for tracking golf scores. Built with Spring Boot and Spring JPA.
+A HATEOAS REST service for tracking golf scores. Built with Spring Boot and Spring JPA.
 
-### Golf Score Tracker (WIP)
+### Golf Score Tracker
 Tracks the following data points for each hole:
 * Strokes
 * Fairways
@@ -13,7 +13,7 @@ Tracks the following data points for each hole:
 * Sandies
 * Mulligans
 
-### Golf Course Repository (WIP)
+### Pre-load Golf Course Repository (WIP)
 TODO scrape selected courses and score data from https://freegolftracker.com/courses/findgolfcourses.php
 
 

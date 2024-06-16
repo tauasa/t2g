@@ -1,12 +1,11 @@
 package org.tauasa.t2g.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class Hole implements Serializable{
+public class Hole{
 
 	private int par, distance, hdcp;
 

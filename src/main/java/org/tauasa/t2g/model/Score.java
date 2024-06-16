@@ -1,7 +1,8 @@
 package org.tauasa.t2g.model;
 
-import java.io.Serializable;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -16,17 +17,20 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "score")
-public class Score implements Serializable{
+public class Score{
 
 	@Id 
 	@GeneratedValue
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Tee tee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Golfer golfer;
+
+	//private Date date;
 
 	@Embedded
 	@AttributeOverrides({

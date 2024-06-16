@@ -45,7 +45,7 @@ public class ScoreController {
 				linkTo(methodOn(ScoreController.class).all()).withSelfRel());
 	}//*/
 
-	@GetMapping("/scores/forGolfer/{golferId}")
+	@GetMapping("/scores/golfer/{golferId}")
 	public CollectionModel<EntityModel<Score>> scoresForGolfer(@PathVariable Long golferId) {
 		List<EntityModel<Score>> scores = scoreRepository.findByGolferId(golferId).stream() //
 				.map(scoreAssembler::toModel) //
@@ -54,7 +54,8 @@ public class ScoreController {
 		log.debug("Founmd {} scores for golfer {}", scores.size(), golferId);
 
 		return CollectionModel.of(scores, //
-				linkTo(methodOn(ScoreController.class).scoresForGolfer(golferId)).withSelfRel());
+				linkTo(methodOn(ScoreController.class).scoresForGolfer(golferId)).withSelfRel(),
+				linkTo(methodOn(GolferController.class).all()).withSelfRel());
 	}
 
 	@GetMapping("/scores/{id}")
