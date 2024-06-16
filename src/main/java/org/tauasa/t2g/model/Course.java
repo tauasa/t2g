@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "course")
-public class Course {
+public class Course implements Serializable{
 
 	@Id 
 	@GeneratedValue 
@@ -56,6 +57,7 @@ public class Course {
 		if(tees==null){
 			tees = new HashSet<>();
 		}
+		tee.setCourse(this);
 		tees.add(tee);
 	}
 

@@ -14,7 +14,8 @@ Tracks the following data points for each hole:
 * Mulligans
 
 ### Golf Course Repository (WIP)
-TODO scrape selected courses and scorecard data from https://freegolftracker.com/courses/findgolfcourses.php
+TODO scrape selected courses and score data from https://freegolftracker.com/courses/findgolfcourses.php
+
 
 
 

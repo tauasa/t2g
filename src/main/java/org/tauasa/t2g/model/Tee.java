@@ -1,6 +1,9 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -15,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tee")
-public class Tee {
+public class Tee implements Serializable{
 
 	@Id 
 	@GeneratedValue
@@ -24,6 +27,7 @@ public class Tee {
 	private int slope;
 	private float rating;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Course course;
 
@@ -182,14 +186,6 @@ public class Tee {
 				&& Objects.equals(this.slope, tee.slope) && Objects.equals(this.rating, tee.rating);
 	}
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.id, this.name, this.slope, this.rating);
@@ -342,6 +338,14 @@ public class Tee {
 
     public void setHole18(Hole hole18) {
         this.hole18 = hole18;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
 }

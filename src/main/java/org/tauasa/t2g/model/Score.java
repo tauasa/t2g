@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.AttributeOverride;
@@ -14,17 +15,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "scorecard")
-public class Scorecard {
+@Table(name = "score")
+public class Score implements Serializable{
 
 	@Id 
 	@GeneratedValue
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Tee tee;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Golfer golfer;
 
 	@Embedded
@@ -244,9 +245,9 @@ public class Scorecard {
   	})
 	private HoleScore holeScore18;
 
-	public Scorecard() {}
+	public Score() {}
 
-	public Scorecard(Golfer golfer, Tee tee) {
+	public Score(Golfer golfer, Tee tee) {
 		this.golfer = golfer;
 		this.tee = tee;
 	}
@@ -263,10 +264,10 @@ public class Scorecard {
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof Scorecard))
+		if (!(o instanceof Score))
 			return false;
-		Scorecard scorecard = (Scorecard) o;//TODO
-		return Objects.equals(this.id, scorecard.id);// && Objects.equals(this.name, tee.name)
+		Score score = (Score) o;//TODO
+		return Objects.equals(this.id, score.id);// && Objects.equals(this.name, tee.name)
 				//&& Objects.equals(this.slope, tee.slope) && Objects.equals(this.rating, tee.rating);
 	}
 
@@ -277,7 +278,7 @@ public class Scorecard {
 
 	@Override
 	public String toString() {
-		return "Scorecard{" + "id=" + this.id + "}";//TODO
+		return "Score{" + "id=" + this.id + "}";//TODO
 	}
 
     public Tee getTee() {

@@ -11,7 +11,7 @@ import org.tauasa.t2g.model.Course;
 import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
 import org.tauasa.t2g.model.HoleScore;
-import org.tauasa.t2g.model.Scorecard;
+import org.tauasa.t2g.model.Score;
 import org.tauasa.t2g.model.Tee;
 
 @Configuration
@@ -20,7 +20,7 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScorecardRepository scorecardRepository) {
+	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository) {
 		
 		// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
 		log.info("Initializting database");
@@ -38,45 +38,45 @@ public class LoadDatabase {
 			List<Course> courses = courseRepository.findAll();
 			courses.forEach(course -> {log.info("+Preloaded " + course);});
 
-			// create scorecards
+			// create scores
 			for (Golfer golfer : golfers) {//for every golfer...
-				for(Course course : courses){//and every course
-					Tee tee = course.getTees().iterator().next();//and the first tee
-					initScorecard(golfer, tee, scorecardRepository);
+				for(Course course : courses){//and every course...
+					Tee tee = course.getTees().iterator().next();//use the first tee...
+					initScore(golfer, tee, scoreRepository);//and create score
 				}
 			}
 	
-			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
+			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
 			
 			log.info("Database initialized");
 		};
 	}
 
-	private void initScorecard(Golfer golfer, Tee tee, ScorecardRepository scorecardRepository){
-		// create a scorecard for every golfer, course and the first tee
+	private void initScore(Golfer golfer, Tee tee, ScoreRepository scoreRepository){
+		// create a scores for every golfer, course and the first tee
 
-		Scorecard scorecard = new Scorecard(golfer, tee);
+		Score score = new Score(golfer, tee);
 
-		scorecard.setHoleScore1(createHoleScore(tee.getHole1(), 3, 0, true, true, false));
-		scorecard.setHoleScore2(createHoleScore(tee.getHole2(), 3, 0, true, true, false));
-		scorecard.setHoleScore3(createHoleScore(tee.getHole3(), 3, 0, true, true, false));
-		scorecard.setHoleScore4(createHoleScore(tee.getHole4(), 3, 0, true, true, false));
-		scorecard.setHoleScore5(createHoleScore(tee.getHole5(), 3, 0, true, true, false));
-		scorecard.setHoleScore6(createHoleScore(tee.getHole6(), 3, 0, true, true, false));
-		scorecard.setHoleScore7(createHoleScore(tee.getHole7(), 3, 0, true, true, false));
-		scorecard.setHoleScore8(createHoleScore(tee.getHole8(), 3, 0, true, true, false));
-		scorecard.setHoleScore9(createHoleScore(tee.getHole9(), 3, 0, true, true, false));
-		scorecard.setHoleScore10(createHoleScore(tee.getHole10(), 3, 0, true, true, false));
-		scorecard.setHoleScore11(createHoleScore(tee.getHole11(), 3, 0, true, true, false));
-		scorecard.setHoleScore12(createHoleScore(tee.getHole12(), 3, 0, true, true, false));
-		scorecard.setHoleScore13(createHoleScore(tee.getHole13(), 3, 0, true, true, false));
-		scorecard.setHoleScore14(createHoleScore(tee.getHole14(), 3, 0, true, true, false));
-		scorecard.setHoleScore15(createHoleScore(tee.getHole15(), 3, 0, true, true, false));
-		scorecard.setHoleScore16(createHoleScore(tee.getHole16(), 3, 0, true, true, false));
-		scorecard.setHoleScore17(createHoleScore(tee.getHole17(), 3, 0, true, true, false));
-		scorecard.setHoleScore18(createHoleScore(tee.getHole18(), 3, 0, true, true, false));
+		score.setHoleScore1(createHoleScore(tee.getHole1(), 2, 0, true, true, false));
+		score.setHoleScore2(createHoleScore(tee.getHole2(), 3, 0, true, false, false));
+		score.setHoleScore3(createHoleScore(tee.getHole3(), 2, 0, false, true, false));
+		score.setHoleScore4(createHoleScore(tee.getHole4(), 1, 0, true, true, false));
+		score.setHoleScore5(createHoleScore(tee.getHole5(), 2, 0, true, false, false));
+		score.setHoleScore6(createHoleScore(tee.getHole6(), 2, 0, true, true, false));
+		score.setHoleScore7(createHoleScore(tee.getHole7(), 3, 0, true, true, false));
+		score.setHoleScore8(createHoleScore(tee.getHole8(), 1, 0, false, true, false));
+		score.setHoleScore9(createHoleScore(tee.getHole9(), 0, 0, true, true, false));
+		score.setHoleScore10(createHoleScore(tee.getHole10(), 2, 0, true, true, false));
+		score.setHoleScore11(createHoleScore(tee.getHole11(), 4, 0, false, true, false));
+		score.setHoleScore12(createHoleScore(tee.getHole12(), 1, 0, false, false, false));
+		score.setHoleScore13(createHoleScore(tee.getHole13(), 1, 0, true, true, false));
+		score.setHoleScore14(createHoleScore(tee.getHole14(), 2, 0, true, true, false));
+		score.setHoleScore15(createHoleScore(tee.getHole15(), 1, 0, false, false, true));
+		score.setHoleScore16(createHoleScore(tee.getHole16(), 3, 0, true, true, false));
+		score.setHoleScore17(createHoleScore(tee.getHole17(), 2, 0, false, true, false));
+		score.setHoleScore18(createHoleScore(tee.getHole18(), 3, 0, true, true, false));
 
-		scorecardRepository.save(scorecard);
+		scoreRepository.save(score);
 	}
 
 	private HoleScore createHoleScore(Hole hole, int putts, int penalties, boolean fairway, boolean gir, boolean sandy){
@@ -116,14 +116,14 @@ public class LoadDatabase {
 	}
 
 	private void populateCourse(Course c){
-		c.add(createTee(c, "Blue", 126, 71.4F));
-		c.add(createTee(c, "White", 113, 70.7F));
-		c.add(createTee(c, "Red", 108, 69.9F));
+		c.add(createTee("Blue", 126, 71.4F));
+		c.add(createTee("White", 113, 70.7F));
+		c.add(createTee("Red", 108, 69.9F));
 	}
 
-	private Tee createTee(Course c, String name, int slope, float rating){
+	private Tee createTee(String name, int slope, float rating){
 		Tee tee = new Tee(name, slope, rating);
-		tee.setCourse(c);
+		//tee.setCourse(c);
 		tee.setHole1(new Hole(4, 370, 18));
 		tee.setHole2(new Hole(4, 340, 17));
 		tee.setHole3(new Hole(4, 360, 16));
