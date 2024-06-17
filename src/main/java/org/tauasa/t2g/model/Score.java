@@ -302,6 +302,13 @@ public class Score{
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(this.id, this.tee, this.golfer, this.holeScore1, holeScore2, holeScore3,
+		holeScore4, holeScore5, holeScore6, holeScore7, holeScore8, holeScore9, holeScore10, holeScore11,
+		holeScore12, holeScore13, holeScore14, holeScore15, holeScore16, holeScore17, holeScore18);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;

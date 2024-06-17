@@ -81,7 +81,7 @@ public class Course{
 
 	@Override
 	public String toString() {
-		return "Course{" + "id=" + this.id + ", description='" + this.name + "\'}";
+		return "Course{" + "id=" + this.id + ", name='" + this.name + "\'}";
 	}
 
     public Set<Tee> getTees() {
