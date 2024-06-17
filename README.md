@@ -31,4 +31,7 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
 * Dockerize
+* Index/HDCP calculation (multiple algos?)
+* Track alcohol consumption (for the real hacks)
+* Beer-to-putt differential
 
