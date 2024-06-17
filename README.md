@@ -18,6 +18,9 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 ### Build and Run Locally
 > `mvn spring-boot run`
 
+### Swagger API Docs
+http://localhost:8080/swagger-ui/index.html
+
 ### Post a Score
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
