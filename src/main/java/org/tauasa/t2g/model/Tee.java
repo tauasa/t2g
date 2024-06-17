@@ -15,6 +15,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tee")
@@ -24,10 +28,15 @@ public class Tee{
 	@GeneratedValue
 	private Long id;
 	@JsonSerialize
+	@NotBlank
 	private String name;//TODO - make this unique for the course
 	@JsonSerialize
+	@Min(55)
+	@Max(155)
 	private int slope = 113;//TODO - validate range 55-155
 	@JsonSerialize
+	@Min(60)
+	@Max(80)
 	private float rating = 70F;//TODO - what is the range?
 	
 	@JsonIgnore
@@ -40,6 +49,7 @@ public class Tee{
   		@AttributeOverride(name = "distance", column = @Column(name = "hole1_distance")),
   		@AttributeOverride(name = "hdcp", column = @Column(name = "hole1_hdcp"))
 	})
+	@NotNull
 	private Hole hole1;
 	@Embedded
 	@AttributeOverrides({
@@ -47,6 +57,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole2_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole2_hdcp"))
   	})
+	@NotNull
 	private Hole hole2;
 	@Embedded
 	@AttributeOverrides({
@@ -54,6 +65,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole3_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole3_hdcp"))
   	})
+	@NotNull
 	private Hole hole3;
 	@Embedded
 	@AttributeOverrides({
@@ -61,6 +73,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole4_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole4_hdcp"))
   	})
+	@NotNull
 	private Hole hole4;
 	@Embedded
 	@AttributeOverrides({
@@ -68,6 +81,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole5_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole5_hdcp"))
   	})
+	@NotNull
 	private Hole hole5;
 	@Embedded
 	@AttributeOverrides({
@@ -75,6 +89,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole6_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole6_hdcp"))
   	})
+	@NotNull
 	private Hole hole6;
 	@Embedded
 	@AttributeOverrides({
@@ -82,6 +97,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole7_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole7_hdcp"))
   	})
+	@NotNull
 	private Hole hole7;
 	@Embedded
 	@AttributeOverrides({
@@ -89,6 +105,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole8_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole8_hdcp"))
   	})
+	@NotNull
 	private Hole hole8;
 	@Embedded
 	@AttributeOverrides({
@@ -96,6 +113,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole9_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole9_hdcp"))
   	})
+	@NotNull
 	private Hole hole9;
 
 	@Embedded
@@ -104,6 +122,7 @@ public class Tee{
   		@AttributeOverride(name = "distance", column = @Column(name = "hole10_distance")),
   		@AttributeOverride(name = "hdcp", column = @Column(name = "hole10_hdcp"))
 	})
+	@NotNull
 	private Hole hole10;
 	@Embedded
 	@AttributeOverrides({
@@ -111,6 +130,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole11_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole11_hdcp"))
   	})
+	@NotNull
 	private Hole hole11;
 	@Embedded
 	@AttributeOverrides({
@@ -118,6 +138,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole12_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole12_hdcp"))
   	})
+	@NotNull
 	private Hole hole12;
 	@Embedded
 	@AttributeOverrides({
@@ -125,6 +146,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole13_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole13_hdcp"))
   	})
+	@NotNull
 	private Hole hole13;
 	@Embedded
 	@AttributeOverrides({
@@ -132,6 +154,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole14_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole14_hdcp"))
   	})
+	@NotNull
 	private Hole hole14;
 	@Embedded
 	@AttributeOverrides({
@@ -139,6 +162,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole15_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole15_hdcp"))
   	})
+	@NotNull
 	private Hole hole15;
 	@Embedded
 	@AttributeOverrides({
@@ -146,6 +170,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole16_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole16_hdcp"))
   	})
+	@NotNull
 	private Hole hole16;
 	@Embedded
 	@AttributeOverrides({
@@ -153,6 +178,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole17_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole17_hdcp"))
   	})
+	@NotNull
 	private Hole hole17;
 	@Embedded
 	@AttributeOverrides({
@@ -160,6 +186,7 @@ public class Tee{
 		@AttributeOverride(name = "distance", column = @Column(name = "hole18_distance")),
 		@AttributeOverride(name = "hdcp", column = @Column(name = "hole18_hdcp"))
   	})
+	@NotNull
 	private Hole hole18;
 
 	public Tee() {}

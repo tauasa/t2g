@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.CourseRepository;
 import org.tauasa.t2g.model.Course;
 
+import jakarta.validation.Valid;
+
 // tag::main[]
 @RestController
 public class CourseController {
@@ -56,7 +58,7 @@ public class CourseController {
 	}
 
 	@PostMapping("/courses")
-	public ResponseEntity<EntityModel<Course>> newCourse(@RequestBody Course course) {
+	public ResponseEntity<EntityModel<Course>> newCourse(@Valid @RequestBody Course course) {
 		Course newCourse = courseRepository.save(course);
 		log.debug("New course: {}", course.toString());
 		return ResponseEntity //
@@ -65,7 +67,7 @@ public class CourseController {
 	}
 
 	@PutMapping("/courses")
-	public ResponseEntity<EntityModel<Course>> updateCourse(@RequestBody Course course) {
+	public ResponseEntity<EntityModel<Course>> updateCourse(@Valid @RequestBody Course course) {
 		return ResponseEntity //
 				.created(linkTo(methodOn(CourseController.class).one(course.getId())).toUri()) //
 				.body(courseAssembler.toModel(courseRepository.save(course)));

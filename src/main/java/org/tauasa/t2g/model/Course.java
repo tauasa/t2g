@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "course")
@@ -19,6 +21,7 @@ public class Course{
 	@Id 
 	@GeneratedValue 
 	private Long id;
+	@NotBlank
 	private String name;
 
 	@OneToMany(
@@ -27,6 +30,7 @@ public class Course{
         orphanRemoval = true,
 		fetch = FetchType.EAGER
     )
+	@NotEmpty
 	private Set<Tee> tees;
 
 	public Course() {}

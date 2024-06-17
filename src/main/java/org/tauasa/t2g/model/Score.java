@@ -3,8 +3,6 @@ package org.tauasa.t2g.model;
 import java.util.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -15,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "score")
@@ -24,13 +23,14 @@ public class Score{
 	@GeneratedValue
 	private Long id;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Tee tee;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Golfer golfer;
 
+	@NotNull
 	private Date date = new Date();
 
 	@Embedded
@@ -45,6 +45,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole1_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole1_sandy"))
 	})
+	@NotNull
 	private HoleScore holeScore1;
 	@Embedded
 	@AttributeOverrides({
@@ -58,6 +59,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole2_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole2_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore2;
 	@Embedded
 	@AttributeOverrides({
@@ -71,6 +73,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole3_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole3_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore3;
 	@Embedded
 	@AttributeOverrides({
@@ -84,6 +87,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole4_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole4_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore4;
 	@Embedded
 	@AttributeOverrides({
@@ -97,6 +101,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole5_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole5_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore5;
 	@Embedded
 	@AttributeOverrides({
@@ -110,6 +115,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole6_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole6_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore6;
 	@Embedded
 	@AttributeOverrides({
@@ -123,6 +129,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole7_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole7_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore7;
 	@Embedded
 	@AttributeOverrides({
@@ -136,6 +143,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole8_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole8_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore8;
 	@Embedded
 	@AttributeOverrides({
@@ -149,6 +157,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole9_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole9_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore9;
 	@Embedded
 	@AttributeOverrides({
@@ -162,6 +171,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole10_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole10_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore10;
 	@Embedded
 	@AttributeOverrides({
@@ -175,6 +185,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole11_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole11_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore11;
 	@Embedded
 	@AttributeOverrides({
@@ -188,6 +199,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole12_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole12_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore12;
 	@Embedded
 	@AttributeOverrides({
@@ -201,6 +213,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole13_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole13_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore13;
 	@Embedded
 	@AttributeOverrides({
@@ -214,6 +227,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole14_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole14_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore14;
 	@Embedded
 	@AttributeOverrides({
@@ -227,6 +241,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole15_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole15_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore15;
 	@Embedded
 	@AttributeOverrides({
@@ -240,6 +255,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole16_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole16_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore16;
 	@Embedded
 	@AttributeOverrides({
@@ -253,6 +269,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole17_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole17_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore17;
 	@Embedded
 	@AttributeOverrides({
@@ -266,6 +283,7 @@ public class Score{
 		@AttributeOverride(name = "gir", column = @Column(name = "hole18_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole18_sandy"))
   	})
+	@NotNull
 	private HoleScore holeScore18;
 
 	public Score() {}

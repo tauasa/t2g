@@ -1,7 +1,7 @@
 {
     "golfer" : {
       "id" : 1,
-      "john@doe.com" : ""
+      "email" : "john@doe.com"
     },
     "tee" : {
       "id" : 1,

@@ -10,6 +10,7 @@ import org.springframework.hateoas.EntityModel;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.ScoreRepository;
 import org.tauasa.t2g.model.Score;
+
+import jakarta.validation.Valid;
 
 // tag::main[]
 @RestController
@@ -69,7 +72,7 @@ public class ScoreController {
 	}
 
 	@PostMapping("/scores")
-	public ResponseEntity<EntityModel<Score>> newScore(@RequestBody Score score) {
+	public ResponseEntity<EntityModel<Score>> newScore(@Valid @RequestBody Score score) {
 		Score newScore = scoreRepository.save(score);
 		log.debug("New score: {}", score.toString());
 		return ResponseEntity //
@@ -78,10 +81,18 @@ public class ScoreController {
 	}
 
 	@PutMapping("/scores")
-	public ResponseEntity<EntityModel<Score>> updateScore(@RequestBody Score score) {
+	public ResponseEntity<EntityModel<Score>> updateScore(@Valid @RequestBody Score score) {
 		return ResponseEntity //
 				.created(linkTo(methodOn(ScoreController.class).one(score.getId())).toUri()) //
 				.body(scoreAssembler.toModel(scoreRepository.save(score)));
+	}
+
+	@DeleteMapping("/scores/{id}")
+	public ResponseEntity<?> deleteGolfer(@PathVariable Long id) {
+
+		scoreRepository.deleteById(id);
+
+		return ResponseEntity.noContent().build();
 	}
 	// end::main[]
 

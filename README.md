@@ -21,9 +21,14 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 ### Post a Score
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
+### List Courses
+> `curl -X GET -H 'Content-Type: application/json' localhost:8080/courses`
+
+### Get a Score
+> `curl -X GET -H 'Content-Type: application/json' localhost:8080/score/{123}`
+
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
-* Validation
 * UI with dashboard
 * Dockerize
 

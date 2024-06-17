@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.GolferRepository;
 import org.tauasa.t2g.model.Golfer;
 
+import jakarta.validation.Valid;
+
 // tag::constructor[]
 @RestController
 public class GolferController {
@@ -46,7 +48,7 @@ public class GolferController {
 	}
 
 	@PostMapping("/golfers")
-	public ResponseEntity<?> newGolfer(@RequestBody Golfer newGolfer) {
+	public ResponseEntity<?> newGolfer(@Valid @RequestBody Golfer newGolfer) {
 		EntityModel<Golfer> entityModel = golferAssembler.toModel(golferRepository.save(newGolfer));
 
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
@@ -64,7 +66,7 @@ public class GolferController {
 	}
 
 	@PutMapping("/golfers/{id}")
-	public ResponseEntity<?> updateGolfer(@RequestBody Golfer newGolfer, @PathVariable Long id) {
+	public ResponseEntity<?> updateGolfer(@Valid @RequestBody Golfer newGolfer, @PathVariable Long id) {
 		Golfer updatedGolfer = golferRepository.findById(id) //
 				.map(golfer -> {
 					golfer.setEmail(newGolfer.getEmail());
