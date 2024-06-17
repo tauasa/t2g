@@ -1,0 +1,190 @@
+{
+    "golfer" : {
+      "id" : 1,
+      "john@doe.com" : ""
+    },
+    "tee" : {
+      "id" : 1,
+      "name" : "White"
+    },
+    "holeScore1" : {
+       "drive" : 259,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore2" : {
+       "drive" : 238,
+       "fairway" : true,
+       "gir" : false,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 3,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore3" : {
+       "drive" : 252,
+       "fairway" : false,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore4" : {
+       "drive" : 103,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 1,
+       "sandy" : false,
+       "strokes" : 4
+    },
+    "holeScore5" : {
+       "drive" : 322,
+       "fairway" : true,
+       "gir" : false,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 6
+    },
+    "holeScore6" : {
+       "drive" : 231,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore7" : {
+       "drive" : 273,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 3,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore8" : {
+       "drive" : 88,
+       "fairway" : false,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 1,
+       "sandy" : false,
+       "strokes" : 4
+    },
+    "holeScore9" : {
+       "drive" : 308,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 0,
+       "sandy" : false,
+       "strokes" : 6
+    },
+    "holeScore10" : {
+       "drive" : 308,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 6
+    },
+    "holeScore11" : {
+       "drive" : 210,
+       "fairway" : false,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 4,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore12" : {
+       "drive" : 252,
+       "fairway" : false,
+       "gir" : false,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 1,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore13" : {
+       "drive" : 217,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 1,
+       "sandy" : false,
+       "strokes" : 5
+    },
+    "holeScore14" : {
+       "drive" : 126,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 4
+    },
+    "holeScore15" : {
+       "drive" : 294,
+       "fairway" : false,
+       "gir" : false,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 1,
+       "sandy" : true,
+       "strokes" : 5
+    },
+    "holeScore16" : {
+       "drive" : 315,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 3, 
+       "sandy" : false,
+       "strokes" : 6
+    },
+    "holeScore17" : {
+       "drive" : 84,
+       "fairway" : false,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 2,
+       "sandy" : false,
+       "strokes" : 4
+    },
+    "holeScore18" : {
+       "drive" : 252,
+       "fairway" : true,
+       "gir" : true,
+       "mulligans" : 0,
+       "penalties" : 0,
+       "putts" : 3,
+       "sandy" : false,
+       "strokes" : 5
+    }
+ }

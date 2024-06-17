@@ -1,9 +1,10 @@
-# T2G (Tee-2-Green)
+# T2G Golf Score Tracker
+Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa).
 
-A HATEOAS REST service for tracking golf scores. Built with Spring Boot and Spring JPA.
+### Model
+![T2G model](model.png)
 
-### Golf Score Tracker
-Tracks the following data points for each hole:
+### Tracks the following data points for each hole:
 * Strokes
 * Fairways
 * Drive Distance
@@ -12,12 +13,17 @@ Tracks the following data points for each hole:
 * Penalties
 * Sandies
 * Mulligans
+* Skins
 
-### Pre-load Golf Course Repository (WIP)
-TODO scrape selected courses and score data from https://freegolftracker.com/courses/findgolfcourses.php
+### Build and Run Locally
+> `mvn spring-boot run`
 
+### Post a Score
+> `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-
-
-
+### TODO + WIP
+* Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
+* Validation
+* UI with dashboard
+* Dockerize
 

@@ -7,18 +7,19 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class HoleScore{
 
-	private int strokes, drive, putts, penalties, mulligans;
+	private int strokes, drive, putts, penalties, mulligans, skins;
 	private boolean fairway, gir, sandy;
 
 	public HoleScore() {}
 
-	public HoleScore(int strokes, int drive, int putts, int penalties, int mulligans,
+	public HoleScore(int strokes, int drive, int putts, int penalties, int mulligans, int skins,
 					boolean fairway, boolean gir, boolean sandy) {
 		this.strokes=strokes;
 		this.drive=drive;
 		this.putts=putts;
 		this.penalties=penalties;
 		this.mulligans=mulligans;
+		this.skins=skins;
 		this.fairway=fairway;
 		this.gir=gir;
 		this.sandy=sandy;
@@ -36,6 +37,7 @@ public class HoleScore{
 			Objects.equals(this.putts, score.putts) &&
 			Objects.equals(this.penalties, score.penalties) &&
 			Objects.equals(this.mulligans, score.mulligans) &&
+			Objects.equals(this.skins, score.skins) &&
 			Objects.equals(this.fairway, score.fairway) &&
 			Objects.equals(this.gir, score.gir) &&
 			Objects.equals(this.sandy, score.sandy);
@@ -50,7 +52,7 @@ public class HoleScore{
 
 	@Override
 	public String toString() {
-		return "HoleScore{" + "strokes='" + this.strokes + '\''  + ", drive='" + this.drive + '\'' + ", putts='" + this.putts + "'}";
+		return "HoleScore{" + "strokes='" + this.strokes + '\''  + ", drive='" + this.drive + '\'' + ", putts='" + this.putts + "', skins='"+skins+"'}";
 	}
 
 	public int getStrokes() {
@@ -116,5 +118,13 @@ public class HoleScore{
 	public void setSandy(boolean sandy) {
 		this.sandy = sandy;
 	}
+
+    public int getSkins() {
+        return skins;
+    }
+
+    public void setSkins(int skins) {
+        this.skins = skins;
+    }
 	
 }

@@ -85,6 +85,7 @@ public class LoadDatabase {
 			putts,
 			penalties,
 			0,
+			0,
 			fairway,
 			gir,
 			sandy);

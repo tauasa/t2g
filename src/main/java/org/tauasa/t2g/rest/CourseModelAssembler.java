@@ -17,8 +17,7 @@ public class CourseModelAssembler implements RepresentationModelAssembler<Course
 		EntityModel<Course> courseModel = EntityModel.of(course, 
 				linkTo(methodOn(CourseController.class).one(course.getId())).withSelfRel(),
 				linkTo(methodOn(CourseController.class).all()).withRel("courses"));
-				
-				//TODO - add links to existing scores
+				//linkTo(methodOn(ScoreController.class).recentScores()).withRel("scores"));//TODO - list the most recent N scores
 
 		return courseModel;
 	}

@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,7 +31,7 @@ public class Score{
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Golfer golfer;
 
-	//private Date date;
+	private Date date = new Date();
 
 	@Embedded
 	@AttributeOverrides({
@@ -39,6 +40,7 @@ public class Score{
   		@AttributeOverride(name = "putts", column = @Column(name = "hole1_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole1_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole1_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole1_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole1_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole1_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole1_sandy"))
@@ -51,6 +53,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole2_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole2_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole2_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole2_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole2_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole2_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole2_sandy"))
@@ -63,6 +66,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole3_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole3_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole3_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole3_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole3_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole3_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole3_sandy"))
@@ -75,6 +79,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole4_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole4_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole4_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole4_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole4_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole4_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole4_sandy"))
@@ -87,6 +92,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole5_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole5_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole5_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole5_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole5_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole5_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole5_sandy"))
@@ -99,6 +105,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole6_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole6_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole6_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole6_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole6_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole6_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole6_sandy"))
@@ -111,6 +118,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole7_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole7_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole7_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole7_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole7_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole7_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole7_sandy"))
@@ -123,6 +131,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole8_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole8_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole8_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole8_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole8_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole8_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole8_sandy"))
@@ -135,6 +144,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole9_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole9_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole9_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole9_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole9_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole9_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole9_sandy"))
@@ -147,6 +157,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole10_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole10_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole10_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole10_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole10_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole10_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole10_sandy"))
@@ -159,6 +170,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole11_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole11_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole11_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole11_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole11_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole11_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole11_sandy"))
@@ -171,6 +183,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole12_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole12_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole12_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole12_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole12_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole12_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole12_sandy"))
@@ -183,6 +196,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole13_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole13_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole13_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole13_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole13_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole13_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole13_sandy"))
@@ -195,6 +209,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole14_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole14_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole14_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole14_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole14_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole14_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole14_sandy"))
@@ -207,6 +222,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole15_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole15_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole15_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole15_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole15_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole15_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole15_sandy"))
@@ -219,6 +235,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole16_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole16_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole16_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole16_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole16_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole16_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole16_sandy"))
@@ -231,6 +248,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole17_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole17_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole17_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole17_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole17_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole17_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole17_sandy"))
@@ -243,6 +261,7 @@ public class Score{
 		@AttributeOverride(name = "putts", column = @Column(name = "hole18_putts")),
 		@AttributeOverride(name = "penalties", column = @Column(name = "hole18_penalties")),
 		@AttributeOverride(name = "mulligans", column = @Column(name = "hole18_mulligans")),
+		@AttributeOverride(name = "skins", column = @Column(name = "hole18_skins")),
 		@AttributeOverride(name = "fairway", column = @Column(name = "hole18_fairway")),
 		@AttributeOverride(name = "gir", column = @Column(name = "hole18_gir")),
 		@AttributeOverride(name = "sandy", column = @Column(name = "hole18_sandy"))
@@ -271,18 +290,152 @@ public class Score{
 		if (!(o instanceof Score))
 			return false;
 		Score score = (Score) o;//TODO
-		return Objects.equals(this.id, score.id);// && Objects.equals(this.name, tee.name)
-				//&& Objects.equals(this.slope, tee.slope) && Objects.equals(this.rating, tee.rating);
+		return Objects.equals(this.id, score.id) 
+			&& Objects.equals(this.tee, score.tee) 
+			&& Objects.equals(this.golfer, score.golfer) 
+			&& Objects.equals(this.holeScore1, score.holeScore1)
+			&& Objects.equals(this.holeScore2, score.holeScore2)
+			&& Objects.equals(this.holeScore3, score.holeScore3)
+			&& Objects.equals(this.holeScore4, score.holeScore4)
+			&& Objects.equals(this.holeScore5, score.holeScore5)
+			&& Objects.equals(this.holeScore6, score.holeScore6)
+			&& Objects.equals(this.holeScore7, score.holeScore7)
+			&& Objects.equals(this.holeScore8, score.holeScore8)
+			&& Objects.equals(this.holeScore9, score.holeScore9)
+			&& Objects.equals(this.holeScore10, score.holeScore10)
+			&& Objects.equals(this.holeScore11, score.holeScore11)
+			&& Objects.equals(this.holeScore12, score.holeScore12)
+			&& Objects.equals(this.holeScore13, score.holeScore13)
+			&& Objects.equals(this.holeScore14, score.holeScore14)
+			&& Objects.equals(this.holeScore15, score.holeScore15)
+			&& Objects.equals(this.holeScore16, score.holeScore16)
+			&& Objects.equals(this.holeScore17, score.holeScore17)
+			&& Objects.equals(this.holeScore18, score.holeScore18); 
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.id);
+	public int calculateScore(){
+		int score = 0;
+		//TODO - do this with reflections
+		score += holeScore1.getStrokes();
+		score += holeScore2.getStrokes();
+		score += holeScore3.getStrokes();
+		score += holeScore4.getStrokes();
+		score += holeScore5.getStrokes();
+		score += holeScore6.getStrokes();
+		score += holeScore7.getStrokes();
+		score += holeScore8.getStrokes();
+		score += holeScore9.getStrokes();
+		score += holeScore10.getStrokes();
+		score += holeScore11.getStrokes();
+		score += holeScore12.getStrokes();
+		score += holeScore13.getStrokes();
+		score += holeScore14.getStrokes();
+		score += holeScore15.getStrokes();
+		score += holeScore16.getStrokes();
+		score += holeScore17.getStrokes();
+		score += holeScore18.getStrokes();
+		return score;
+	}
+
+	public int calculateSkins(){
+		int skins = 0;
+		//TODO - do this with reflections
+		skins += holeScore1.getSkins();
+		skins += holeScore2.getSkins();
+		skins += holeScore3.getSkins();
+		skins += holeScore4.getSkins();
+		skins += holeScore5.getSkins();
+		skins += holeScore6.getSkins();
+		skins += holeScore7.getSkins();
+		skins += holeScore8.getSkins();
+		skins += holeScore9.getSkins();
+		skins += holeScore10.getSkins();
+		skins += holeScore11.getSkins();
+		skins += holeScore12.getSkins();
+		skins += holeScore13.getSkins();
+		skins += holeScore14.getSkins();
+		skins += holeScore15.getSkins();
+		skins += holeScore16.getSkins();
+		skins += holeScore17.getSkins();
+		skins += holeScore18.getSkins();
+		return skins;
+	}
+
+	public int calculatePenalties(){
+		int skins = 0;
+		//TODO - do this with reflections
+		skins += holeScore1.getPenalties();
+		skins += holeScore2.getPenalties();
+		skins += holeScore3.getPenalties();
+		skins += holeScore4.getPenalties();
+		skins += holeScore5.getPenalties();
+		skins += holeScore6.getPenalties();
+		skins += holeScore7.getPenalties();
+		skins += holeScore8.getPenalties();
+		skins += holeScore9.getPenalties();
+		skins += holeScore10.getPenalties();
+		skins += holeScore11.getPenalties();
+		skins += holeScore12.getPenalties();
+		skins += holeScore13.getPenalties();
+		skins += holeScore14.getPenalties();
+		skins += holeScore15.getPenalties();
+		skins += holeScore16.getPenalties();
+		skins += holeScore17.getPenalties();
+		skins += holeScore18.getPenalties();
+		return skins;
+	}
+
+	public int calculateFairways(){
+		int skins = 0;
+		//TODO - do this with reflections
+		skins += holeScore1.isFairway() ? 1 : 0;
+		skins += holeScore2.isFairway() ? 1 : 0;
+		skins += holeScore3.isFairway() ? 1 : 0;
+		skins += holeScore4.isFairway() ? 1 : 0;
+		skins += holeScore5.isFairway() ? 1 : 0;
+		skins += holeScore6.isFairway() ? 1 : 0;
+		skins += holeScore7.isFairway() ? 1 : 0;
+		skins += holeScore8.isFairway() ? 1 : 0;
+		skins += holeScore9.isFairway() ? 1 : 0;
+		skins += holeScore10.isFairway() ? 1 : 0;
+		skins += holeScore11.isFairway() ? 1 : 0;
+		skins += holeScore12.isFairway() ? 1 : 0;
+		skins += holeScore13.isFairway() ? 1 : 0;
+		skins += holeScore14.isFairway() ? 1 : 0;
+		skins += holeScore15.isFairway() ? 1 : 0;
+		skins += holeScore16.isFairway() ? 1 : 0;
+		skins += holeScore17.isFairway() ? 1 : 0;
+		skins += holeScore18.isFairway() ? 1 : 0;
+		return skins;
+	}
+
+	public int calculateGirs(){
+		int skins = 0;
+		//TODO - do this with reflections
+		skins += holeScore1.isGir() ? 1 : 0;
+		skins += holeScore2.isGir() ? 1 : 0;
+		skins += holeScore3.isGir() ? 1 : 0;
+		skins += holeScore4.isGir() ? 1 : 0;
+		skins += holeScore5.isGir() ? 1 : 0;
+		skins += holeScore6.isGir() ? 1 : 0;
+		skins += holeScore7.isGir() ? 1 : 0;
+		skins += holeScore8.isGir() ? 1 : 0;
+		skins += holeScore9.isGir() ? 1 : 0;
+		skins += holeScore10.isGir() ? 1 : 0;
+		skins += holeScore11.isGir() ? 1 : 0;
+		skins += holeScore12.isGir() ? 1 : 0;
+		skins += holeScore13.isGir() ? 1 : 0;
+		skins += holeScore14.isGir() ? 1 : 0;
+		skins += holeScore15.isGir() ? 1 : 0;
+		skins += holeScore16.isGir() ? 1 : 0;
+		skins += holeScore17.isGir() ? 1 : 0;
+		skins += holeScore18.isGir() ? 1 : 0;
+		return skins;
 	}
 
 	@Override
 	public String toString() {
-		return "Score{" + "id=" + this.id + "}";//TODO
+		return "Score{" + "id=" + this.id + ", strokes='"+calculateScore()+"'}";//TODO
 	}
 
     public Tee getTee() {
@@ -443,6 +596,14 @@ public class Score{
 
     public void setHoleScore13(HoleScore holeScore13) {
         this.holeScore13 = holeScore13;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

@@ -3,6 +3,7 @@ package org.tauasa.t2g.model;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -22,9 +23,12 @@ public class Tee{
 	@Id 
 	@GeneratedValue
 	private Long id;
-	private String name;
-	private int slope;
-	private float rating;
+	@JsonSerialize
+	private String name;//TODO - make this unique for the course
+	@JsonSerialize
+	private int slope = 113;//TODO - validate range 55-155
+	@JsonSerialize
+	private float rating = 70F;//TODO - what is the range?
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -345,6 +349,14 @@ public class Tee{
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
 }
