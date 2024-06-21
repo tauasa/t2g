@@ -1,294 +1,398 @@
 {
-    "id" : 1,
-    "name" : "Woodcreek GC",
-    "tees" : [
-       {
-          "hole1" : {
-             "distance" : 370,
-             "hdcp" : 18,
-             "par" : 4
-          },
-          "hole10" : {
-             "distance" : 440,
-             "hdcp" : 9,
-             "par" : 5
-          },
-          "hole11" : {
-             "distance" : 300,
-             "hdcp" : 8,
-             "par" : 4
-          },
-          "hole12" : {
-             "distance" : 360,
-             "hdcp" : 7,
-             "par" : 4
-          },
-          "hole13" : {
-             "distance" : 310,
-             "hdcp" : 6,
-             "par" : 4
-          },
-          "hole14" : {
-             "distance" : 180,
-             "hdcp" : 5,
-             "par" : 3
-          },
-          "hole15" : {
-             "distance" : 420,
-             "hdcp" : 4,
-             "par" : 4
-          },
-          "hole16" : {
-             "distance" : 450,
-             "hdcp" : 3,
-             "par" : 5
-          },
-          "hole17" : {
-             "distance" : 120,
-             "hdcp" : 2,
-             "par" : 3
-          },
-          "hole18" : {
-             "distance" : 360,
-             "hdcp" : 1,
-             "par" : 4
-          },
-          "hole2" : {
-             "distance" : 340,
-             "hdcp" : 17,
-             "par" : 4
-          },
-          "hole3" : {
-             "distance" : 360,
-             "hdcp" : 16,
-             "par" : 4
-          },
-          "hole4" : {
-             "distance" : 148,
-             "hdcp" : 15,
-             "par" : 3
-          },
-          "hole5" : {
-             "distance" : 460,
-             "hdcp" : 14,
-             "par" : 5
-          },
-          "hole6" : {
-             "distance" : 330,
-             "hdcp" : 13,
-             "par" : 4
-          },
-          "hole7" : {
-             "distance" : 390,
-             "hdcp" : 12,
-             "par" : 4
-          },
-          "hole8" : {
-             "distance" : 126,
-             "hdcp" : 11,
-             "par" : 3
-          },
-          "hole9" : {
-             "distance" : 440,
-             "hdcp" : 10,
-             "par" : 5
-          },
-          "id" : 1,
-          "name" : "White",
-          "rating" : 70.7,
-          "slope" : 113
-       },
-       {
-          "hole1" : {
-             "distance" : 370,
-             "hdcp" : 18,
-             "par" : 4
-          },
-          "hole10" : {
-             "distance" : 440,
-             "hdcp" : 9,
-             "par" : 5
-          },
-          "hole11" : {
-             "distance" : 300,
-             "hdcp" : 8,
-             "par" : 4
-          },
-          "hole12" : {
-             "distance" : 360,
-             "hdcp" : 7,
-             "par" : 4
-          },
-          "hole13" : {
-             "distance" : 310,
-             "hdcp" : 6,
-             "par" : 4
-          },
-          "hole14" : {
-             "distance" : 180,
-             "hdcp" : 5,
-             "par" : 3
-          },
-          "hole15" : {
-             "distance" : 420,
-             "hdcp" : 4,
-             "par" : 4
-          },
-          "hole16" : {
-             "distance" : 450,
-             "hdcp" : 3,
-             "par" : 5
-          },
-          "hole17" : {
-             "distance" : 120,
-             "hdcp" : 2,
-             "par" : 3
-          },
-          "hole18" : {
-             "distance" : 360,
-             "hdcp" : 1,
-             "par" : 4
-          },
-          "hole2" : {
-             "distance" : 340,
-             "hdcp" : 17,
-             "par" : 4
-          },
-          "hole3" : {
-             "distance" : 360,
-             "hdcp" : 16,
-             "par" : 4
-          },
-          "hole4" : {
-             "distance" : 148,
-             "hdcp" : 15,
-             "par" : 3
-          },
-          "hole5" : {
-             "distance" : 460,
-             "hdcp" : 14,
-             "par" : 5
-          },
-          "hole6" : {
-             "distance" : 330,
-             "hdcp" : 13,
-             "par" : 4
-          },
-          "hole7" : {
-             "distance" : 390,
-             "hdcp" : 12,
-             "par" : 4
-          },
-          "hole8" : {
-             "distance" : 126,
-             "hdcp" : 11,
-             "par" : 3
-          },
-          "hole9" : {
-             "distance" : 440,
-             "hdcp" : 10,
-             "par" : 5
-          },
-          "id" : 2,
-          "name" : "Blue",
-          "rating" : 71.4,
-          "slope" : 126
-       },
-       {
-          "hole1" : {
-             "distance" : 370,
-             "hdcp" : 18,
-             "par" : 4
-          },
-          "hole10" : {
-             "distance" : 440,
-             "hdcp" : 9,
-             "par" : 5
-          },
-          "hole11" : {
-             "distance" : 300,
-             "hdcp" : 8,
-             "par" : 4
-          },
-          "hole12" : {
-             "distance" : 360,
-             "hdcp" : 7,
-             "par" : 4
-          },
-          "hole13" : {
-             "distance" : 310,
-             "hdcp" : 6,
-             "par" : 4
-          },
-          "hole14" : {
-             "distance" : 180,
-             "hdcp" : 5,
-             "par" : 3
-          },
-          "hole15" : {
-             "distance" : 420,
-             "hdcp" : 4,
-             "par" : 4
-          },
-          "hole16" : {
-             "distance" : 450,
-             "hdcp" : 3,
-             "par" : 5
-          },
-          "hole17" : {
-             "distance" : 120,
-             "hdcp" : 2,
-             "par" : 3
-          },
-          "hole18" : {
-             "distance" : 360,
-             "hdcp" : 1,
-             "par" : 4
-          },
-          "hole2" : {
-             "distance" : 340,
-             "hdcp" : 17,
-             "par" : 4
-          },
-          "hole3" : {
-             "distance" : 360,
-             "hdcp" : 16,
-             "par" : 4
-          },
-          "hole4" : {
-             "distance" : 148,
-             "hdcp" : 15,
-             "par" : 3
-          },
-          "hole5" : {
-             "distance" : 460,
-             "hdcp" : 14,
-             "par" : 5
-          },
-          "hole6" : {
-             "distance" : 330,
-             "hdcp" : 13,
-             "par" : 4
-          },
-          "hole7" : {
-             "distance" : 390,
-             "hdcp" : 12,
-             "par" : 4
-          },
-          "hole8" : {
-             "distance" : 126,
-             "hdcp" : 11,
-             "par" : 3
-          },
-          "hole9" : {
-             "distance" : 440,
-             "hdcp" : 10,
-             "par" : 5
-          },
-          "id" : 3,
-          "name" : "Red",
-          "rating" : 69.9,
-          "slope" : 108
-       }
-    ]
- }
+   "_links" : {
+      "courses" : {
+         "href" : "http://localhost:8080/courses"
+      },
+      "self" : {
+         "href" : "http://localhost:8080/courses/1"
+      }
+   },
+   "id" : 1,
+   "name" : "Woodcreek GC",
+   "tees" : [
+      {
+         "hole1" : {
+            "distance" : 327,
+            "hdcp" : 18,
+            "par" : 4
+         },
+         "hole10" : {
+            "distance" : 500,
+            "hdcp" : 9,
+            "par" : 5
+         },
+         "hole11" : {
+            "distance" : 365,
+            "hdcp" : 8,
+            "par" : 4
+         },
+         "hole12" : {
+            "distance" : 315,
+            "hdcp" : 7,
+            "par" : 4
+         },
+         "hole13" : {
+            "distance" : 405,
+            "hdcp" : 6,
+            "par" : 4
+         },
+         "hole14" : {
+            "distance" : 175,
+            "hdcp" : 5,
+            "par" : 3
+         },
+         "hole15" : {
+            "distance" : 408,
+            "hdcp" : 4,
+            "par" : 4
+         },
+         "hole16" : {
+            "distance" : 599,
+            "hdcp" : 3,
+            "par" : 5
+         },
+         "hole17" : {
+            "distance" : 191,
+            "hdcp" : 2,
+            "par" : 3
+         },
+         "hole18" : {
+            "distance" : 327,
+            "hdcp" : 1,
+            "par" : 4
+         },
+         "hole2" : {
+            "distance" : 401,
+            "hdcp" : 17,
+            "par" : 4
+         },
+         "hole3" : {
+            "distance" : 402,
+            "hdcp" : 16,
+            "par" : 4
+         },
+         "hole4" : {
+            "distance" : 112,
+            "hdcp" : 15,
+            "par" : 3
+         },
+         "hole5" : {
+            "distance" : 535,
+            "hdcp" : 14,
+            "par" : 5
+         },
+         "hole6" : {
+            "distance" : 363,
+            "hdcp" : 13,
+            "par" : 4
+         },
+         "hole7" : {
+            "distance" : 317,
+            "hdcp" : 12,
+            "par" : 4
+         },
+         "hole8" : {
+            "distance" : 185,
+            "hdcp" : 11,
+            "par" : 3
+         },
+         "hole9" : {
+            "distance" : 505,
+            "hdcp" : 10,
+            "par" : 5
+         },
+         "id" : 2,
+         "name" : "White",
+         "rating" : 66.79331,
+         "slope" : 117
+      },
+      {
+         "hole1" : {
+            "distance" : 378,
+            "hdcp" : 18,
+            "par" : 4
+         },
+         "hole10" : {
+            "distance" : 455,
+            "hdcp" : 9,
+            "par" : 5
+         },
+         "hole11" : {
+            "distance" : 314,
+            "hdcp" : 8,
+            "par" : 4
+         },
+         "hole12" : {
+            "distance" : 332,
+            "hdcp" : 7,
+            "par" : 4
+         },
+         "hole13" : {
+            "distance" : 409,
+            "hdcp" : 6,
+            "par" : 4
+         },
+         "hole14" : {
+            "distance" : 209,
+            "hdcp" : 5,
+            "par" : 3
+         },
+         "hole15" : {
+            "distance" : 363,
+            "hdcp" : 4,
+            "par" : 4
+         },
+         "hole16" : {
+            "distance" : 522,
+            "hdcp" : 3,
+            "par" : 5
+         },
+         "hole17" : {
+            "distance" : 201,
+            "hdcp" : 2,
+            "par" : 3
+         },
+         "hole18" : {
+            "distance" : 367,
+            "hdcp" : 1,
+            "par" : 4
+         },
+         "hole2" : {
+            "distance" : 315,
+            "hdcp" : 17,
+            "par" : 4
+         },
+         "hole3" : {
+            "distance" : 334,
+            "hdcp" : 16,
+            "par" : 4
+         },
+         "hole4" : {
+            "distance" : 148,
+            "hdcp" : 15,
+            "par" : 3
+         },
+         "hole5" : {
+            "distance" : 533,
+            "hdcp" : 14,
+            "par" : 5
+         },
+         "hole6" : {
+            "distance" : 398,
+            "hdcp" : 13,
+            "par" : 4
+         },
+         "hole7" : {
+            "distance" : 354,
+            "hdcp" : 12,
+            "par" : 4
+         },
+         "hole8" : {
+            "distance" : 190,
+            "hdcp" : 11,
+            "par" : 3
+         },
+         "hole9" : {
+            "distance" : 465,
+            "hdcp" : 10,
+            "par" : 5
+         },
+         "id" : 4,
+         "name" : "Black",
+         "rating" : 71.66773,
+         "slope" : 125
+      },
+      {
+         "hole1" : {
+            "distance" : 363,
+            "hdcp" : 18,
+            "par" : 4
+         },
+         "hole10" : {
+            "distance" : 414,
+            "hdcp" : 9,
+            "par" : 5
+         },
+         "hole11" : {
+            "distance" : 309,
+            "hdcp" : 8,
+            "par" : 4
+         },
+         "hole12" : {
+            "distance" : 391,
+            "hdcp" : 7,
+            "par" : 4
+         },
+         "hole13" : {
+            "distance" : 345,
+            "hdcp" : 6,
+            "par" : 4
+         },
+         "hole14" : {
+            "distance" : 188,
+            "hdcp" : 5,
+            "par" : 3
+         },
+         "hole15" : {
+            "distance" : 392,
+            "hdcp" : 4,
+            "par" : 4
+         },
+         "hole16" : {
+            "distance" : 569,
+            "hdcp" : 3,
+            "par" : 5
+         },
+         "hole17" : {
+            "distance" : 167,
+            "hdcp" : 2,
+            "par" : 3
+         },
+         "hole18" : {
+            "distance" : 363,
+            "hdcp" : 1,
+            "par" : 4
+         },
+         "hole2" : {
+            "distance" : 396,
+            "hdcp" : 17,
+            "par" : 4
+         },
+         "hole3" : {
+            "distance" : 367,
+            "hdcp" : 16,
+            "par" : 4
+         },
+         "hole4" : {
+            "distance" : 117,
+            "hdcp" : 15,
+            "par" : 3
+         },
+         "hole5" : {
+            "distance" : 545,
+            "hdcp" : 14,
+            "par" : 5
+         },
+         "hole6" : {
+            "distance" : 383,
+            "hdcp" : 13,
+            "par" : 4
+         },
+         "hole7" : {
+            "distance" : 300,
+            "hdcp" : 12,
+            "par" : 4
+         },
+         "hole8" : {
+            "distance" : 136,
+            "hdcp" : 11,
+            "par" : 3
+         },
+         "hole9" : {
+            "distance" : 598,
+            "hdcp" : 10,
+            "par" : 5
+         },
+         "id" : 1,
+         "name" : "Blue",
+         "rating" : 69.23095,
+         "slope" : 122
+      },
+      {
+         "hole1" : {
+            "distance" : 406,
+            "hdcp" : 18,
+            "par" : 4
+         },
+         "hole10" : {
+            "distance" : 575,
+            "hdcp" : 9,
+            "par" : 5
+         },
+         "hole11" : {
+            "distance" : 343,
+            "hdcp" : 8,
+            "par" : 4
+         },
+         "hole12" : {
+            "distance" : 381,
+            "hdcp" : 7,
+            "par" : 4
+         },
+         "hole13" : {
+            "distance" : 334,
+            "hdcp" : 6,
+            "par" : 4
+         },
+         "hole14" : {
+            "distance" : 125,
+            "hdcp" : 5,
+            "par" : 3
+         },
+         "hole15" : {
+            "distance" : 302,
+            "hdcp" : 4,
+            "par" : 4
+         },
+         "hole16" : {
+            "distance" : 559,
+            "hdcp" : 3,
+            "par" : 5
+         },
+         "hole17" : {
+            "distance" : 196,
+            "hdcp" : 2,
+            "par" : 3
+         },
+         "hole18" : {
+            "distance" : 321,
+            "hdcp" : 1,
+            "par" : 4
+         },
+         "hole2" : {
+            "distance" : 346,
+            "hdcp" : 17,
+            "par" : 4
+         },
+         "hole3" : {
+            "distance" : 357,
+            "hdcp" : 16,
+            "par" : 4
+         },
+         "hole4" : {
+            "distance" : 193,
+            "hdcp" : 15,
+            "par" : 3
+         },
+         "hole5" : {
+            "distance" : 523,
+            "hdcp" : 14,
+            "par" : 5
+         },
+         "hole6" : {
+            "distance" : 402,
+            "hdcp" : 13,
+            "par" : 4
+         },
+         "hole7" : {
+            "distance" : 368,
+            "hdcp" : 12,
+            "par" : 4
+         },
+         "hole8" : {
+            "distance" : 152,
+            "hdcp" : 11,
+            "par" : 3
+         },
+         "hole9" : {
+            "distance" : 447,
+            "hdcp" : 10,
+            "par" : 5
+         },
+         "id" : 3,
+         "name" : "Red",
+         "rating" : 63.17301,
+         "slope" : 104
+      }
+   ]
+}

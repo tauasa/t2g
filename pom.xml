@@ -12,7 +12,7 @@
 	<artifactId>t2g</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>t2g</name>
-	<description>Tee-2-Green HATEOAS-driven REST service for tracking golf scores</description>
+	<description>T2G HATEOAS-driven REST service for tracking golf scores</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.tauasa.t2g.util.Utils;
+
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -48,7 +50,7 @@ public class ScoreId implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("ScoreId{teeId: %d, teeTime: %s, golferId: %d}", this.teeId, this.teeTime, this.golferId);
+		return String.format("ScoreId{teeId: %d, teeTime: %s, golferId: %d}", this.teeId, Utils.formatTeeTime(this.teeTime), this.golferId);
 	}
 	
 }

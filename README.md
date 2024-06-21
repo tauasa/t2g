@@ -28,16 +28,14 @@ http://localhost:8080/swagger-ui/index.html
 > `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
 ### Get a Score
-> `curl -X GET -H 'Content-Type: application/json' localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
-curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}
+> `curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
 
 ### List Courses
-> `curl -X GET -H 'Content-Type: application/json' localhost:8080/courses`
+> `curl -X GET localhost:8080/courses/{courseId}`
 
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
-* Replace use of `java.util.Date` with Jodatime
 * Dockerize
 * Index/HDCP calculation (multiple algos?)
 
