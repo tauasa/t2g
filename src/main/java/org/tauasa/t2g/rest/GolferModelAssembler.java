@@ -15,7 +15,7 @@ public class GolferModelAssembler implements RepresentationModelAssembler<Golfer
 	public EntityModel<Golfer> toModel(Golfer golfer) {
 		return EntityModel.of(golfer, //
 				linkTo(methodOn(GolferController.class).one(golfer.getId())).withSelfRel(),
-				linkTo(methodOn(ScorecardController.class).scorecardsForGolfer(golfer.getId()) ).withRel("scores"),
+				linkTo(methodOn(ScoreController.class).scoresForGolfer(golfer.getId()) ).withRel("scores"),
 				linkTo(methodOn(CourseController.class).all()).withRel("courses"));
 	}
 }

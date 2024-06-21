@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Score{
 
 	@EmbeddedId
-	private ScoreId scorecardId;
+	private ScoreId scoreId;
 
 	@Embedded
 	@AttributeOverrides({
@@ -278,12 +278,12 @@ public class Score{
 	public Score() {}
 
 	public Score(ScoreId id) {
-		this.scorecardId = id;
+		this.scoreId = id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.scorecardId, this.holeScore1, holeScore2, holeScore3,
+		return Objects.hash(this.scoreId, this.holeScore1, holeScore2, holeScore3,
 		holeScore4, holeScore5, holeScore6, holeScore7, holeScore8, holeScore9, holeScore10, holeScore11,
 		holeScore12, holeScore13, holeScore14, holeScore15, holeScore16, holeScore17, holeScore18);
 	}
@@ -295,7 +295,7 @@ public class Score{
 		if (!(o instanceof Score))
 			return false;
 		Score score = (Score) o;
-		return Objects.equals(this.scorecardId, score.scorecardId)
+		return Objects.equals(this.scoreId, score.scoreId)
 			&& Objects.equals(this.holeScore1, score.holeScore1)
 			&& Objects.equals(this.holeScore2, score.holeScore2)
 			&& Objects.equals(this.holeScore3, score.holeScore3)
@@ -364,7 +364,6 @@ public class Score{
 
 	public int calculatePenalties(){
 		int penalties = 0;
-		//TODO - do this with reflections
 		penalties += holeScore1.getPenalties();
 		penalties += holeScore2.getPenalties();
 		penalties += holeScore3.getPenalties();
@@ -388,7 +387,6 @@ public class Score{
 
 	public int calculateFairways(){
 		int fairways = 0;
-		//TODO - do this with reflections
 		fairways += holeScore1.isFairway() ? 1 : 0;
 		fairways += holeScore2.isFairway() ? 1 : 0;
 		fairways += holeScore3.isFairway() ? 1 : 0;
@@ -412,7 +410,6 @@ public class Score{
 
 	public int calculateGirs(){
 		int girs = 0;
-		//TODO - do this with reflections
 		girs += holeScore1.isGir() ? 1 : 0;
 		girs += holeScore2.isGir() ? 1 : 0;
 		girs += holeScore3.isGir() ? 1 : 0;
@@ -436,7 +433,8 @@ public class Score{
 
 	@Override
 	public String toString() {
-		return String.format("Scorecard{tee: %s, teeTime: %s, score: %d, putts: %d}", this.scorecardId, this.getScorecardId().getTeeTime(), this.calculateScore(), this.calculatePutts());
+		return String.format("Score{scoreId: %s, teeTime: %s, score: %d, putts: %d}", 
+			this.scoreId, this.getScoreId().getTeeTime(), this.calculateScore(), this.calculatePutts());
 	}
 
 }

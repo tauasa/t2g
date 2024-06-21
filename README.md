@@ -21,14 +21,15 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 ### Swagger API Docs
 http://localhost:8080/swagger-ui/index.html
 
-### Post a Scorecard
-> `curl -X POST --data @./sample_json/scorecard.json -H 'Content-Type: application/json' localhost:8080/scorecards`
+### Post a Score
+> `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-### Update a Scorecard
-> `curl -X PUT --data @./sample_json/scorecard.json -H 'Content-Type: application/json' localhost:8080/scorecards`
+### Update a Score
+> `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-### Get a Scorecard
-> `curl -X GET -H 'Content-Type: application/json' localhost:8080/scorecards/{teeId}/{teeTime}/{golferId}`
+### Get a Score
+> `curl -X GET -H 'Content-Type: application/json' localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
+curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}
 
 ### List Courses
 > `curl -X GET -H 'Content-Type: application/json' localhost:8080/courses`
@@ -36,6 +37,7 @@ http://localhost:8080/swagger-ui/index.html
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
+* Replace use of `java.util.Date` with Jodatime
 * Dockerize
 * Index/HDCP calculation (multiple algos?)
 

@@ -35,17 +35,17 @@ public class Tee{
 	
 	@JsonSerialize
 	@NotBlank
-	private String name;//TODO - make this unique for the course
+	private String name;
 
 	@JsonSerialize
 	@Min(55)
 	@Max(155)
-	private int slope = 113;//TODO - validate range 55-155
+	private int slope;
 
 	@JsonSerialize
 	@Min(60)
 	@Max(80)
-	private float rating = 72F;
+	private float rating;
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)

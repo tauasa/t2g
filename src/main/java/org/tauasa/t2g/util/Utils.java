@@ -115,11 +115,17 @@ public class Utils {
 		return setTime(new Date(), 0, 0, 0);
 	}
 
-	/**
-	 * Shorthand for {@link Utils#parseDate(String, MMDDYYYY)}
-	 * */
-	public static Date createTeeTime(String ts)throws ParseException{
-		return parseDate(ts, TEE_TIME_FORMAT);
+	public static Date parseTeeTime(String ts){
+		try {
+			return parseDate(ts, TEE_TIME_FORMAT);
+		} catch (ParseException e) {
+			//swallow
+		}
+		return null;
+	}
+
+	public static String formatTeeTime(Date date){
+		return formatDate(date, TEE_TIME_FORMAT);
 	}
 
 	/**

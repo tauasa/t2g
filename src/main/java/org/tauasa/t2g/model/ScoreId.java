@@ -48,7 +48,7 @@ public class ScoreId implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("ScorecardId{teeId: %d, teeTime: %s, golferId: %d}", this.teeId, this.teeTime, this.golferId);
+		return String.format("ScoreId{teeId: %d, teeTime: %s, golferId: %d}", this.teeId, this.teeTime, this.golferId);
 	}
 	
 }

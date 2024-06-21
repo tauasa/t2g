@@ -9,10 +9,13 @@ import org.tauasa.t2g.model.ScoreId;
 
 public interface ScoreRepository extends JpaRepository<Score, ScoreId> {
 
-    public List<Score> findByScorecardIdGolferId(Long golfId);
+    public Score findByScoreId(ScoreId scoreId);
 
-    public List<Score> findByScorecardIdTeeIdAndScorecardIdTeeTime(Long teeId, Date teeTime);
+    public List<Score> findByScoreIdGolferId(Long golfId);
 
-    public Score findByScorecardId(ScoreId id);
+    /**
+     * Returns all the Score objects for a specific tee time
+    */
+    public List<Score> findByScoreIdTeeIdAndScoreIdTeeTime(Long teeId, Date teeTime);
 
 }

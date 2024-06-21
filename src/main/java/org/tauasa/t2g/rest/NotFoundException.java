@@ -1,7 +1,5 @@
 package org.tauasa.t2g.rest;
 
-import java.util.Date;
-
 public class NotFoundException extends RuntimeException {
 
 	public NotFoundException() {
@@ -10,7 +8,7 @@ public class NotFoundException extends RuntimeException {
 		super("Could not find entity for " + id);
 	}
 
-	public NotFoundException(Long id1, Date id2, Long id3) {
-		super("Could not find entity for " + id1+"."+id2+"."+id3);
+	public NotFoundException(Long teeId, String teeTime, Long golferId) {
+		super("Could not find score for "+teeId+"."+teeTime+"."+golferId);
 	}
 }

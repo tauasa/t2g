@@ -36,13 +36,13 @@ public class Golfer{
 
 	@JsonIgnore
 	@OneToMany(
-        mappedBy = "scorecardId.golferId",
+        mappedBy = "scoreId.golferId",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
 		fetch = FetchType.EAGER
     )
 	private List<Score> scores;
-
+	
 	public Golfer() {}
 
 	public Golfer(String email, String firstName, String lastName) {

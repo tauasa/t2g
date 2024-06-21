@@ -45,12 +45,12 @@ public class LoadDatabase {
 			// post a score for...
 			for (Golfer golfer : golfers) {//every golfer...
 				for(Course course : courses){//on every course...
-					Date teeTime  = Utils.createTeeTime("2406180915") ;
+					Date teeTime  = Utils.parseTeeTime("2406180915") ;
 					Tee tee = course.getTees().iterator().next();//use the first tee...
-					initScore(golfer, tee, teeTime, scoreRepository);//and create a scorecard
+					initScore(golfer, tee, teeTime, scoreRepository);//and create a score
 				}
 			}
-	
+
 			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
 			
 			log.info("Database initialized");
@@ -92,11 +92,11 @@ public class LoadDatabase {
 
 		scoreRepository.save(score);
 	}
-//HoleScore(int strokes, int drive, int putts, int penalties, int mulligans, boolean fairway, boolean gir, boolean sandy)
+
 	private HoleScore createHoleScore(Hole hole, int putts, int penalties, boolean fairway, boolean gir, boolean sandy){
 		HoleScore hs = new HoleScore(
 			hole.getPar() + randInt(-2, 4), //random score between birdie and snowman
-			hole.getPar() > 3 ? (int)(hole.getDistance() * randFloat(10F, 90F)) : 0, // random drive distance 
+			hole.getPar() > 3 ? randInt(200, hole.getDistance()-60) : 0, // random drive distance 
 			putts,
 			penalties,
 			0,
