@@ -19,8 +19,6 @@ import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
 import org.tauasa.t2g.util.Utils;
 
-import ch.qos.logback.classic.pattern.Util;
-
 @Configuration
 public class LoadDatabase {
 
@@ -55,7 +53,7 @@ public class LoadDatabase {
 					Score score = initScore(golfer, tee, 
 						Utils.adjustDate(teeTime, teeTimeCounter * -1), scoreRepository);
 					golfer.add(score);
-					golferRepository.save(golfer);
+					//golferRepository.save(golfer);
 					scorecard.add(score);
 				}
 				teeTimeCounter++;

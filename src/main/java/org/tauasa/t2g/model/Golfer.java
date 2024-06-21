@@ -34,7 +34,7 @@ public class Golfer{
 	@NotBlank
 	private String lastName;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(
         mappedBy = "scoreId.golferId",
         cascade = CascadeType.ALL,
