@@ -1,19 +1,24 @@
 # T2G Golf Score Tracker
-Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa).
+Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa).
 
 ### Model
+* `Golfer` has zero or more `Score`s
+* `Course` has zero or more `Tee`s
+* `Tee`s has a slope, rating and 18 `Hole`s
+* `Score` has a `Tee`, a Tee Time (Date) and 18 `HoleScore`s
+* `Score` uses a composite key of teeId, teeTime and golferId (`ScoreId`)
+
 ![T2G model](model.png)
 
-### Tracks the following data points for each hole:
+### `HoleScore`s track the following stuffs for each hole:
 * Strokes
-* Fairways
+* Fairway Hit
 * Drive Distance
 * GIR
 * Putts
 * Penalties
-* Sandies
+* Sand Saves
 * Mulligans
-* Skins
 
 ### Build and Run Locally
 > `mvn spring-boot run`
@@ -21,16 +26,19 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 ### Swagger API Docs
 http://localhost:8080/swagger-ui/index.html
 
-### Post a Score
+### Post a score
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-### Update a Score
+### Update a score
 > `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
 ### Get a Score
 > `curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
 
-### List Courses
+### Get all scores for golfer
+> `curl -X GET localhost:8080/scores?golfer={golferId}`
+
+### Get a course
 > `curl -X GET localhost:8080/courses/{courseId}`
 
 ### TODO + WIP

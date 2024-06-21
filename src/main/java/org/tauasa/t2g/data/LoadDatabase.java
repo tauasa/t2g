@@ -34,13 +34,13 @@ public class LoadDatabase {
 			log.info("Create/pre-load some golfers");
 			initGolfers(golferRepository);
 			List<Golfer> golfers = golferRepository.findAll();
-			golfers.forEach(golfer -> log.info("+Preloaded " + golfer));
+			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
 			// create and preload some courses
 			log.info("Create/pre-load some courses");
 			initCourses(courseRepository);
 			List<Course> courses = courseRepository.findAll();
-			courses.forEach(course -> {log.info("+Preloaded " + course);});
+			courses.forEach(course -> {log.info("+Preloaded: " + course);});
 
 			// post a score for...
 			for (Golfer golfer : golfers) {//every golfer...
@@ -122,7 +122,7 @@ public class LoadDatabase {
 	}
 
 	private Golfer createGolfer(String firstName, String lastName){
-		return new Golfer("testes@tauasa.org", firstName, lastName);
+		return new Golfer("no-reply@tauasa.org", firstName, lastName);
 	}
 
 	private void initCourses(CourseRepository courseRepository){

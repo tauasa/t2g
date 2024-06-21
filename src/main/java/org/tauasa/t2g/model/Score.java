@@ -433,8 +433,8 @@ public class Score{
 
 	@Override
 	public String toString() {
-		return String.format("Score{scoreId: %s, teeTime: %s, score: %d, putts: %d}", 
-			this.scoreId, this.getScoreId().getTeeTime(), this.calculateScore(), this.calculatePutts());
+		return String.format("Score{scoreId: %s, score: %d, putts: %d}", 
+			this.scoreId, this.calculateScore(), this.calculatePutts());
 	}
 
 }
