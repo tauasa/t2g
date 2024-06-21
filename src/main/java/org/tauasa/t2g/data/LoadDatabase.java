@@ -15,8 +15,11 @@ import org.tauasa.t2g.model.Hole;
 import org.tauasa.t2g.model.HoleScore;
 import org.tauasa.t2g.model.Score;
 import org.tauasa.t2g.model.ScoreId;
+import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
 import org.tauasa.t2g.util.Utils;
+
+import ch.qos.logback.classic.pattern.Util;
 
 @Configuration
 public class LoadDatabase {
@@ -24,7 +27,7 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository) {
+	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 		
 		// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
 		log.info("Initializting database");
@@ -42,16 +45,24 @@ public class LoadDatabase {
 			List<Course> courses = courseRepository.findAll();
 			courses.forEach(course -> {log.info("+Preloaded: " + course);});
 
-			// post a score for...
-			for (Golfer golfer : golfers) {//every golfer...
-				for(Course course : courses){//on every course...
-					Date teeTime  = Utils.parseTeeTime("2406180915") ;
-					Tee tee = course.getTees().iterator().next();//use the first tee...
-					initScore(golfer, tee, teeTime, scoreRepository);//and create a score
+			Date teeTime = Utils.parseTeeTime("2406210900");
+
+			int teeTimeCounter = 0;
+			for(Course course : courses){
+				Scorecard scorecard = new Scorecard();
+				Tee tee = course.getTees().iterator().next();
+				for(Golfer golfer : golfers){
+					Score score = initScore(golfer, tee, 
+						Utils.adjustDate(teeTime, teeTimeCounter * -1), scoreRepository);
+					golfer.add(score);
+					scorecard.add(score);
 				}
-			}
+				teeTimeCounter++;
+				scorecardRepository.save(scorecard);
+			}//*/
 
 			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
 			
 			log.info("Database initialized");
 		};
@@ -67,8 +78,8 @@ public class LoadDatabase {
 		return random.nextFloat(min, max);
 	}
 
-	private void initScore(Golfer golfer, Tee tee, Date teeTime, ScoreRepository scoreRepository){
-		// create a scores for every golfer, course and the first tee
+	private Score initScore(Golfer golfer, Tee tee, Date teeTime, ScoreRepository scoreRepository){
+		// create a scores for the specified golfer, course and the first tee
 		Score score = new Score(new ScoreId(tee.getId(), teeTime, golfer.getId()));
 
 		score.setHoleScore1(createHoleScore(tee.getHole1(), randInt(0,5), 0, true, true, false));
@@ -90,7 +101,7 @@ public class LoadDatabase {
 		score.setHoleScore17(createHoleScore(tee.getHole17(), randInt(0,5), 0, false, true, false));
 		score.setHoleScore18(createHoleScore(tee.getHole18(), randInt(0,5), 0, true, true, false));
 
-		scoreRepository.save(score);
+		return scoreRepository.save(score);
 	}
 
 	private HoleScore createHoleScore(Hole hole, int putts, int penalties, boolean fairway, boolean gir, boolean sandy){
@@ -111,14 +122,14 @@ public class LoadDatabase {
 		golferRepository.save(createGolfer("Nunya", "Bidness"));
 		golferRepository.save(createGolfer("Inya", "Face"));
 		golferRepository.save(createGolfer("Mindya", "Bidness"));
-		golferRepository.save(createGolfer("Slapya", "Face"));
+		/*golferRepository.save(createGolfer("Slapya", "Face"));
 		golferRepository.save(createGolfer("Downya", "Hatch"));
 		golferRepository.save(createGolfer("Upya", "Butt"));
 		golferRepository.save(createGolfer("Inya", "Crack"));
 		golferRepository.save(createGolfer("Krossda", "Street"));
 		golferRepository.save(createGolfer("Krossda", "Line"));
 		golferRepository.save(createGolfer("John", "Doe"));
-		golferRepository.save(createGolfer("Dirty", "Zapatos"));
+		golferRepository.save(createGolfer("Dirty", "Zapatos"));//*/
 	}
 
 	private Golfer createGolfer(String firstName, String lastName){

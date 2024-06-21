@@ -18,8 +18,10 @@ public class ScoreId implements Serializable{
 
 	@NotNull
 	private Long teeId;
+
 	@NotNull
 	private Date teeTime;
+
 	@NotNull
 	private Long golferId;
 
