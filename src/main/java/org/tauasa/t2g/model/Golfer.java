@@ -76,6 +76,7 @@ public class Golfer{
 		if(scores==null){
 			scores = new ArrayList<>();
 		}
+		score.getScoreId().setGolferId(this.id);
 		scores.add(score);
 	}
 }

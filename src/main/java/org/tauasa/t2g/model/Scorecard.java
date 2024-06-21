@@ -64,7 +64,7 @@ public class Scorecard implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Scorecard{id: %d, scores: %d", this.id, this.scores==null?0:this.scores.size());
+		return String.format("Scorecard{id: %d, scores: %d}", this.id, this.scores==null?0:this.scores.size());
 	}
     
 }

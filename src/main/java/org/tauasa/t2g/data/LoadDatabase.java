@@ -55,6 +55,7 @@ public class LoadDatabase {
 					Score score = initScore(golfer, tee, 
 						Utils.adjustDate(teeTime, teeTimeCounter * -1), scoreRepository);
 					golfer.add(score);
+					golferRepository.save(golfer);
 					scorecard.add(score);
 				}
 				teeTimeCounter++;
