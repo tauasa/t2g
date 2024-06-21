@@ -29,17 +29,14 @@ public class GolferController {
 
 	private final GolferModelAssembler golferAssembler;
 
-	public GolferController(GolferRepository golferRepository, GolferModelAssembler golfAssembler) {
+	public GolferController(GolferRepository golferRepository, GolferModelAssembler golferAssembler) {
 		this.golferRepository = golferRepository;
-		this.golferAssembler = golfAssembler;
+		this.golferAssembler = golferAssembler;
 	}
-	// end::constructor[]
 
 	// Aggregate root
-
 	@GetMapping("/golfers")
 	public CollectionModel<EntityModel<Golfer>> all() {
-
 		List<EntityModel<Golfer>> golfers = golferRepository.findAll().stream() //
 				.map(golferAssembler::toModel) //
 				.collect(Collectors.toList());
@@ -47,22 +44,18 @@ public class GolferController {
 		return CollectionModel.of(golfers, linkTo(methodOn(GolferController.class).all()).withSelfRel());
 	}
 
+	@GetMapping("/golfers/{id}")
+	public EntityModel<Golfer> one(@PathVariable Long id) {
+		Golfer golfer = golferRepository.findById(id) //
+				.orElseThrow(() -> new NotFoundException(id));
+		return golferAssembler.toModel(golfer);
+	}
+
 	@PostMapping("/golfers")
 	public ResponseEntity<?> newGolfer(@Valid @RequestBody Golfer newGolfer) {
 		EntityModel<Golfer> entityModel = golferAssembler.toModel(golferRepository.save(newGolfer));
 
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
-	}
-
-	// Single item
-
-	@GetMapping("/golfers/{id}")
-	public EntityModel<Golfer> one(@PathVariable Long id) {
-
-		Golfer golfer = golferRepository.findById(id) //
-				.orElseThrow(() -> new NotFoundException(id));
-
-		return golferAssembler.toModel(golfer);
 	}
 
 	@PutMapping("/golfers/{id}")
@@ -85,9 +78,7 @@ public class GolferController {
 
 	@DeleteMapping("/golfers/{id}")
 	public ResponseEntity<?> deleteGolfer(@PathVariable Long id) {
-
 		golferRepository.deleteById(id);
-
 		return ResponseEntity.noContent().build();
 	}
 }

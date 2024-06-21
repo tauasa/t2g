@@ -3,7 +3,11 @@ package org.tauasa.t2g.model;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Embeddable
 public class Hole{
 
@@ -17,35 +21,11 @@ public class Hole{
 		this.hdcp = hdcp;
 	}
 
-	public int getPar() {
-		return par;
-	}
-
-	public void setPar(int par) {
-		this.par = par;
-	}
-
-	public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
-    public int getHdcp() {
-        return hdcp;
-    }
-
-    public void setHdcp(int hdcp) {
-        this.hdcp = hdcp;
-    }
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof Tee))
+		if (!(o instanceof Hole))
 			return false;
 		Hole hole = (Hole) o;
 		return Objects.equals(this.par, hole.par) && Objects.equals(this.distance, hole.distance) && Objects.equals(this.hdcp, hole.hdcp);
@@ -58,7 +38,7 @@ public class Hole{
 
 	@Override
 	public String toString() {
-		return "Hole{" + "par='" + this.par + '\''  + ", distance='" + this.distance + '\'' + ", hdcp='" + this.hdcp + "}'";
+		return String.format("Hole{par: %d, dist: %d, hdcp: %d}", this.par, this.distance, this.hdcp);
 	}
 	
 }

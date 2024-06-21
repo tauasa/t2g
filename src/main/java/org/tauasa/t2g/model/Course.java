@@ -12,8 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "course")
 public class Course{
@@ -21,6 +24,7 @@ public class Course{
 	@Id 
 	@GeneratedValue 
 	private Long id;
+
 	@NotBlank
 	private String name;
 
@@ -28,31 +32,13 @@ public class Course{
         mappedBy = "course",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
-		fetch = FetchType.EAGER
+		fetch = FetchType.LAZY
     )
-	@NotEmpty
 	private Set<Tee> tees;
 
 	public Course() {}
 
 	public Course(String name) {
-
-		this.name = name;
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -81,14 +67,7 @@ public class Course{
 
 	@Override
 	public String toString() {
-		return "Course{" + "id=" + this.id + ", name='" + this.name + "\'}";
+		return String.format("Course{id: %d, name: %s}", this.id, this.name);
 	}
 
-    public Set<Tee> getTees() {
-        return tees;
-    }
-
-    public void setTees(Set<Tee> tees) {
-        this.tees = tees;
-    }
 }

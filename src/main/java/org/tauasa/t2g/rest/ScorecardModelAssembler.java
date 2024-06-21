@@ -5,18 +5,18 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Component;
-import org.tauasa.t2g.model.Score;
+import org.tauasa.t2g.model.Scorecard;
 
 @Component
-public class ScoreModelAssembler implements RepresentationModelAssembler<Score, EntityModel<Score>> {
+public class ScorecardModelAssembler implements RepresentationModelAssembler<Scorecard, EntityModel<Scorecard>> {
 
 	@SuppressWarnings("null")
 	@Override
-	public EntityModel<Score> toModel(Score score) {
+	public EntityModel<Scorecard> toModel(Scorecard score) {
 		// Unconditional links to single-item resource and aggregate root
-		EntityModel<Score> scoreModel = EntityModel.of(score, 
-				linkTo(methodOn(ScoreController.class).one(score.getId())).withSelfRel(),
-				linkTo(methodOn(ScoreController.class).scoresForGolfer(score.getGolfer().getId()) ).withRel("scores"),
+		EntityModel<Scorecard> scoreModel = EntityModel.of(score, 
+				linkTo(methodOn(GolferController.class).one(score.getScorecardId().getGolferId())).withRel("golfer"),
+				linkTo(methodOn(ScorecardController.class).scorecardsForGolfer(score.getScorecardId().getGolferId())).withRel("scores"),
 				linkTo(methodOn(CourseController.class).all()).withRel("courses"));
 
 		return scoreModel;

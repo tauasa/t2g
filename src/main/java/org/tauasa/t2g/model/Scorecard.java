@@ -1,37 +1,26 @@
 package org.tauasa.t2g.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "score")
-public class Score{
+@Table(name = "scorecard")
+public class Scorecard{
 
-	@Id 
-	@GeneratedValue
-	private Long id;
-	
-	//@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Tee tee;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Golfer golfer;
-
-	@NotNull
-	private Date date = new Date();
+	@EmbeddedId
+	private ScorecardId scorecardId;
 
 	@Embedded
 	@AttributeOverrides({
@@ -286,24 +275,15 @@ public class Score{
 	@NotNull
 	private HoleScore holeScore18;
 
-	public Score() {}
+	public Scorecard() {}
 
-	public Score(Golfer golfer, Tee tee) {
-		this.golfer = golfer;
-		this.tee = tee;
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Scorecard(ScorecardId id) {
+		this.scorecardId = id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.id, this.tee, this.golfer, this.holeScore1, holeScore2, holeScore3,
+		return Objects.hash(this.scorecardId, this.holeScore1, holeScore2, holeScore3,
 		holeScore4, holeScore5, holeScore6, holeScore7, holeScore8, holeScore9, holeScore10, holeScore11,
 		holeScore12, holeScore13, holeScore14, holeScore15, holeScore16, holeScore17, holeScore18);
 	}
@@ -312,12 +292,10 @@ public class Score{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof Score))
+		if (!(o instanceof Scorecard))
 			return false;
-		Score score = (Score) o;//TODO
-		return Objects.equals(this.id, score.id) 
-			&& Objects.equals(this.tee, score.tee) 
-			&& Objects.equals(this.golfer, score.golfer) 
+		Scorecard score = (Scorecard) o;
+		return Objects.equals(this.scorecardId, score.scorecardId)
 			&& Objects.equals(this.holeScore1, score.holeScore1)
 			&& Objects.equals(this.holeScore2, score.holeScore2)
 			&& Objects.equals(this.holeScore3, score.holeScore3)
@@ -340,7 +318,6 @@ public class Score{
 
 	public int calculateScore(){
 		int score = 0;
-		//TODO - do this with reflections
 		score += holeScore1.getStrokes();
 		score += holeScore2.getStrokes();
 		score += holeScore3.getStrokes();
@@ -362,273 +339,104 @@ public class Score{
 		return score;
 	}
 
-	public int calculateSkins(){
-		int skins = 0;
-		//TODO - do this with reflections
-		skins += holeScore1.getSkins();
-		skins += holeScore2.getSkins();
-		skins += holeScore3.getSkins();
-		skins += holeScore4.getSkins();
-		skins += holeScore5.getSkins();
-		skins += holeScore6.getSkins();
-		skins += holeScore7.getSkins();
-		skins += holeScore8.getSkins();
-		skins += holeScore9.getSkins();
-		skins += holeScore10.getSkins();
-		skins += holeScore11.getSkins();
-		skins += holeScore12.getSkins();
-		skins += holeScore13.getSkins();
-		skins += holeScore14.getSkins();
-		skins += holeScore15.getSkins();
-		skins += holeScore16.getSkins();
-		skins += holeScore17.getSkins();
-		skins += holeScore18.getSkins();
-		return skins;
+	public int calculatePutts(){
+		int putts = 0;
+		putts += holeScore1.getPutts();
+		putts += holeScore2.getPutts();
+		putts += holeScore3.getPutts();
+		putts += holeScore4.getPutts();
+		putts += holeScore5.getPutts();
+		putts += holeScore6.getPutts();
+		putts += holeScore7.getPutts();
+		putts += holeScore8.getPutts();
+		putts += holeScore9.getPutts();
+		putts += holeScore10.getPutts();
+		putts += holeScore11.getPutts();
+		putts += holeScore12.getPutts();
+		putts += holeScore13.getPutts();
+		putts += holeScore14.getPutts();
+		putts += holeScore15.getPutts();
+		putts += holeScore16.getPutts();
+		putts += holeScore17.getPutts();
+		putts += holeScore18.getPutts();
+		return putts;
 	}
 
 	public int calculatePenalties(){
-		int skins = 0;
+		int penalties = 0;
 		//TODO - do this with reflections
-		skins += holeScore1.getPenalties();
-		skins += holeScore2.getPenalties();
-		skins += holeScore3.getPenalties();
-		skins += holeScore4.getPenalties();
-		skins += holeScore5.getPenalties();
-		skins += holeScore6.getPenalties();
-		skins += holeScore7.getPenalties();
-		skins += holeScore8.getPenalties();
-		skins += holeScore9.getPenalties();
-		skins += holeScore10.getPenalties();
-		skins += holeScore11.getPenalties();
-		skins += holeScore12.getPenalties();
-		skins += holeScore13.getPenalties();
-		skins += holeScore14.getPenalties();
-		skins += holeScore15.getPenalties();
-		skins += holeScore16.getPenalties();
-		skins += holeScore17.getPenalties();
-		skins += holeScore18.getPenalties();
-		return skins;
+		penalties += holeScore1.getPenalties();
+		penalties += holeScore2.getPenalties();
+		penalties += holeScore3.getPenalties();
+		penalties += holeScore4.getPenalties();
+		penalties += holeScore5.getPenalties();
+		penalties += holeScore6.getPenalties();
+		penalties += holeScore7.getPenalties();
+		penalties += holeScore8.getPenalties();
+		penalties += holeScore9.getPenalties();
+		penalties += holeScore10.getPenalties();
+		penalties += holeScore11.getPenalties();
+		penalties += holeScore12.getPenalties();
+		penalties += holeScore13.getPenalties();
+		penalties += holeScore14.getPenalties();
+		penalties += holeScore15.getPenalties();
+		penalties += holeScore16.getPenalties();
+		penalties += holeScore17.getPenalties();
+		penalties += holeScore18.getPenalties();
+		return penalties;
 	}
 
 	public int calculateFairways(){
-		int skins = 0;
+		int fairways = 0;
 		//TODO - do this with reflections
-		skins += holeScore1.isFairway() ? 1 : 0;
-		skins += holeScore2.isFairway() ? 1 : 0;
-		skins += holeScore3.isFairway() ? 1 : 0;
-		skins += holeScore4.isFairway() ? 1 : 0;
-		skins += holeScore5.isFairway() ? 1 : 0;
-		skins += holeScore6.isFairway() ? 1 : 0;
-		skins += holeScore7.isFairway() ? 1 : 0;
-		skins += holeScore8.isFairway() ? 1 : 0;
-		skins += holeScore9.isFairway() ? 1 : 0;
-		skins += holeScore10.isFairway() ? 1 : 0;
-		skins += holeScore11.isFairway() ? 1 : 0;
-		skins += holeScore12.isFairway() ? 1 : 0;
-		skins += holeScore13.isFairway() ? 1 : 0;
-		skins += holeScore14.isFairway() ? 1 : 0;
-		skins += holeScore15.isFairway() ? 1 : 0;
-		skins += holeScore16.isFairway() ? 1 : 0;
-		skins += holeScore17.isFairway() ? 1 : 0;
-		skins += holeScore18.isFairway() ? 1 : 0;
-		return skins;
+		fairways += holeScore1.isFairway() ? 1 : 0;
+		fairways += holeScore2.isFairway() ? 1 : 0;
+		fairways += holeScore3.isFairway() ? 1 : 0;
+		fairways += holeScore4.isFairway() ? 1 : 0;
+		fairways += holeScore5.isFairway() ? 1 : 0;
+		fairways += holeScore6.isFairway() ? 1 : 0;
+		fairways += holeScore7.isFairway() ? 1 : 0;
+		fairways += holeScore8.isFairway() ? 1 : 0;
+		fairways += holeScore9.isFairway() ? 1 : 0;
+		fairways += holeScore10.isFairway() ? 1 : 0;
+		fairways += holeScore11.isFairway() ? 1 : 0;
+		fairways += holeScore12.isFairway() ? 1 : 0;
+		fairways += holeScore13.isFairway() ? 1 : 0;
+		fairways += holeScore14.isFairway() ? 1 : 0;
+		fairways += holeScore15.isFairway() ? 1 : 0;
+		fairways += holeScore16.isFairway() ? 1 : 0;
+		fairways += holeScore17.isFairway() ? 1 : 0;
+		fairways += holeScore18.isFairway() ? 1 : 0;
+		return fairways;
 	}
 
 	public int calculateGirs(){
-		int skins = 0;
+		int girs = 0;
 		//TODO - do this with reflections
-		skins += holeScore1.isGir() ? 1 : 0;
-		skins += holeScore2.isGir() ? 1 : 0;
-		skins += holeScore3.isGir() ? 1 : 0;
-		skins += holeScore4.isGir() ? 1 : 0;
-		skins += holeScore5.isGir() ? 1 : 0;
-		skins += holeScore6.isGir() ? 1 : 0;
-		skins += holeScore7.isGir() ? 1 : 0;
-		skins += holeScore8.isGir() ? 1 : 0;
-		skins += holeScore9.isGir() ? 1 : 0;
-		skins += holeScore10.isGir() ? 1 : 0;
-		skins += holeScore11.isGir() ? 1 : 0;
-		skins += holeScore12.isGir() ? 1 : 0;
-		skins += holeScore13.isGir() ? 1 : 0;
-		skins += holeScore14.isGir() ? 1 : 0;
-		skins += holeScore15.isGir() ? 1 : 0;
-		skins += holeScore16.isGir() ? 1 : 0;
-		skins += holeScore17.isGir() ? 1 : 0;
-		skins += holeScore18.isGir() ? 1 : 0;
-		return skins;
+		girs += holeScore1.isGir() ? 1 : 0;
+		girs += holeScore2.isGir() ? 1 : 0;
+		girs += holeScore3.isGir() ? 1 : 0;
+		girs += holeScore4.isGir() ? 1 : 0;
+		girs += holeScore5.isGir() ? 1 : 0;
+		girs += holeScore6.isGir() ? 1 : 0;
+		girs += holeScore7.isGir() ? 1 : 0;
+		girs += holeScore8.isGir() ? 1 : 0;
+		girs += holeScore9.isGir() ? 1 : 0;
+		girs += holeScore10.isGir() ? 1 : 0;
+		girs += holeScore11.isGir() ? 1 : 0;
+		girs += holeScore12.isGir() ? 1 : 0;
+		girs += holeScore13.isGir() ? 1 : 0;
+		girs += holeScore14.isGir() ? 1 : 0;
+		girs += holeScore15.isGir() ? 1 : 0;
+		girs += holeScore16.isGir() ? 1 : 0;
+		girs += holeScore17.isGir() ? 1 : 0;
+		girs += holeScore18.isGir() ? 1 : 0;
+		return girs;
 	}
 
 	@Override
 	public String toString() {
-		return "Score{" + "id=" + this.id + ", strokes='"+calculateScore()+"'}";//TODO
+		return String.format("Scorecard{tee: %s, teeTime: %s, score: %d, putts: %d}", this.scorecardId, this.getScorecardId().getTeeTime(), this.calculateScore(), this.calculatePutts());
 	}
-
-    public Tee getTee() {
-        return tee;
-    }
-
-    public void setTee(Tee tee) {
-        this.tee = tee;
-    }
-
-    public Golfer getGolfer() {
-        return golfer;
-    }
-
-    public void setGolfer(Golfer golfer) {
-        this.golfer = golfer;
-    }
-
-    public HoleScore getHoleScore1() {
-        return holeScore1;
-    }
-
-    public void setHoleScore1(HoleScore holeScore1) {
-        this.holeScore1 = holeScore1;
-    }
-
-    public HoleScore getHoleScore2() {
-        return holeScore2;
-    }
-
-    public void setHoleScore2(HoleScore holeScore2) {
-        this.holeScore2 = holeScore2;
-    }
-
-    public HoleScore getHoleScore3() {
-        return holeScore3;
-    }
-
-    public void setHoleScore3(HoleScore holeScore3) {
-        this.holeScore3 = holeScore3;
-    }
-
-    public HoleScore getHoleScore4() {
-        return holeScore4;
-    }
-
-    public void setHoleScore4(HoleScore holeScore4) {
-        this.holeScore4 = holeScore4;
-    }
-
-    public HoleScore getHoleScore5() {
-        return holeScore5;
-    }
-
-    public void setHoleScore5(HoleScore holeScore5) {
-        this.holeScore5 = holeScore5;
-    }
-
-    public HoleScore getHoleScore6() {
-        return holeScore6;
-    }
-
-    public void setHoleScore6(HoleScore holeScore6) {
-        this.holeScore6 = holeScore6;
-    }
-
-    public HoleScore getHoleScore7() {
-        return holeScore7;
-    }
-
-    public void setHoleScore7(HoleScore holeScore7) {
-        this.holeScore7 = holeScore7;
-    }
-
-    public HoleScore getHoleScore8() {
-        return holeScore8;
-    }
-
-    public void setHoleScore8(HoleScore holeScore8) {
-        this.holeScore8 = holeScore8;
-    }
-
-    public HoleScore getHoleScore9() {
-        return holeScore9;
-    }
-
-    public void setHoleScore9(HoleScore holeScore9) {
-        this.holeScore9 = holeScore9;
-    }
-
-    public HoleScore getHoleScore10() {
-        return holeScore10;
-    }
-
-    public void setHoleScore10(HoleScore holeScore10) {
-        this.holeScore10 = holeScore10;
-    }
-
-    public HoleScore getHoleScore11() {
-        return holeScore11;
-    }
-
-    public void setHoleScore11(HoleScore holeScore11) {
-        this.holeScore11 = holeScore11;
-    }
-
-    public HoleScore getHoleScore12() {
-        return holeScore12;
-    }
-
-    public void setHoleScore12(HoleScore holeScore12) {
-        this.holeScore12 = holeScore12;
-    }
-
-    public HoleScore getHoleScore14() {
-        return holeScore14;
-    }
-
-    public void setHoleScore14(HoleScore holeScore14) {
-        this.holeScore14 = holeScore14;
-    }
-
-    public HoleScore getHoleScore15() {
-        return holeScore15;
-    }
-
-    public void setHoleScore15(HoleScore holeScore15) {
-        this.holeScore15 = holeScore15;
-    }
-
-    public HoleScore getHoleScore16() {
-        return holeScore16;
-    }
-
-    public void setHoleScore16(HoleScore holeScore16) {
-        this.holeScore16 = holeScore16;
-    }
-
-    public HoleScore getHoleScore17() {
-        return holeScore17;
-    }
-
-    public void setHoleScore17(HoleScore holeScore17) {
-        this.holeScore17 = holeScore17;
-    }
-
-    public HoleScore getHoleScore18() {
-        return holeScore18;
-    }
-
-    public void setHoleScore18(HoleScore holeScore18) {
-        this.holeScore18 = holeScore18;
-    }
-
-    public HoleScore getHoleScore13() {
-        return holeScore13;
-    }
-
-    public void setHoleScore13(HoleScore holeScore13) {
-        this.holeScore13 = holeScore13;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
 }

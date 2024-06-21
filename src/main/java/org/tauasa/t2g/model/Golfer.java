@@ -15,7 +15,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "golfer")
 public class Golfer{
@@ -32,12 +36,12 @@ public class Golfer{
 
 	@JsonIgnore
 	@OneToMany(
-        mappedBy = "golfer",
+        mappedBy = "scorecardId.golferId",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
 		fetch = FetchType.LAZY
     )
-	private List<Score> scores;
+	private List<Scorecard> scores;
 
 	public Golfer() {}
 
@@ -45,38 +49,6 @@ public class Golfer{
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	@Override
@@ -97,22 +69,13 @@ public class Golfer{
 
 	@Override
 	public String toString() {
-		return "Golfer{" + "id=" + this.id + '\'' + ", email='" + this.email + '\''  + ", firstName='" + this.firstName + '\'' + ", lastName='" + this.lastName + "}'";
+		return String.format("Golfer{id: %d, email: %s, first: %s, last: %s}", this.id, this.email, this.firstName, this.lastName);
 	}
 
-    public List<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(List<Score> scores) {
-        this.scores = scores;
-    }
-
-	public void add(Score score){
+	public void add(Scorecard score){
 		if(scores==null){
 			scores = new ArrayList<>();
 		}
-		score.setGolfer(this);
 		scores.add(score);
 	}
 }

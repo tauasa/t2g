@@ -21,20 +21,21 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built with [Spring B
 ### Swagger API Docs
 http://localhost:8080/swagger-ui/index.html
 
-### Post a Score
-> `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
+### Post a Scorecard
+> `curl -X POST --data @./sample_json/scorecard.json -H 'Content-Type: application/json' localhost:8080/scorecards`
+
+### Update a Scorecard
+> `curl -X PUT --data @./sample_json/scorecard.json -H 'Content-Type: application/json' localhost:8080/scorecards`
+
+### Get a Scorecard
+> `curl -X GET -H 'Content-Type: application/json' localhost:8080/scorecards/{teeId}/{teeTime}/{golferId}`
 
 ### List Courses
 > `curl -X GET -H 'Content-Type: application/json' localhost:8080/courses`
-
-### Get a Score
-> `curl -X GET -H 'Content-Type: application/json' localhost:8080/score/{123}`
 
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
 * Dockerize
 * Index/HDCP calculation (multiple algos?)
-* Track alcohol consumption (for the real hacks)
-* Beer-to-putt differential
 
