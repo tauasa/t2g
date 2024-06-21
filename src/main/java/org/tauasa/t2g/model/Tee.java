@@ -49,7 +49,7 @@ public class Tee{
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "course_course_id")
+	@JoinColumn(name = "course_id")
 	private Course course;
 
 	@Embedded

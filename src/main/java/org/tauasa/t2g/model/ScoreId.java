@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
-public class ScorecardId implements Serializable{
+public class ScoreId implements Serializable{
 
 	@NotNull
 	private Long teeId;
@@ -21,9 +21,9 @@ public class ScorecardId implements Serializable{
 	@NotNull
 	private Long golferId;
 
-	public ScorecardId(){}
+	public ScoreId(){}
 
-	public ScorecardId(Long teeId, Date teeTime, Long golferId){
+	public ScoreId(Long teeId, Date teeTime, Long golferId){
 		this.teeId=teeId;
 		this.teeTime=teeTime;
 		this.golferId=golferId;
@@ -33,9 +33,9 @@ public class ScorecardId implements Serializable{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof ScorecardId))
+		if (!(o instanceof ScoreId))
 			return false;
-		ScorecardId id = (ScorecardId) o;
+		ScoreId id = (ScoreId) o;
 		return Objects.equals(this.teeId, id.teeId) && 
 			Objects.equals(this.teeTime, id.teeTime) && 
 			Objects.equals(this.golferId, id.golferId);

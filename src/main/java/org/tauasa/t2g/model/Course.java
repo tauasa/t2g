@@ -32,7 +32,7 @@ public class Course{
         mappedBy = "course",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
-		fetch = FetchType.LAZY
+		fetch = FetchType.EAGER
     )
 	private Set<Tee> tees;
 

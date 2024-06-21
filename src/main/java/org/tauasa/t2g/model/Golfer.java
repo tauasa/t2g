@@ -39,9 +39,9 @@ public class Golfer{
         mappedBy = "scorecardId.golferId",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
-		fetch = FetchType.LAZY
+		fetch = FetchType.EAGER
     )
-	private List<Scorecard> scores;
+	private List<Score> scores;
 
 	public Golfer() {}
 
@@ -72,7 +72,7 @@ public class Golfer{
 		return String.format("Golfer{id: %d, email: %s, first: %s, last: %s}", this.id, this.email, this.firstName, this.lastName);
 	}
 
-	public void add(Scorecard score){
+	public void add(Score score){
 		if(scores==null){
 			scores = new ArrayList<>();
 		}

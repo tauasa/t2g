@@ -16,11 +16,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "scorecard")
-public class Scorecard{
+@Table(name = "score")
+public class Score{
 
 	@EmbeddedId
-	private ScorecardId scorecardId;
+	private ScoreId scorecardId;
 
 	@Embedded
 	@AttributeOverrides({
@@ -275,9 +275,9 @@ public class Scorecard{
 	@NotNull
 	private HoleScore holeScore18;
 
-	public Scorecard() {}
+	public Score() {}
 
-	public Scorecard(ScorecardId id) {
+	public Score(ScoreId id) {
 		this.scorecardId = id;
 	}
 
@@ -292,9 +292,9 @@ public class Scorecard{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof Scorecard))
+		if (!(o instanceof Score))
 			return false;
-		Scorecard score = (Scorecard) o;
+		Score score = (Score) o;
 		return Objects.equals(this.scorecardId, score.scorecardId)
 			&& Objects.equals(this.holeScore1, score.holeScore1)
 			&& Objects.equals(this.holeScore2, score.holeScore2)

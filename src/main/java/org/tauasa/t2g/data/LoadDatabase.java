@@ -13,8 +13,8 @@ import org.tauasa.t2g.model.Course;
 import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
 import org.tauasa.t2g.model.HoleScore;
-import org.tauasa.t2g.model.Scorecard;
-import org.tauasa.t2g.model.ScorecardId;
+import org.tauasa.t2g.model.Score;
+import org.tauasa.t2g.model.ScoreId;
 import org.tauasa.t2g.model.Tee;
 import org.tauasa.t2g.util.Utils;
 
@@ -24,7 +24,7 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScorecardRepository scoreRepository) {
+	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository) {
 		
 		// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
 		log.info("Initializting database");
@@ -67,9 +67,9 @@ public class LoadDatabase {
 		return random.nextFloat(min, max);
 	}
 
-	private void initScore(Golfer golfer, Tee tee, Date teeTime, ScorecardRepository scoreRepository){
+	private void initScore(Golfer golfer, Tee tee, Date teeTime, ScoreRepository scoreRepository){
 		// create a scores for every golfer, course and the first tee
-		Scorecard score = new Scorecard(new ScorecardId(tee.getId(), teeTime, golfer.getId()));
+		Score score = new Score(new ScoreId(tee.getId(), teeTime, golfer.getId()));
 
 		score.setHoleScore1(createHoleScore(tee.getHole1(), randInt(0,5), 0, true, true, false));
 		score.setHoleScore2(createHoleScore(tee.getHole2(), randInt(0,5), 0, true, false, false));
