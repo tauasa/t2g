@@ -27,10 +27,13 @@ public class Golfer{
 	@Id 
 	@GeneratedValue
 	private Long id;
+
 	@Email
 	private String email;
+
 	@NotBlank
 	private String firstName;
+	
 	@NotBlank
 	private String lastName;
 

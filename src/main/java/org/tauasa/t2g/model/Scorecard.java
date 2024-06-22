@@ -28,7 +28,7 @@ public class Scorecard implements Serializable{
 
     @OneToMany(
         mappedBy = "scoreId.teeId",
-        cascade = CascadeType.REMOVE,
+        cascade = CascadeType.DETACH,
         orphanRemoval = true,
 		fetch = FetchType.EAGER
     )

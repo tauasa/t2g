@@ -32,37 +32,52 @@ public class LoadDatabase {
 
 		return args -> {
 
-			log.info("Create/pre-load some golfers");
-			initGolfers(golferRepository);
-			List<Golfer> golfers = golferRepository.findAll();
-			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
-
-			// create and preload some courses
+			// create some courses
 			log.info("Create/pre-load some courses");
 			initCourses(courseRepository);
 			List<Course> courses = courseRepository.findAll();
 			courses.forEach(course -> {log.info("+Preloaded: " + course);});
 
-			Date teeTime = Utils.parseTeeTime("2406210900");
-
+			// tee time starts here
+			Date startDate = Utils.parseTeeTime("2406210900");
+			//create some golfers
+			initGolfers(golferRepository);
 			int teeTimeCounter = 0;
-			for(Course course : courses){
-				Scorecard scorecard = new Scorecard();
-				Tee tee = course.getTees().iterator().next();
-				for(Golfer golfer : golfers){
-					Score score = initScore(golfer, tee, 
-						Utils.adjustDate(teeTime, teeTimeCounter * -1), scoreRepository);
-					golfer.add(score);
-					//golferRepository.save(golfer);
-					scorecard.add(score);
-				}
-				teeTimeCounter++;
-				scorecardRepository.save(scorecard);
-			}//*/
 
+			List<Golfer> golfers = golferRepository.findAll();
+
+			//create some scores
+			for(Course course : courses){
+				for(Tee tee : course.getTees()){
+					for(Golfer golfer : golfers){
+						Score score = initScore(golfer, tee, 
+							Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
+						golfer.add(score);
+						golferRepository.save(golfer);
+					}
+				}
+			}
+			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
+
+			//TODO - create some scorecards
+
+			//List<Score> scores = scoreRepository.findByScoreIdTeeIdAndScoreIdTeeTime(teeId, startDate);
+			//List<Tee> tees = 
+			teeTimeCounter = 0;
+			for(Course course : courses){
+				for(Tee tee : course.getTees()){
+					List<Score> scores = scoreRepository.findByScoreIdTeeIdAndScoreIdTeeTime(tee.getId(), 
+						Utils.adjustDate(startDate, teeTimeCounter * -1));
+					Scorecard card = new Scorecard();
+					for (Score score : scores) {
+						card.add(score);
+					}
+					scorecardRepository.save(card);
+				}
+			}
 			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
 			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
-			
+				
 			log.info("Database initialized");
 		};
 	}
