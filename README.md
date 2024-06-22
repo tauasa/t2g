@@ -6,7 +6,8 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * `Course` has zero or more `Tee`s
 * `Tee`s has a slope, rating and 18 `Hole`s
 * `Score` has a `Tee`, a Tee Time (Date) and 18 `HoleScore`s
-* `Score` uses a composite key of teeId, teeTime and golferId (`ScoreId`)
+* `Score` uses a composite key made up of teeId, teeTime, and golferId (`ScoreId`)
+* `Scorecard` is a collection of all `Score`s that have the same teeId and teeTime
 
 ![T2G model](model.png)
 
@@ -34,6 +35,9 @@ http://localhost:8080/swagger-ui/index.html
 
 ### Get a Score
 > `curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
+
+### Get a Scorecard
+> `curl -X GET localhost:8080/scorecards/{id}`
 
 ### Get all scores for golfer
 > `curl -X GET localhost:8080/scores?golfer={golferId}`

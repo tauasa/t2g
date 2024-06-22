@@ -55,14 +55,11 @@ public class LoadDatabase {
 						golfer.add(score);
 						golferRepository.save(golfer);
 					}
+					teeTimeCounter++;
 				}
 			}
 			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
-			//TODO - create some scorecards
-
-			//List<Score> scores = scoreRepository.findByScoreIdTeeIdAndScoreIdTeeTime(teeId, startDate);
-			//List<Tee> tees = 
 			teeTimeCounter = 0;
 			for(Course course : courses){
 				for(Tee tee : course.getTees()){
@@ -73,6 +70,7 @@ public class LoadDatabase {
 						card.add(score);
 					}
 					scorecardRepository.save(card);
+					teeTimeCounter++;
 				}
 			}
 			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
