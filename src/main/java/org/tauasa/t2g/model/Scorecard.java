@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.tauasa.t2g.util.Utils;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,10 +36,16 @@ public class Scorecard implements Serializable{
     )
     private Set<Score> scores;
 
+    private Date teeTime;
+
     public Scorecard(){}
 
     public Scorecard(Set<Score> scores){
         this.scores=scores;
+    }
+
+    public Scorecard(Date teeTime){
+        this.teeTime=teeTime;
     }
 
     public void add(Score score){
@@ -64,7 +72,7 @@ public class Scorecard implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Scorecard{id: %d, scores: %d}", this.id, this.scores==null?0:this.scores.size());
+		return String.format("Scorecard{id: %d, scores: %d, teeTime: %s}", this.id, this.scores==null?0:this.scores.size(), teeTime!=null?Utils.formatTeeTime(teeTime):"teeTime is null");
 	}
     
 }

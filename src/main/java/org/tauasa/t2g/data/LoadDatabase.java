@@ -60,12 +60,14 @@ public class LoadDatabase {
 			}
 			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
+			// create some scorecards
 			teeTimeCounter = 0;
 			for(Course course : courses){
 				for(Tee tee : course.getTees()){
 					List<Score> scores = scoreRepository.findByScoreIdTeeIdAndScoreIdTeeTime(tee.getId(), 
 						Utils.adjustDate(startDate, teeTimeCounter * -1));
 					Scorecard card = new Scorecard();
+					card.setTeeTime(Utils.adjustDate(startDate, teeTimeCounter * -1));
 					for (Score score : scores) {
 						card.add(score);
 					}
@@ -75,9 +77,9 @@ public class LoadDatabase {
 			}
 			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
 			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
-				
 			log.info("Database initialized");
 		};
+		
 	}
 
 	private static int randInt(int min, int max){
