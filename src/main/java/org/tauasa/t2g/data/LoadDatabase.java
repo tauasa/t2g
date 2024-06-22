@@ -46,7 +46,7 @@ public class LoadDatabase {
 
 			List<Golfer> golfers = golferRepository.findAll();
 
-			//create some scores
+			//create scores for every golfer, tee for every course O(n^3)
 			for(Course course : courses){
 				for(Tee tee : course.getTees()){
 					for(Golfer golfer : golfers){
@@ -60,7 +60,7 @@ public class LoadDatabase {
 			}
 			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
-			// create some scorecards
+			// create some scorecards O(n^3)
 			teeTimeCounter = 0;
 			for(Course course : courses){
 				for(Tee tee : course.getTees()){
@@ -133,10 +133,14 @@ public class LoadDatabase {
 
 	private void initGolfers(GolferRepository golferRepository){
 		golferRepository.save(createGolfer("Tauasa", "Timoteo"));
+		golferRepository.save(createGolfer("Jarrod", "Corby"));
+		golferRepository.save(createGolfer("Tiger", "Woods"));
+		golferRepository.save(createGolfer("Ricky", "Fowler"));
+		/*
 		golferRepository.save(createGolfer("Nunya", "Bidness"));
 		golferRepository.save(createGolfer("Inya", "Face"));
 		golferRepository.save(createGolfer("Mindya", "Bidness"));
-		/*golferRepository.save(createGolfer("Slapya", "Face"));
+		golferRepository.save(createGolfer("Slapya", "Face"));
 		golferRepository.save(createGolfer("Downya", "Hatch"));
 		golferRepository.save(createGolfer("Upya", "Butt"));
 		golferRepository.save(createGolfer("Inya", "Crack"));

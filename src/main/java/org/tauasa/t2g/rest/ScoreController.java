@@ -90,7 +90,8 @@ public class ScoreController {
 	public ResponseEntity<EntityModel<Score>> updateScore(@Valid @RequestBody Score score) {
 		ScoreId id = score.getScoreId();
 		return ResponseEntity //
-				.created(linkTo(methodOn(ScoreController.class).one(id.getTeeId(), Utils.formatTeeTime(id.getTeeTime()), id.getGolferId())).toUri()) //
+				.created(linkTo(methodOn(ScoreController.class).one(id.getTeeId(), 
+				Utils.formatTeeTime(id.getTeeTime()), id.getGolferId())).toUri()) //
 				.body(scoreAssembler.toModel(scoreRepository.save(score)));
 	}
 	
