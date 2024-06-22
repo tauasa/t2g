@@ -36,7 +36,7 @@ public class LoadDatabase {
 			log.info("Create/pre-load some courses");
 			initCourses(courseRepository);
 			List<Course> courses = courseRepository.findAll();
-			courses.forEach(course -> {log.info("+Preloaded: " + course);});
+			courses.forEach(course -> {log.info("+Preloaded: {}", course);});
 
 			// tee time starts here
 			Date startDate = Utils.parseTeeTime("2406210915");
@@ -98,9 +98,9 @@ public class LoadDatabase {
 
 		score.setHoleScore1(createHoleScore(tee.getHole1(), 0, true, true, false));
 		score.setHoleScore2(createHoleScore(tee.getHole2(), 0, true, false, false));
-		score.setHoleScore3(createHoleScore(tee.getHole3(), 0, false, true, false));
+		score.setHoleScore3(createHoleScore(tee.getHole3(), 0, false, true, true));
 		score.setHoleScore4(createHoleScore(tee.getHole4(), 0, true, true, false));
-		score.setHoleScore5(createHoleScore(tee.getHole5(), 0, true, false, false));
+		score.setHoleScore5(createHoleScore(tee.getHole5(), 0, false, false, false));
 		score.setHoleScore6(createHoleScore(tee.getHole6(), 0, true, true, false));
 		score.setHoleScore7(createHoleScore(tee.getHole7(), 0, true, true, false));
 		score.setHoleScore8(createHoleScore(tee.getHole8(), 0, false, true, false));
