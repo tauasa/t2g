@@ -4,14 +4,14 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 ### Model
 * `Golfer` has zero or more `Score`s
 * `Course` has zero or more `Tee`s
-* `Tee`s has a slope, rating and 18 `Hole`s
+* `Tee`s have a slope, rating and 18 `Hole`s
 * `Score` has a `Tee`, a Tee Time (Date) and 18 `HoleScore`s
-* `Score` uses a composite key made up of teeId, teeTime, and golferId (`ScoreId`)
-* `Scorecard` is a collection of all `Score`s that have the same teeId and teeTime
+* `Score` uses a composite key made up of teeId, teeTime, and golferId
+* `Scorecard` is a collection of all `Score`s that have matching teeId and teeTime
 
 ![T2G model](model.png)
 
-### `HoleScore`s track the following stuffs for each hole:
+### `HoleScore` tracks the following stuffs for each hole:
 * Strokes
 * Fairway Hit
 * Drive Distance
@@ -27,10 +27,10 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 ### Swagger API Docs
 http://localhost:8080/swagger-ui/index.html
 
-### Post a score
+### Post a score 
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-### Update a score
+### Update a score (PUT)
 > `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
 ### Get a Score
@@ -49,5 +49,5 @@ http://localhost:8080/swagger-ui/index.html
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
 * Dockerize
-* Index/HDCP calculation (multiple algos?)
+* Index/HDCP calculation
 
