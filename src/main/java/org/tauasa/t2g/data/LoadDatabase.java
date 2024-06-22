@@ -39,7 +39,7 @@ public class LoadDatabase {
 			courses.forEach(course -> {log.info("+Preloaded: " + course);});
 
 			// tee time starts here
-			Date startDate = Utils.parseTeeTime("2406210900");
+			Date startDate = Utils.parseTeeTime("2406210915");
 			//create some golfers
 			initGolfers(golferRepository);
 			int teeTimeCounter = 0;
@@ -96,33 +96,33 @@ public class LoadDatabase {
 		// create a scores for the specified golfer, course and the first tee
 		Score score = new Score(new ScoreId(tee.getId(), teeTime, golfer.getId()));
 
-		score.setHoleScore1(createHoleScore(tee.getHole1(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore2(createHoleScore(tee.getHole2(), randInt(0,5), 0, true, false, false));
-		score.setHoleScore3(createHoleScore(tee.getHole3(), randInt(0,5), 0, false, true, false));
-		score.setHoleScore4(createHoleScore(tee.getHole4(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore5(createHoleScore(tee.getHole5(), randInt(0,5), 0, true, false, false));
-		score.setHoleScore6(createHoleScore(tee.getHole6(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore7(createHoleScore(tee.getHole7(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore8(createHoleScore(tee.getHole8(), randInt(0,5), 0, false, true, false));
-		score.setHoleScore9(createHoleScore(tee.getHole9(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore10(createHoleScore(tee.getHole10(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore11(createHoleScore(tee.getHole11(), randInt(0,5), 0, false, true, false));
-		score.setHoleScore12(createHoleScore(tee.getHole12(), randInt(0,5), 0, false, false, false));
-		score.setHoleScore13(createHoleScore(tee.getHole13(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore14(createHoleScore(tee.getHole14(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore15(createHoleScore(tee.getHole15(), randInt(0,5), 0, false, false, true));
-		score.setHoleScore16(createHoleScore(tee.getHole16(), randInt(0,5), 0, true, true, false));
-		score.setHoleScore17(createHoleScore(tee.getHole17(), randInt(0,5), 0, false, true, false));
-		score.setHoleScore18(createHoleScore(tee.getHole18(), randInt(0,5), 0, true, true, false));
+		score.setHoleScore1(createHoleScore(tee.getHole1(), 0, true, true, false));
+		score.setHoleScore2(createHoleScore(tee.getHole2(), 0, true, false, false));
+		score.setHoleScore3(createHoleScore(tee.getHole3(), 0, false, true, false));
+		score.setHoleScore4(createHoleScore(tee.getHole4(), 0, true, true, false));
+		score.setHoleScore5(createHoleScore(tee.getHole5(), 0, true, false, false));
+		score.setHoleScore6(createHoleScore(tee.getHole6(), 0, true, true, false));
+		score.setHoleScore7(createHoleScore(tee.getHole7(), 0, true, true, false));
+		score.setHoleScore8(createHoleScore(tee.getHole8(), 0, false, true, false));
+		score.setHoleScore9(createHoleScore(tee.getHole9(), 0, true, true, false));
+		score.setHoleScore10(createHoleScore(tee.getHole10(), 0, true, true, false));
+		score.setHoleScore11(createHoleScore(tee.getHole11(), 0, false, true, false));
+		score.setHoleScore12(createHoleScore(tee.getHole12(), 0, false, false, false));
+		score.setHoleScore13(createHoleScore(tee.getHole13(), 0, true, true, false));
+		score.setHoleScore14(createHoleScore(tee.getHole14(), 0, true, true, false));
+		score.setHoleScore15(createHoleScore(tee.getHole15(), 0, false, false, true));
+		score.setHoleScore16(createHoleScore(tee.getHole16(), 0, true, true, false));
+		score.setHoleScore17(createHoleScore(tee.getHole17(), 0, false, true, false));
+		score.setHoleScore18(createHoleScore(tee.getHole18(), 0, true, true, false));
 
 		return scoreRepository.save(score);
 	}
 
-	private HoleScore createHoleScore(Hole hole, int putts, int penalties, boolean fairway, boolean gir, boolean sandy){
+	private HoleScore createHoleScore(Hole hole, int penalties, boolean fairway, boolean gir, boolean sandy){
 		HoleScore hs = new HoleScore(
 			hole.getPar() + randInt(-2, 4), //random score between birdie and snowman
 			hole.getPar() > 3 ? randInt(200, hole.getDistance()-60) : 0, // random drive distance 
-			putts,
+			randInt(0,5),
 			penalties,
 			0,
 			fairway,
