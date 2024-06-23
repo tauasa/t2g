@@ -5,17 +5,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.tauasa.t2g.model.Score;
-import org.tauasa.t2g.model.ScoreId;
 
-public interface ScoreRepository extends JpaRepository<Score, ScoreId> {
+public interface ScoreRepository extends JpaRepository<Score, Long> {
 
-    public Score findByScoreId(ScoreId scoreId);
+    public List<Score> findByGolferId(Long golferId);
 
-    public List<Score> findByScoreIdGolferId(Long golfId);
+    public List<Score> findByTeeIdAndTeeTime(Long teeId, Date teeTime);
 
-    /**
-     * Returns all the Score objects for a specific tee time
-    */
-    public List<Score> findByScoreIdTeeIdAndScoreIdTeeTime(Long teeId, Date teeTime);
+    public Score findByTeeIdAndTeeTimeAndGolferId(Long teeId, Date teeTime, Long golferId);
 
 }

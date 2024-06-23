@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
-public class HoleScore{
+public class HoleScore implements Serializable{
 
 	private int strokes, drive, putts, penalties, mulligans;
 	private boolean fairway, gir, sandy;

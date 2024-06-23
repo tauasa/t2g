@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.ScoreRepository;
 import org.tauasa.t2g.model.Score;
-import org.tauasa.t2g.model.ScoreId;
 import org.tauasa.t2g.util.Utils;
 
 import jakarta.validation.Valid;
@@ -51,23 +50,22 @@ public class ScoreController {
 
 	@GetMapping("/scores?golfer={golferId}")
 	public CollectionModel<EntityModel<Score>> scoresForGolfer(@PathVariable Long golferId) {
-		List<EntityModel<Score>> scores = scoreRepository.findByScoreIdGolferId(golferId).stream() //
+		List<EntityModel<Score>> scores = scoreRepository.findByGolferId(golferId).stream() //
 				.map(scoreAssembler::toModel) //
 				.collect(Collectors.toList());
 
 		log.debug("Found {} scores for golfer {}", scores.size(), golferId);
 
 		return CollectionModel.of(scores, //
-				linkTo(methodOn(GolferController.class).one(golferId)).withSelfRel(),		
+				linkTo(methodOn(GolferController.class).one(golferId)).withSelfRel(),
 				linkTo(methodOn(ScoreController.class).scoresForGolfer(golferId)).withSelfRel());
 	}
 
 	@GetMapping("/scores/{teeId}/{teeTime}/{golferId}")
 	public EntityModel<Score> one(@PathVariable Long teeId, @PathVariable String teeTime, @PathVariable Long golferId) {
-		ScoreId id = new ScoreId(teeId, Utils.parseTeeTime(teeTime), golferId);
-		Score score = scoreRepository.findByScoreId(id);
+		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, Utils.parseTeeTime(teeTime), golferId);
 		if(score==null){
-			log.debug("No course matching {}", id.toString());
+			log.debug("No score matching {}-{}-{}", teeId, teeTime, golferId);
 			throw new NotFoundException(teeId, teeTime, golferId);
 		}
 
@@ -88,10 +86,9 @@ public class ScoreController {
 
 	@PutMapping("/scores")
 	public ResponseEntity<EntityModel<Score>> updateScore(@Valid @RequestBody Score score) {
-		ScoreId id = score.getScoreId();
 		return ResponseEntity //
-				.created(linkTo(methodOn(ScoreController.class).one(id.getTeeId(), 
-				Utils.formatTeeTime(id.getTeeTime()), id.getGolferId())).toUri()) //
+				.created(linkTo(methodOn(ScoreController.class).one(score.getTee().getId(), 
+				Utils.formatTeeTime(score.getTeeTime()), score.getGolfer().getId())).toUri()) //
 				.body(scoreAssembler.toModel(scoreRepository.save(score)));
 	}
 	

@@ -7,6 +7,5 @@ import org.tauasa.t2g.model.Scorecard;
 
 public interface ScorecardRepository extends JpaRepository<Scorecard, Long> {
 
-    //public Scorecard findByTeeTime(Date teeTime);
     
 }

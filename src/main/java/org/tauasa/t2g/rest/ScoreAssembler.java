@@ -15,8 +15,8 @@ public class ScoreAssembler implements RepresentationModelAssembler<Score, Entit
 	public EntityModel<Score> toModel(Score score) {
 		// Unconditional links to single-item resource and aggregate root
 		EntityModel<Score> scoreModel = EntityModel.of(score, 
-				linkTo(methodOn(GolferController.class).one(score.getScoreId().getGolferId())).withRel("golfer"),
-				linkTo(methodOn(ScoreController.class).scoresForGolfer(score.getScoreId().getGolferId())).withRel("scores"),
+				linkTo(methodOn(GolferController.class).one(score.getGolfer().getId())).withRel("golfer"),
+				linkTo(methodOn(ScoreController.class).scoresForGolfer(score.getGolfer().getId())).withRel("scores"),
 				linkTo(methodOn(CourseController.class).all()).withRel("courses"));
 
 		return scoreModel;

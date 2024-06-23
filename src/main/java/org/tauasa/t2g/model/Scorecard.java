@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,13 +30,13 @@ public class Scorecard implements Serializable{
 	private Long id;
 
     @OneToMany(
-        mappedBy = "scoreId.teeId",
         cascade = CascadeType.DETACH,
         orphanRemoval = true,
 		fetch = FetchType.EAGER
     )
     private Set<Score> scores;
 
+    @NotNull
     private Date teeTime;
 
     public Scorecard(){}
@@ -72,7 +73,8 @@ public class Scorecard implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Scorecard{id: %d, scores: %d, teeTime: %s}", this.id, this.scores==null?0:this.scores.size(), teeTime!=null?Utils.formatTeeTime(teeTime):"teeTime is null");
+		return String.format("Scorecard{id: %d, golfers: %d, teeTime: %s}", 
+            this.id, this.scores==null?0:this.scores.size(), teeTime!=null?Utils.formatTeeTime(teeTime):"teeTime is null");
 	}
     
 }
