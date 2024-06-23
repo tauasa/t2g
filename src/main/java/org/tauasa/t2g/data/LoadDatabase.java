@@ -14,7 +14,6 @@ import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
 import org.tauasa.t2g.model.HoleScore;
 import org.tauasa.t2g.model.Score;
-import org.tauasa.t2g.model.ScoreId;
 import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
 import org.tauasa.t2g.util.Utils;
@@ -60,11 +59,25 @@ public class LoadDatabase {
 			}
 			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
-			// create some scorecards O(n^3)
+			//add a score for a single golfer
+			Golfer singleGolfer = golfers.get(0);
+			Course singleCourse = courses.get(0);
+			Tee firstTee = singleCourse.getTees().iterator().next();
+			Score singleScore = initScore(singleGolfer, firstTee, 
+							Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
+							singleGolfer.add(singleScore);
+			golferRepository.save(singleGolfer);
+
+			Scorecard singleCard = new Scorecard(new Date());
+			singleCard.add(singleScore);
+			scorecardRepository.save(singleCard);
+			log.info("+Preloaded: {}", singleCard);
+
+			// create some scorecards fix O(n^3)
 			teeTimeCounter = 0;
 			for(Course course : courses){
 				for(Tee tee : course.getTees()){
-					List<Score> scores = scoreRepository.findByScoreIdTeeIdAndScoreIdTeeTime(tee.getId(), 
+					List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), 
 						Utils.adjustDate(startDate, teeTimeCounter * -1));
 					Scorecard card = new Scorecard();
 					card.setTeeTime(Utils.adjustDate(startDate, teeTimeCounter * -1));
@@ -94,7 +107,7 @@ public class LoadDatabase {
 
 	private Score initScore(Golfer golfer, Tee tee, Date teeTime, ScoreRepository scoreRepository){
 		// create a scores for the specified golfer, course and the first tee
-		Score score = new Score(new ScoreId(tee.getId(), teeTime, golfer.getId()));
+		Score score = new Score(golfer, tee, teeTime);
 
 		score.setHoleScore1(createHoleScore(tee.getHole1(), 0, true, true, false));
 		score.setHoleScore2(createHoleScore(tee.getHole2(), 0, true, false, false));

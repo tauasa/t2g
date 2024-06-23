@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "golfer")
-public class Golfer{
+public class Golfer implements Serializable{
 
 	@Id 
 	@GeneratedValue
@@ -37,9 +38,9 @@ public class Golfer{
 	@NotBlank
 	private String lastName;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(
-        mappedBy = "scoreId.golferId",
+        mappedBy = "golfer",
         cascade = CascadeType.ALL,
         orphanRemoval = true,
 		fetch = FetchType.EAGER
@@ -79,7 +80,7 @@ public class Golfer{
 		if(scores==null){
 			scores = new ArrayList<>();
 		}
-		score.getScoreId().setGolferId(this.id);
+		score.setGolfer(this);
 		scores.add(score);
 	}
 }

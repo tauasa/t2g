@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tee")
-public class Tee{
+public class Tee implements Serializable{
 
 	@Id 
 	@GeneratedValue
@@ -49,7 +50,7 @@ public class Tee{
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "course_id")
+	@JoinColumn(name = "course_pk")
 	private Course course;
 
 	@Embedded

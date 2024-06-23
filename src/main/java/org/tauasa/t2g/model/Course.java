@@ -1,5 +1,6 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "course")
-public class Course{
+public class Course implements Serializable{
 
 	@Id 
 	@GeneratedValue 

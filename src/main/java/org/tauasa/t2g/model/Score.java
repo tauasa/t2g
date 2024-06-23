@@ -1,14 +1,23 @@
 package org.tauasa.t2g.model;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
+
+import org.tauasa.t2g.util.Utils;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +25,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "score")
-public class Score{
+@Table(name = "score", uniqueConstraints = { @UniqueConstraint(columnNames = { "golfer_pk", "tee_pk", "tee_time" }) })
+public class Score implements Serializable{
 
-	@EmbeddedId
-	private ScoreId scoreId;
+	@Id 
+	@GeneratedValue 
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "golfer_pk")
+	private Golfer golfer;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tee_pk")
+	private Tee tee;
+
+	@Column(name="tee_time")
+	private Date teeTime;
 
 	@Embedded
 	@AttributeOverrides({
@@ -277,13 +298,16 @@ public class Score{
 
 	public Score() {}
 
-	public Score(ScoreId id) {
-		this.scoreId = id;
+	public Score(Golfer golfer, Tee tee, Date teeTime) {
+		this.golfer = golfer;
+		this.tee = tee;
+		this.teeTime = teeTime;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.scoreId, this.holeScore1, holeScore2, holeScore3,
+		return Objects.hash(this.golfer, 
+		this.holeScore1, holeScore2, holeScore3,
 		holeScore4, holeScore5, holeScore6, holeScore7, holeScore8, holeScore9, holeScore10, holeScore11,
 		holeScore12, holeScore13, holeScore14, holeScore15, holeScore16, holeScore17, holeScore18);
 	}
@@ -295,7 +319,7 @@ public class Score{
 		if (!(o instanceof Score))
 			return false;
 		Score score = (Score) o;
-		return Objects.equals(this.scoreId, score.scoreId)
+		return Objects.equals(this.golfer, score.golfer)
 			&& Objects.equals(this.holeScore1, score.holeScore1)
 			&& Objects.equals(this.holeScore2, score.holeScore2)
 			&& Objects.equals(this.holeScore3, score.holeScore3)
@@ -433,8 +457,8 @@ public class Score{
 
 	@Override
 	public String toString() {
-		return String.format("Score{scoreId: %s, score: %d, putts: %d}", 
-			this.scoreId, this.calculateScore(), this.calculatePutts());
+		return String.format("Score{id: %s, tee: %s, teeTime: %s, golfer: %s, score: %d, putts: %d}", 
+			this.id, this.tee.getId(), Utils.formatTeeTime(this.getTeeTime()), this.golfer, this.calculateScore(), this.calculatePutts());
 	}
 
 }
