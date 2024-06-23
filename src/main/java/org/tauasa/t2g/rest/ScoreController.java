@@ -74,6 +74,19 @@ public class ScoreController {
 		return scoreAssembler.toModel(score);
 	}
 
+	@GetMapping("/scores?id={scoreId}")
+	public EntityModel<Score> oneById(@PathVariable Long scoreId) {
+		Score score = scoreRepository.findById(scoreId).get();
+		if(score==null){
+			log.debug("No score matching id {}", scoreId);
+			throw new NotFoundException(scoreId);
+		}
+
+		log.debug("Score: {}", score.toString());
+
+		return scoreAssembler.toModel(score);
+	}
+
 	@PostMapping("/scores")
 	public ResponseEntity<EntityModel<Score>> newScore(@Valid @RequestBody Score score) {
 		Score newScore = scoreRepository.save(score);

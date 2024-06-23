@@ -34,7 +34,9 @@ http://localhost:8080/swagger-ui/index.html
 > `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
 ### Get a Score
+Two methods
 > `curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
+> `curl -X GET localhost:8080/scores/{id}`
 
 ### Get a Scorecard
 > `curl -X GET localhost:8080/scorecards/{id}`

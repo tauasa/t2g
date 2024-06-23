@@ -71,6 +71,7 @@ public class LoadDatabase {
 			Scorecard singleCard = new Scorecard(new Date());
 			singleCard.add(singleScore);
 			scorecardRepository.save(singleCard);
+			log.info("+Preloaded: {}", singleCard);
 
 			// create some scorecards fix O(n^3)
 			teeTimeCounter = 0;

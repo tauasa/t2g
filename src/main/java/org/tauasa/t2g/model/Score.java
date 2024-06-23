@@ -453,7 +453,7 @@ public class Score implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Score{scoreId: %s, score: %d, putts: %d}", 
+		return String.format("Score{id: %s, score: %d, putts: %d}", 
 			this.id, this.calculateScore(), this.calculatePutts());
 	}
 
