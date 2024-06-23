@@ -74,7 +74,7 @@ public class ScoreController {
 		return scoreAssembler.toModel(score);
 	}
 
-	@GetMapping("/scores?id={scoreId}")
+	@GetMapping("/scores/{scoreId}")
 	public EntityModel<Score> oneById(@PathVariable Long scoreId) {
 		Score score = scoreRepository.findById(scoreId).get();
 		if(score==null){

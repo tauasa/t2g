@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.tauasa.t2g.util.Utils;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -15,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "score")
+@Table(name = "score", uniqueConstraints = { @UniqueConstraint(columnNames = { "golfer_pk", "tee_pk", "tee_time" }) })
 public class Score implements Serializable{
 
 	@Id 
@@ -37,6 +40,7 @@ public class Score implements Serializable{
     @JoinColumn(name = "tee_pk")
 	private Tee tee;
 
+	@Column(name="tee_time")
 	private Date teeTime;
 
 	@Embedded
@@ -453,8 +457,8 @@ public class Score implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Score{id: %s, score: %d, putts: %d}", 
-			this.id, this.calculateScore(), this.calculatePutts());
+		return String.format("Score{id: %s, tee: %s, teeTime: %s, golfer: %s, score: %d, putts: %d}", 
+			this.id, this.tee.getId(), Utils.formatTeeTime(this.getTeeTime()), this.golfer, this.calculateScore(), this.calculatePutts());
 	}
 
 }
