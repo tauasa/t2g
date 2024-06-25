@@ -1,50 +1,52 @@
 # T2G Golf Score Tracker
-Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa).
+Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa) the model with a flat model.
 
-### Model
+## Model
 * `Golfer` has zero or more `Score`s
-* `Course` has zero or more `Tee`s
-* `Tee`s have a slope, rating and 18 `Hole`s
-* `Score` has a `Tee`, a Tee Time (Date) and 18 `HoleScore`s
-* `Score` uses a composite key made up of teeId, teeTime, and golferId
-* `Scorecard` is a collection of all `Score`s that have matching teeId and teeTime
-
+* `Course` has one or more `Tee`s
+* `Tee`s have a _slope_, _rating_ and 18 `Hole`s
+* `Score` has a 'Golfer', `Tee`, a _teeTime_ (java.util.Date) and 18 `HoleScore` beans
+* 'HoleScore' is a POJO with the fields below
+* `Score` has an _id_ pk and a uniqe composite key made from _teeId_, _teeTime_, and _golferId_
+* `Scorecard` is a collection of all `Score`s with matching _teeId_ and _teeTime_
+  
 ![T2G model](model.png)
 
-### `HoleScore` tracks the following stuffs for each hole:
-* Strokes
-* Fairway Hit
-* Drive Distance
-* GIR
-* Putts
-* Penalties
-* Sand Saves
-* Mulligans
+## `HoleScore` tracks the following stuffs for each hole:
+* Strokes (int)
+* Fairway Hit (boolean)
+* Drive Distance (int)
+* GIR (boolean)
+* Putts (int)
+* Penalties (int)
+* Sand Save (boolean)
+* Mulligans (int)
+
+## Swagger API Docs
+http://localhost:8080/swagger-ui/index.html
 
 ### Build and Run Locally
 > `mvn spring-boot run`
 
-### Swagger API Docs
-http://localhost:8080/swagger-ui/index.html
-
-### Post a score 
+### Post a Score 
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
-### Update a score (PUT)
+### Update a Score (PUT)
 > `curl -X PUT --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
 
 ### Get a Score
 Two methods
 > `curl -X GET localhost:8080/scores/{teeId}/{teeTime}/{golferId}`
-> `curl -X GET localhost:8080/scores/{id}`
+
+> `curl -X GET localhost:8080/scores?id={id}`
 
 ### Get a Scorecard
 > `curl -X GET localhost:8080/scorecards/{id}`
 
-### Get all scores for golfer
+### Get all Scores for a Golfer
 > `curl -X GET localhost:8080/scores?golfer={golferId}`
 
-### Get a course
+### Get a Course
 > `curl -X GET localhost:8080/courses/{courseId}`
 
 ### TODO + WIP
