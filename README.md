@@ -6,9 +6,9 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * `Course` has one or more `Tee`s
 * `Tee`s have a _slope_, _rating_ and 18 `Hole`s
 * `Score` has a `Golfer`, `Tee`, a _teeTime_ (`java.util.Date`) and 18 `HoleScore` beans
-* 'HoleScore' is a POJO with the fields below
-* `Score` has an _id_ pk and a uniqe composite key made from _teeId_, _teeTime_, and _golferId_
-* `Scorecard` is a collection of all `Score`s with matching _teeId_ and _teeTime_
+* `HoleScore` is a POJO containing fields listed below the model image
+* `Score` has an _id_ primary key and a uniqe composite key made composed of _teeId_, _teeTime_, and _golferId_
+* `Scorecard` is a collection of all `Score`s for a _teeId_ and _teeTime_
   
 ![T2G model](model.png)
 
@@ -22,11 +22,11 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * Sand Save (boolean)
 * Mulligans (int)
 
-## Swagger API Docs
-http://localhost:8080/swagger-ui/index.html
-
 ### Build and Run Locally
 > `mvn spring-boot run`
+
+### Swagger API Docs
+http://localhost:8080/swagger-ui/index.html
 
 ### Post a Score 
 > `curl -X POST --data @./sample_json/score.json -H 'Content-Type: application/json' localhost:8080/scores`
