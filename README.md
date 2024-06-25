@@ -5,7 +5,7 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * `Golfer` has zero or more `Score`s
 * `Course` has one or more `Tee`s
 * `Tee`s have a _slope_, _rating_ and 18 `Hole`s
-* `Score` has a 'Golfer', `Tee`, a _teeTime_ (java.util.Date) and 18 `HoleScore` beans
+* `Score` has a `Golfer`, `Tee`, a _teeTime_ (`java.util.Date`) and 18 `HoleScore` beans
 * 'HoleScore' is a POJO with the fields below
 * `Score` has an _id_ pk and a uniqe composite key made from _teeId_, _teeTime_, and _golferId_
 * `Scorecard` is a collection of all `Score`s with matching _teeId_ and _teeTime_
@@ -54,4 +54,6 @@ Two methods
 * UI with dashboard
 * Dockerize
 * Index/HDCP calculation
+* PG stuffs
+* Security stuffs
 
