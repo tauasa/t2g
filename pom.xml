@@ -12,12 +12,14 @@
 	<artifactId>t2g</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>t2g</name>
-	<description>T2G HATEOAS-driven REST service for tracking golf scores</description>
+	<description>HATEOAS-driven REST service for tracking golf scores</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
+
+		<!-- spring stuffs-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -43,10 +45,12 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<dependency>
+
+		<!-- database stuffs-->
+		<!--dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -57,11 +61,15 @@
 			<artifactId>hibernate-ant</artifactId>
 			<version>6.4.2.Final</version>
 		</dependency>
+
+		<!--getter/setter magic-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 		</dependency>
+
+		<!--test stuffs-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

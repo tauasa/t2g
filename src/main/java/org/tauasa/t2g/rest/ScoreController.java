@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.tauasa.t2g.data.ScoreRepository;
 import org.tauasa.t2g.model.Score;
-import org.tauasa.t2g.util.Utils;
+import org.tauasa.t2g.util.Stuffs;
 
 import jakarta.validation.Valid;
 
@@ -63,9 +63,9 @@ public class ScoreController {
 
 	@GetMapping("/scores/{teeId}/{teeTime}/{golferId}")
 	public EntityModel<Score> one(@PathVariable Long teeId, @PathVariable String teeTime, @PathVariable Long golferId) {
-		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, Utils.parseTeeTime(teeTime), golferId);
+		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, Stuffs.parseTeeTime(teeTime), golferId);
 		if(score==null){
-			log.debug("No score matching {}-{}-{}", teeId, teeTime, golferId);
+			log.debug("No score matching {}{}{}", teeId, teeTime, golferId);
 			throw new NotFoundException(teeId, teeTime, golferId);
 		}
 
@@ -101,7 +101,7 @@ public class ScoreController {
 	public ResponseEntity<EntityModel<Score>> updateScore(@Valid @RequestBody Score score) {
 		return ResponseEntity //
 				.created(linkTo(methodOn(ScoreController.class).one(score.getTee().getId(), 
-				Utils.formatTeeTime(score.getTeeTime()), score.getGolfer().getId())).toUri()) //
+				Stuffs.formatTeeTime(score.getTeeTime()), score.getGolfer().getId())).toUri()) //
 				.body(scoreAssembler.toModel(scoreRepository.save(score)));
 	}
 	

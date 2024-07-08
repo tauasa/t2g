@@ -41,6 +41,8 @@ public class Course implements Serializable{
     )
 	private Set<Tee> tees;
 
+	// TODO - address/location
+
 	public Course() {}
 
 	public Course(String name) {

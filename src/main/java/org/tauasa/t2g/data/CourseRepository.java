@@ -6,6 +6,5 @@ import org.tauasa.t2g.model.Course;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    //public Course findByTee(Long teeId);
 
 }

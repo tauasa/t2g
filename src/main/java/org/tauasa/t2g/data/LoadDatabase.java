@@ -1,6 +1,6 @@
 package org.tauasa.t2g.data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +16,6 @@ import org.tauasa.t2g.model.HoleScore;
 import org.tauasa.t2g.model.Score;
 import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
-import org.tauasa.t2g.util.Utils;
 
 @Configuration
 public class LoadDatabase {
@@ -24,22 +23,36 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
+	public CommandLineRunner initDatabase(CourseRepository courseRepository, GolferRepository golferRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 
 		return args -> {
 
-			// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
-			log.info("Initializting database");
+			long courseCount = courseRepository.findAll().size();
+			log.debug("Courses: {}", courseRepository.count());
+			log.debug("Golfers: {}", golferRepository.count());
+			log.debug("Scores: {}", scoreRepository.count());
+			log.debug("Scorecards: {}", scorecardRepository.count());
 
-			// create some courses
-			if(courseRepository.count()==0 || golferRepository.count()==0){
+			if(courseCount > 0){
+
+				log.info("Database initialized. Nuthin to do here");
+
+			}else{
+
+				// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
+				log.info("Initializting database...");
+
 				log.info("Create/pre-load some courses");
 				initCourses(courseRepository);
 				List<Course> courses = courseRepository.findAll();
-				courses.forEach(course -> {log.info("+Preloaded: {}", course);});
+
+				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+				courses.forEach(course_ -> log.info("+Preloaded: {}", course_));
+				
 
 				// tee time starts here
-				Date startDate = Utils.parseTeeTime("2406210915");
+				//LocalDateTime startDate = LocalDateTime.of(2024, 6, 21, 9, 15);
+				LocalDateTime startDate = LocalDateTime.of(2024, 3, 25, 10, 30);
 				//create some golfers
 				initGolfers(golferRepository);
 				int teeTimeCounter = 0;
@@ -50,8 +63,7 @@ public class LoadDatabase {
 				for(Course course : courses){
 					for(Tee tee : course.getTees()){
 						for(Golfer golfer : golfers){
-							Score score = initScore(golfer, tee, 
-								Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
+							Score score = initScore(golfer, tee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
 							golfer.add(score);
 							golferRepository.save(golfer);
 						}
@@ -64,12 +76,11 @@ public class LoadDatabase {
 				Golfer singleGolfer = golfers.get(0);
 				Course singleCourse = courses.get(0);
 				Tee firstTee = singleCourse.getTees().iterator().next();
-				Score singleScore = initScore(singleGolfer, firstTee, 
-								Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
-								singleGolfer.add(singleScore);
+				Score singleScore = initScore(singleGolfer, firstTee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
+				singleGolfer.add(singleScore);
 				golferRepository.save(singleGolfer);
 
-				Scorecard singleCard = new Scorecard(new Date());
+				Scorecard singleCard = new Scorecard(LocalDateTime.now());
 				singleCard.add(singleScore);
 				scorecardRepository.save(singleCard);
 				log.info("+Preloaded: {}", singleCard);
@@ -78,36 +89,35 @@ public class LoadDatabase {
 				teeTimeCounter = 0;
 				for(Course course : courses){
 					for(Tee tee : course.getTees()){
-						List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), 
-							Utils.adjustDate(startDate, teeTimeCounter * -1));
+						List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), startDate.plusDays(teeTimeCounter * -1));
 						Scorecard card = new Scorecard();
-						card.setTeeTime(Utils.adjustDate(startDate, teeTimeCounter * -1));
+						card.setTeeTime(scores.get(0).getTeeTime());// hokey
 						for (Score score : scores) {
 							card.add(score);
 						}
 						scorecardRepository.save(card);
 						teeTimeCounter++;
 					}
-				}
+				}//*/
 				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
 				scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
 				log.info("Database initialized");
+
 			}
+
 		};
 		
 	}
 
 	private static int randInt(int min, int max){
-		Random random = new Random();
-		return random.nextInt(min, max);
+		return new Random().nextInt(min, max);
 	}
 
 	private static float randFloat(float min, float max){
-		Random random = new Random();
-		return random.nextFloat(min, max);
+		return new Random().nextFloat(min, max);
 	}
 
-	private Score initScore(Golfer golfer, Tee tee, Date teeTime, ScoreRepository scoreRepository){
+	private Score initScore(Golfer golfer, Tee tee, LocalDateTime teeTime, ScoreRepository scoreRepository){
 		// create a scores for the specified golfer, course and the first tee
 		Score score = new Score(golfer, tee, teeTime);
 
@@ -151,12 +161,16 @@ public class LoadDatabase {
 		golferRepository.save(createGolfer("Jarrod", "Corby"));
 		golferRepository.save(createGolfer("Tiger", "Woods"));
 		golferRepository.save(createGolfer("Ricky", "Fowler"));
-		/*
+		golferRepository.save(createGolfer("Michael", "Ambrose"));
+		golferRepository.save(createGolfer("Michael", "Pentecost"));
+		golferRepository.save(createGolfer("Pat", "Santora"));
 		golferRepository.save(createGolfer("Nunya", "Bidness"));
 		golferRepository.save(createGolfer("Inya", "Face"));
+		golferRepository.save(createGolfer("John", "Timoeo"));
 		golferRepository.save(createGolfer("Mindya", "Bidness"));
 		golferRepository.save(createGolfer("Slapya", "Face"));
 		golferRepository.save(createGolfer("Downya", "Hatch"));
+		golferRepository.save(createGolfer("Sa", "Luafuluvalu"));
 		golferRepository.save(createGolfer("Upya", "Butt"));
 		golferRepository.save(createGolfer("Inya", "Crack"));
 		golferRepository.save(createGolfer("Krossda", "Street"));
