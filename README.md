@@ -11,6 +11,8 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
   
 ![T2G model](model.png)
 
+![T2G model](erd.png)
+
 ## `HoleScore` tracks the following stuffs for each hole:
 * Strokes (`int`)
 * Fairway Hit (`boolean`)
