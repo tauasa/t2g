@@ -51,10 +51,10 @@ Two methods
 > `curl -X GET localhost:8080/courses/{courseId}`
 
 ### TODO + WIP
+* Replace `java.util.Date` with `java.time.LocalDateTime`
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
 * Dockerize
 * Index/HDCP calculation
-* PG stuffs
 * Security stuffs
 
