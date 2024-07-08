@@ -10,6 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
+/**
+ * Hole attributes par, distance and handicap. 
+*/
 public class Hole implements Serializable{
 
 	private int par, distance, hdcp;

@@ -25,72 +25,74 @@ public class LoadDatabase {
 
 	@Bean
 	public CommandLineRunner initDatabase(GolferRepository golferRepository, CourseRepository courseRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
-		
-		// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
-		log.info("Initializting database");
 
 		return args -> {
 
+			// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
+			log.info("Initializting database");
+
 			// create some courses
-			log.info("Create/pre-load some courses");
-			initCourses(courseRepository);
-			List<Course> courses = courseRepository.findAll();
-			courses.forEach(course -> {log.info("+Preloaded: {}", course);});
+			if(courseRepository.count()==0 || golferRepository.count()==0){
+				log.info("Create/pre-load some courses");
+				initCourses(courseRepository);
+				List<Course> courses = courseRepository.findAll();
+				courses.forEach(course -> {log.info("+Preloaded: {}", course);});
 
-			// tee time starts here
-			Date startDate = Utils.parseTeeTime("2406210915");
-			//create some golfers
-			initGolfers(golferRepository);
-			int teeTimeCounter = 0;
+				// tee time starts here
+				Date startDate = Utils.parseTeeTime("2406210915");
+				//create some golfers
+				initGolfers(golferRepository);
+				int teeTimeCounter = 0;
 
-			List<Golfer> golfers = golferRepository.findAll();
+				List<Golfer> golfers = golferRepository.findAll();
 
-			//create scores for every golfer, tee for every course O(n^3)
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					for(Golfer golfer : golfers){
-						Score score = initScore(golfer, tee, 
-							Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
-						golfer.add(score);
-						golferRepository.save(golfer);
+				//create scores for every golfer, tee for every course O(n^3)
+				for(Course course : courses){
+					for(Tee tee : course.getTees()){
+						for(Golfer golfer : golfers){
+							Score score = initScore(golfer, tee, 
+								Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
+							golfer.add(score);
+							golferRepository.save(golfer);
+						}
+						teeTimeCounter++;
 					}
-					teeTimeCounter++;
 				}
-			}
-			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
+				golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
 
-			//add a score for a single golfer
-			Golfer singleGolfer = golfers.get(0);
-			Course singleCourse = courses.get(0);
-			Tee firstTee = singleCourse.getTees().iterator().next();
-			Score singleScore = initScore(singleGolfer, firstTee, 
-							Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
-							singleGolfer.add(singleScore);
-			golferRepository.save(singleGolfer);
+				//add a score for a single golfer
+				Golfer singleGolfer = golfers.get(0);
+				Course singleCourse = courses.get(0);
+				Tee firstTee = singleCourse.getTees().iterator().next();
+				Score singleScore = initScore(singleGolfer, firstTee, 
+								Utils.adjustDate(startDate, teeTimeCounter * -1), scoreRepository);
+								singleGolfer.add(singleScore);
+				golferRepository.save(singleGolfer);
 
-			Scorecard singleCard = new Scorecard(new Date());
-			singleCard.add(singleScore);
-			scorecardRepository.save(singleCard);
-			log.info("+Preloaded: {}", singleCard);
+				Scorecard singleCard = new Scorecard(new Date());
+				singleCard.add(singleScore);
+				scorecardRepository.save(singleCard);
+				log.info("+Preloaded: {}", singleCard);
 
-			// create some scorecards fix O(n^3)
-			teeTimeCounter = 0;
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), 
-						Utils.adjustDate(startDate, teeTimeCounter * -1));
-					Scorecard card = new Scorecard();
-					card.setTeeTime(Utils.adjustDate(startDate, teeTimeCounter * -1));
-					for (Score score : scores) {
-						card.add(score);
+				// create some scorecards fix O(n^3)
+				teeTimeCounter = 0;
+				for(Course course : courses){
+					for(Tee tee : course.getTees()){
+						List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), 
+							Utils.adjustDate(startDate, teeTimeCounter * -1));
+						Scorecard card = new Scorecard();
+						card.setTeeTime(Utils.adjustDate(startDate, teeTimeCounter * -1));
+						for (Score score : scores) {
+							card.add(score);
+						}
+						scorecardRepository.save(card);
+						teeTimeCounter++;
 					}
-					scorecardRepository.save(card);
-					teeTimeCounter++;
 				}
+				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+				scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
+				log.info("Database initialized");
 			}
-			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
-			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
-			log.info("Database initialized");
 		};
 		
 	}

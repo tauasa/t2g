@@ -9,6 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
+/**
+ * Hole score attributes
+*/
 public class HoleScore implements Serializable{
 
 	private int strokes, drive, putts, penalties, mulligans;

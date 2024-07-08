@@ -23,6 +23,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "golfer")
+/**
+ * An individual golfer with an email, name and a list of {@link Score} objects
+*/
 public class Golfer implements Serializable{
 
 	@Id 

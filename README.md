@@ -4,23 +4,22 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 ## Model
 * `Golfer` has zero or more `Score`s
 * `Course` has one or more `Tee`s
-* `Tee`s have a _slope_, _rating_ and 18 `Hole`s
-* `Score` has a `Golfer`, `Tee`, a _teeTime_ (`java.util.Date`) and 18 `HoleScore` beans
-* `HoleScore` is a POJO containing fields listed below the model image
-* `Score` has an _id_ primary key and a uniqe composite key made composed of _teeId_, _teeTime_, and _golferId_
-* `Scorecard` is a collection of all `Score`s for a _teeId_ and _teeTime_
+* `Tee` has a _slope_, _rating_, and 18 `@Embedded` `Hole` attributes (_hole1_,...,_hole18_)
+* `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` attributes (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.util.Date`) 
+* `HoleScore` is the `@Embeddable` POJO containing fields listed below the model image
+* `Scorecard` has a collection of all `Score`s (usually 1-4) for a given `Tee` and _teeTime_ (`java.util.Date`).
   
 ![T2G model](model.png)
 
 ## `HoleScore` tracks the following stuffs for each hole:
-* Strokes (int)
-* Fairway Hit (boolean)
-* Drive Distance (int)
-* GIR (boolean)
-* Putts (int)
-* Penalties (int)
-* Sand Save (boolean)
-* Mulligans (int)
+* Strokes (`int`)
+* Fairway Hit (`boolean`)
+* Drive Distance (`int`)
+* GIR (`boolean`)
+* Putts (`int`)
+* Penalties (`int`)
+* Sand Save (`boolean`)
+* Mulligans (`int`)
 
 ### Build and Run Locally
 > `mvn spring-boot run`
