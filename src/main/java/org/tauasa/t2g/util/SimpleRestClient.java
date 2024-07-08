@@ -74,7 +74,7 @@ public class SimpleRestClient {
     public static void main(String[] args) {
         SimpleRestClient client = new SimpleRestClient("http://localhost:8080");
         try {
-            String getResponse = client.get(Utils.isEmpty(args)?"/golfers":args[0]);
+            String getResponse = client.get(args[0]);
             System.out.println("GET response: " + getResponse);
             //String postResponse = client.post("/courses", "{\"name\":\"John Doe\",\"email\":\"john@example.com\"}");
             //System.out.println("POST response: " + postResponse);

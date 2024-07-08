@@ -1,12 +1,12 @@
 package org.tauasa.t2g.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import org.tauasa.t2g.util.Utils;
+import org.tauasa.t2g.util.Stuffs;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -39,8 +39,8 @@ public class Scorecard implements Serializable{
     private Set<Score> scores;
 
     @NotNull
-    @JoinColumn(name = "tee_time")
-    private Date teeTime;
+    @JoinColumn(name = "tee_time", columnDefinition = "TIMESTAMP")
+    private LocalDateTime teeTime;
 
     public Scorecard(){}
 
@@ -48,7 +48,7 @@ public class Scorecard implements Serializable{
         this.scores=scores;
     }
 
-    public Scorecard(Date teeTime){
+    public Scorecard(LocalDateTime teeTime){
         this.teeTime=teeTime;
     }
 
@@ -77,7 +77,7 @@ public class Scorecard implements Serializable{
 	@Override
 	public String toString() {
 		return String.format("Scorecard{id: %d, golfers: %d, teeTime: %s}", 
-            this.id, this.scores==null?0:this.scores.size(), teeTime!=null?Utils.formatTeeTime(teeTime):"teeTime is null");
+            this.id, this.scores==null?0:this.scores.size(), Stuffs.formatTeeTime(teeTime));
 	}
     
 }

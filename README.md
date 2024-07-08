@@ -5,9 +5,9 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * `Golfer` has zero or more `Score`s
 * `Course` has one or more `Tee`s
 * `Tee` has a _slope_, _rating_, and 18 `@Embedded` `Hole` attributes (_hole1_,...,_hole18_)
-* `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` attributes (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.util.Date`) 
+* `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` attributes (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.time.LocalDateTime`) 
 * `HoleScore` is the `@Embeddable` POJO containing fields listed below the model image
-* `Scorecard` has a collection of all `Score`s (usually 1-4) for a given `Tee` and _teeTime_ (`java.util.Date`).
+* `Scorecard` has a collection of all `Score`s (usually 1-4) for a given `Tee` and _teeTime_ (`java.time.LocalDateTime`).
   
 ![T2G model](model.png)
 
@@ -51,7 +51,6 @@ Two methods
 > `curl -X GET localhost:8080/courses/{courseId}`
 
 ### TODO + WIP
-* Replace `java.util.Date` with `java.time.LocalDateTime`
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
 * UI with dashboard
 * Dockerize

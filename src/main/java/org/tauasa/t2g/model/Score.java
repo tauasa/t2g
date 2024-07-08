@@ -1,10 +1,11 @@
 package org.tauasa.t2g.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import org.tauasa.t2g.util.Utils;
+import org.tauasa.t2g.util.Stuffs;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -29,6 +30,8 @@ import lombok.Setter;
 @Table(name = "score", uniqueConstraints = { @UniqueConstraint(columnNames = { "golfer_pk", "tee_pk", "tee_time" }) })
 public class Score implements Serializable{
 
+	public static final DateTimeFormatter TEE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -41,8 +44,8 @@ public class Score implements Serializable{
     @JoinColumn(name = "tee_pk")
 	private Tee tee;
 
-	@Column(name="tee_time")
-	private Date teeTime;
+	@Column(name="tee_time", columnDefinition = "TIMESTAMP")
+	private LocalDateTime teeTime;
 
 	@Embedded
 	@AttributeOverrides({
@@ -299,7 +302,7 @@ public class Score implements Serializable{
 
 	public Score() {}
 
-	public Score(Golfer golfer, Tee tee, Date teeTime) {
+	public Score(Golfer golfer, Tee tee, LocalDateTime teeTime) {
 		this.golfer = golfer;
 		this.tee = tee;
 		this.teeTime = teeTime;
@@ -459,7 +462,7 @@ public class Score implements Serializable{
 	@Override
 	public String toString() {
 		return String.format("Score{id: %s, tee: %s, teeTime: %s, golfer: %s, score: %d, putts: %d}", 
-			this.id, this.tee.getId(), Utils.formatTeeTime(this.getTeeTime()), this.golfer, this.calculateScore(), this.calculatePutts());
+			this.id, this.tee.getId(), Stuffs.formatTeeTime(teeTime), this.golfer, this.calculateScore(), this.calculatePutts());
 	}
 
 }

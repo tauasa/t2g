@@ -11,9 +11,9 @@ create table scorecard (id bigint not null, tee_time timestamp(6) not null, prim
 create table scorecard_scores (scorecard_id bigint not null, scores_id bigint not null unique, primary key (scorecard_id, scores_id));
 create table tee (hole10_dist integer, hole10_hdcp integer, hole10_par integer, hole11_dist integer, hole11_hdcp integer, hole11_par integer, hole12_dist integer, hole12_hdcp integer, hole12_par integer, hole13_dist integer, hole13_hdcp integer, hole13_par integer, hole14_dist integer, hole14_hdcp integer, hole14_par integer, hole15_dist integer, hole15_hdcp integer, hole15_par integer, hole16_dist integer, hole16_hdcp integer, hole16_par integer, hole17_dist integer, hole17_hdcp integer, hole17_par integer, hole18_dist integer, hole18_hdcp integer, hole18_par integer, hole1_dist integer, hole1_hdcp integer, hole1_par integer, hole2_dist integer, hole2_hdcp integer, hole2_par integer, hole3_dist integer, hole3_hdcp integer, hole3_par integer, hole4_dist integer, hole4_hdcp integer, hole4_par integer, hole5_dist integer, hole5_hdcp integer, hole5_par integer, hole6_dist integer, hole6_hdcp integer, hole6_par integer, hole7_dist integer, hole7_hdcp integer, hole7_par integer, hole8_dist integer, hole8_hdcp integer, hole8_par integer, hole9_dist integer, hole9_hdcp integer, hole9_par integer, rating float(24) not null check ((rating>=60) and (rating<=80)), slope integer not null check ((slope<=155) and (slope>=55)), course_pk bigint, id bigint not null, name varchar(255) not null, primary key (id));
 
-alter table if exists score add constraint FKldw9849q9m50djqpjp37ymt52 foreign key (golfer_pk) references golfer;
-alter table if exists score add constraint FKb22le2v1wa6e3m4t72emfj6r7 foreign key (tee_pk) references tee;
-alter table if exists tee add constraint FKpo9c5sihfferatbq2p66y7qgt foreign key (course_pk) references course;
-alter table if exists scorecard_scores add constraint FKq007s7hhoocg7n3eo9oqdwwnr foreign key (scores_id) references score;
-alter table if exists scorecard_scores add constraint FKmv441gs2l8596p17bf3g5gbcg foreign key (scorecard_id) references scorecard;
+alter table if exists score add constraint FK_golfer foreign key (golfer_pk) references golfer;
+alter table if exists score add constraint FK_tee foreign key (tee_pk) references tee;
+alter table if exists tee add constraint FK_course foreign key (course_pk) references course;
+alter table if exists scorecard_scores add constraint FK_score foreign key (scores_id) references score;
+alter table if exists scorecard_scores add constraint FK_scorecard foreign key (scorecard_id) references scorecard;
 
