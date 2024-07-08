@@ -25,89 +25,86 @@ public class LoadDatabase {
 	@Bean
 	public CommandLineRunner initDatabase(CourseRepository courseRepository, GolferRepository golferRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 
-		long courseCount = courseRepository.findAll().size();
-		log.debug("Courses: {}", courseRepository.findAll().size());
-		log.debug("Golfers: {}", golferRepository.findAll().size());
-		log.debug("Scores: {}", scoreRepository.findAll().size());
-		log.debug("Scorecards: {}", scorecardRepository.findAll().size());
-
-		if(courseCount > 0){
-			return args -> {
-				log.info("Database initialized. Nuthin to do here");
-			};
-		}
-
 		return args -> {
 
-			// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
-			log.info("Initializting database...");
+			long courseCount = courseRepository.findAll().size();
+			log.debug("Courses: {}", courseRepository.count());
+			log.debug("Golfers: {}", golferRepository.count());
+			log.debug("Scores: {}", scoreRepository.count());
+			log.debug("Scorecards: {}", scorecardRepository.count());
 
-			log.info("Create/pre-load some courses");
-			initCourses(courseRepository);
-			List<Course> courses = courseRepository.findAll();
+			if(courseCount > 0){
 
-			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
-			courses.forEach(course_ -> log.info("+Preloaded: {}", course_));
-			
+				log.info("Database initialized. Nuthin to do here");
 
-			// tee time starts here
-			LocalDateTime startDate = LocalDateTime.of(2024, 6, 21, 9, 15);
-			//create some golfers
-			initGolfers(golferRepository);
-			int teeTimeCounter = 0;
+			}else{
 
-			List<Golfer> golfers = golferRepository.findAll();
+				// TODO - scrape score card data from https://freegolftracker.com/courses/Diamond-Oaks_4311.htm
+				log.info("Initializting database...");
 
-			//create scores for every golfer, tee for every course O(n^3)
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					for(Golfer golfer : golfers){
-						Score score = initScore(golfer, tee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
-						golfer.add(score);
-						golferRepository.save(golfer);
-					}
-					teeTimeCounter++;
-				}
-			}
-			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
+				log.info("Create/pre-load some courses");
+				initCourses(courseRepository);
+				List<Course> courses = courseRepository.findAll();
 
-			//add a score for a single golfer
-			Golfer singleGolfer = golfers.get(0);
-			Course singleCourse = courses.get(0);
-			Tee firstTee = singleCourse.getTees().iterator().next();
-			Score singleScore = initScore(singleGolfer, firstTee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
-			singleGolfer.add(singleScore);
-			golferRepository.save(singleGolfer);
-
-			Scorecard singleCard = new Scorecard(LocalDateTime.now());
-			singleCard.add(singleScore);
-			scorecardRepository.save(singleCard);
-			log.info("+Preloaded: {}", singleCard);
-
-			// create some scorecards fix O(n^3)
-			teeTimeCounter = 0;
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), startDate.plusDays(teeTimeCounter * -1));
-					Scorecard card = new Scorecard();
-					card.setTeeTime(scores.get(0).getTeeTime());// hokey
-					for (Score score : scores) {
-						card.add(score);
-					}
-					scorecardRepository.save(card);
-					teeTimeCounter++;
-				}
-			}//*/
-			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
-			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
-			log.info("Database initialized");
-
-
-
-			// create some courses
-			if(courseRepository.count()==0 || golferRepository.count()==0){
+				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+				courses.forEach(course_ -> log.info("+Preloaded: {}", course_));
 				
+
+				// tee time starts here
+				//LocalDateTime startDate = LocalDateTime.of(2024, 6, 21, 9, 15);
+				LocalDateTime startDate = LocalDateTime.of(2024, 3, 25, 10, 30);
+				//create some golfers
+				initGolfers(golferRepository);
+				int teeTimeCounter = 0;
+
+				List<Golfer> golfers = golferRepository.findAll();
+
+				//create scores for every golfer, tee for every course O(n^3)
+				for(Course course : courses){
+					for(Tee tee : course.getTees()){
+						for(Golfer golfer : golfers){
+							Score score = initScore(golfer, tee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
+							golfer.add(score);
+							golferRepository.save(golfer);
+						}
+						teeTimeCounter++;
+					}
+				}
+				golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
+
+				//add a score for a single golfer
+				Golfer singleGolfer = golfers.get(0);
+				Course singleCourse = courses.get(0);
+				Tee firstTee = singleCourse.getTees().iterator().next();
+				Score singleScore = initScore(singleGolfer, firstTee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
+				singleGolfer.add(singleScore);
+				golferRepository.save(singleGolfer);
+
+				Scorecard singleCard = new Scorecard(LocalDateTime.now());
+				singleCard.add(singleScore);
+				scorecardRepository.save(singleCard);
+				log.info("+Preloaded: {}", singleCard);
+
+				// create some scorecards fix O(n^3)
+				teeTimeCounter = 0;
+				for(Course course : courses){
+					for(Tee tee : course.getTees()){
+						List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), startDate.plusDays(teeTimeCounter * -1));
+						Scorecard card = new Scorecard();
+						card.setTeeTime(scores.get(0).getTeeTime());// hokey
+						for (Score score : scores) {
+							card.add(score);
+						}
+						scorecardRepository.save(card);
+						teeTimeCounter++;
+					}
+				}//*/
+				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+				scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
+				log.info("Database initialized");
+
 			}
+
 		};
 		
 	}
