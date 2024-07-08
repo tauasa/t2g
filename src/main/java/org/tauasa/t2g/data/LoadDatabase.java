@@ -25,11 +25,11 @@ public class LoadDatabase {
 	@Bean
 	public CommandLineRunner initDatabase(CourseRepository courseRepository, GolferRepository golferRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 
-		long courseCount = courseRepository.count();
+		long courseCount = courseRepository.findAll().size();
 		log.debug("Courses: {}", courseRepository.findAll().size());
-		log.debug("Golfers: {}", golferRepository.count());
-		log.debug("Scores: {}", scoreRepository.count());
-		log.debug("Scorecards: {}", scorecardRepository.count());
+		log.debug("Golfers: {}", golferRepository.findAll().size());
+		log.debug("Scores: {}", scoreRepository.findAll().size());
+		log.debug("Scorecards: {}", scorecardRepository.findAll().size());
 
 		if(courseCount > 0){
 			return args -> {
@@ -45,9 +45,10 @@ public class LoadDatabase {
 			log.info("Create/pre-load some courses");
 			initCourses(courseRepository);
 			List<Course> courses = courseRepository.findAll();
-			if(courses==null){
-				courses.forEach(course -> {log.info("+Preloaded: {}", course);});
-			}
+
+			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+			courses.forEach(course_ -> log.info("+Preloaded: {}", course_));
+			
 
 			// tee time starts here
 			LocalDateTime startDate = LocalDateTime.of(2024, 6, 21, 9, 15);
