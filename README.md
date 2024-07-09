@@ -8,9 +8,11 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 * `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` members (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.time.LocalDateTime`) 
 * `HoleScore` is the `@Embeddable` POJO containing fields listed below the model image
 * `Scorecard` has a collection of all `Score`s (usually 1-4) for a given `Tee` and _teeTime_ (`java.time.LocalDateTime`).
-  
+
+### Logical 
 ![T2G model](model.png)
 
+### Physical
 ![T2G model](erd.png)
 
 ## `HoleScore` tracks the following stuffs for each hole:
