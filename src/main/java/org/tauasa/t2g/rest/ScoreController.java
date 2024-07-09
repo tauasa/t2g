@@ -65,7 +65,7 @@ public class ScoreController {
 	public EntityModel<Score> one(@PathVariable Long teeId, @PathVariable String teeTime, @PathVariable Long golferId) {
 		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, Stuffs.parseTeeTime(teeTime), golferId);
 		if(score==null){
-			log.debug("No score matching {}{}{}", teeId, teeTime, golferId);
+			log.debug("No score matching {}-{}-{}", teeId, teeTime, golferId);
 			throw new NotFoundException(teeId, teeTime, golferId);
 		}
 

@@ -41,7 +41,7 @@ public class CourseController {
 				.map(courseAssembler::toModel) //
 				.collect(Collectors.toList());
 
-		log.debug("Num Courses: {}", courses.size());
+		log.debug("Courses: {}", courses.size());
 
 		return CollectionModel.of(courses, //
 				linkTo(methodOn(CourseController.class).all()).withSelfRel());

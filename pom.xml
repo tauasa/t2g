@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.tauasa</groupId>
 	<artifactId>t2g</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>t2g</name>
 	<description>HATEOAS-driven REST service for tracking golf scores</description>
 	<properties>
@@ -46,7 +46,7 @@
 			<version>2.5.0</version>
 		</dependency>
 
-		<!-- database stuffs-->
+		<!-- database stuffs. uncomment to use H2database -->
 		<!--dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

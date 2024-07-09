@@ -1,8 +1,8 @@
-create sequence course_seq start with 1 increment by 50;
-create sequence golfer_seq start with 1 increment by 50;
-create sequence score_seq start with 1 increment by 50;
-create sequence scorecard_seq start with 1 increment by 50;
-create sequence tee_seq start with 1 increment by 50;
+create sequence course_seq start with 1 increment by 5;
+create sequence golfer_seq start with 1 increment by 7;
+create sequence score_seq start with 1 increment by 2;
+create sequence scorecard_seq start with 1 increment by 5;
+create sequence tee_seq start with 1 increment by 2;
 
 create table course (id bigint not null, name varchar(255) not null, primary key (id));
 create table golfer (id bigint not null, email varchar(255), first_name varchar(255) not null, last_name varchar(255) not null, primary key (id));

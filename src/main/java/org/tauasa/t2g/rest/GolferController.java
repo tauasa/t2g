@@ -3,6 +3,8 @@ package org.tauasa.t2g.rest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -25,8 +27,9 @@ import jakarta.validation.Valid;
 @RestController
 public class GolferController {
 
-	private final GolferRepository golferRepository;
+	private static final Logger log = LoggerFactory.getLogger(GolferController.class);
 
+	private final GolferRepository golferRepository;
 	private final GolferModelAssembler golferAssembler;
 
 	public GolferController(GolferRepository golferRepository, GolferModelAssembler golferAssembler) {
@@ -40,6 +43,8 @@ public class GolferController {
 		List<EntityModel<Golfer>> golfers = golferRepository.findAll().stream() //
 				.map(golferAssembler::toModel) //
 				.collect(Collectors.toList());
+		
+				log.debug("Scores: {}", golfers.size());
 
 		return CollectionModel.of(golfers, linkTo(methodOn(GolferController.class).all()).withSelfRel());
 	}

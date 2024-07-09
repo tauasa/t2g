@@ -52,6 +52,8 @@ Two methods
 
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
+* `Course`: add city and state attributes for location
+* `Golfer`: add home course attribute, make `Golfer`
 * UI with dashboard
 * Dockerize
 * Index/HDCP calculation
