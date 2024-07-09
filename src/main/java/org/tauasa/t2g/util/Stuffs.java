@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Utility stuffs
+ * Utility stuffs go here
 */
 public interface Stuffs {
 
-	public static final String TEE_TIME_FORMAT = "yyyyMMddHHmm";
+	public static final String TEE_TIME_FORMAT = "yyMMddHHmm";
 	public static final DateTimeFormatter TEE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TEE_TIME_FORMAT);
 
 	public static LocalDateTime parseTeeTime(String ts){

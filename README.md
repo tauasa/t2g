@@ -4,8 +4,8 @@ Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring 
 ## Model
 * `Golfer` has zero or more `Score`s
 * `Course` has one or more `Tee`s
-* `Tee` has a _slope_, _rating_, and 18 `@Embedded` `Hole` attributes (_hole1_,...,_hole18_)
-* `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` attributes (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.time.LocalDateTime`) 
+* `Tee` has a _slope_, _rating_, and 18 `@Embedded` `Hole` members (_hole1_,...,_hole18_)
+* `Score` has an _id_ primary key, 18 `@Embedded` `HoleScore` members (_holeScore1_,...,_holeScore18_), and a unique composite key composed of `Golfer`, `Tee`, and _teeTime_ (`java.time.LocalDateTime`) 
 * `HoleScore` is the `@Embeddable` POJO containing fields listed below the model image
 * `Scorecard` has a collection of all `Score`s (usually 1-4) for a given `Tee` and _teeTime_ (`java.time.LocalDateTime`).
   
@@ -52,10 +52,10 @@ Two methods
 
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
-* `Course`: add city and state attributes for location
-* `Golfer`: add home course attribute, make `Golfer`
-* UI with dashboard
+* `Course`: add _location_ member
+* `Golfer`: add _homeCourse_ member
+* UI with dashboard (Nuxt?)
 * Dockerize
-* Index/HDCP calculation
+* USGA Index/HDCP calculation
 * Security stuffs
 
