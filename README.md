@@ -1,5 +1,5 @@
 # T2G Golf Score Tracker
-Basic HATEOAS-driven REST service for tracking golf scores. Built using [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa) the model with a flat model.
+HATEOAS-driven REST service for tracking golf scores. Built using [Spring Boot](https://github.com/spring-projects/spring-boot) and [Spring JPA](https://github.com/spring-projects/spring-data-jpa) the model with a flat model.
 
 ## Model
 * `Golfer` has zero or more `Score`s
