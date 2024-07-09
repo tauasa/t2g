@@ -43,7 +43,8 @@ public class Score implements Serializable{
 
 	@Column(name="tee_time", columnDefinition = "TIMESTAMP")
 	private LocalDateTime teeTime;
-
+	
+	@NotNull
 	@Embedded
 	@AttributeOverrides({
   		@AttributeOverride(name = "strokes", column = @Column(name = "hole1_strokes")),

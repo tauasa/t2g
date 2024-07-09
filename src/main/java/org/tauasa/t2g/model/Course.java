@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,7 +46,13 @@ public class Course implements Serializable{
     )
 	private Set<Tee> tees;
 
-	// TODO - address/location
+	@Embedded
+	@AttributeOverrides({
+  		@AttributeOverride(name = "city", column = @Column(name = "city")),
+		@AttributeOverride(name = "state", column = @Column(name = "state"))
+	})
+	@NotNull
+	private Location location = new Location();
 
 	public Course() {}
 
@@ -74,7 +85,7 @@ public class Course implements Serializable{
 
 	@Override
 	public String toString() {
-		return String.format("Course{id: %d, name: %s}", this.id, this.name);
+		return String.format("Course{id: %d, name: %s, location: %s}", this.id, this.name, this.location);
 	}
 
 }
