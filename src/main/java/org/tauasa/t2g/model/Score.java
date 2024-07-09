@@ -2,7 +2,6 @@ package org.tauasa.t2g.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import org.tauasa.t2g.util.Stuffs;
@@ -29,12 +28,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "score", uniqueConstraints = { @UniqueConstraint(columnNames = { "golfer_pk", "tee_pk", "tee_time" }) })
 public class Score implements Serializable{
-
-	/**
-	 * Changing this could break some stuffs
-	*/
-	public static final String TEE_TIME_FORMAT = "yyyyMMddHHmm";
-	public static final DateTimeFormatter TEE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TEE_TIME_FORMAT);
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

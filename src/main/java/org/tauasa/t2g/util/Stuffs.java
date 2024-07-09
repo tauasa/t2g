@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 */
 public interface Stuffs {
 
-	public static final String TEE_TIME_FORMAT = "yyMMddHHmm";
+	public static final String TEE_TIME_FORMAT = "yyyyMMddHHmm";
 	public static final DateTimeFormatter TEE_TIME_FORMATTER = DateTimeFormatter.ofPattern(TEE_TIME_FORMAT);
 
 	public static LocalDateTime parseTeeTime(String ts){
