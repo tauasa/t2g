@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -22,10 +23,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "golfer")
 /**
- * An individual golfer with an email, name and a list of {@link Score} objects
+ * A golfer with a unique email, first/last name and a list of {@link Score} objects
 */
+@Table(name = "golfer", indexes = {@Index(name = "uniqueIndex", columnList = "email", unique = true)})
 public class Golfer implements Serializable{
 
 	@Id 

@@ -164,7 +164,7 @@ public class LoadDatabase {
 	}
 
 	private Golfer createGolfer(String firstName, String lastName){
-		return new Golfer("no-reply@tauasa.org", firstName, lastName);
+		return new Golfer(firstName.charAt(0)+lastName+"@tauasa.org".toLowerCase(), firstName, lastName);
 	}
 
 	private void initCourses(CourseRepository courseRepository){

@@ -1,8 +1,11 @@
-create sequence course_seq start with 1 increment by 5;
-create sequence golfer_seq start with 1 increment by 7;
-create sequence score_seq start with 1 increment by 2;
-create sequence scorecard_seq start with 1 increment by 5;
-create sequence tee_seq start with 1 increment by 2;
+
+/* JPA generated create statements */
+
+create sequence course_seq start with 1 increment by 3;
+create sequence golfer_seq start with 1 increment by 5;
+create sequence score_seq start with 1 increment by 1;
+create sequence scorecard_seq start with 1 increment by 2;
+create sequence tee_seq start with 1 increment by 1;
 
 create table course (id bigint not null, name varchar(255) not null, primary key (id));
 create table golfer (id bigint not null, email varchar(255), first_name varchar(255) not null, last_name varchar(255) not null, primary key (id));
@@ -16,4 +19,3 @@ alter table if exists score add constraint FK_tee foreign key (tee_pk) reference
 alter table if exists tee add constraint FK_course foreign key (course_pk) references course;
 alter table if exists scorecard_scores add constraint FK_score foreign key (scores_id) references score;
 alter table if exists scorecard_scores add constraint FK_scorecard foreign key (scorecard_id) references scorecard;
-
