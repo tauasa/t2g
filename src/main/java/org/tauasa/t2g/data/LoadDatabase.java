@@ -1,8 +1,16 @@
 package org.tauasa.t2g.data;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +21,7 @@ import org.tauasa.t2g.model.Course;
 import org.tauasa.t2g.model.Golfer;
 import org.tauasa.t2g.model.Hole;
 import org.tauasa.t2g.model.HoleScore;
+import org.tauasa.t2g.model.Location;
 import org.tauasa.t2g.model.Score;
 import org.tauasa.t2g.model.Scorecard;
 import org.tauasa.t2g.model.Tee;
@@ -22,89 +31,85 @@ public class LoadDatabase {
 
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 	private static final Random RAND = new Random();
+	private static final List<String> SURNAMES = readSurnames();
+	private static final List<String> FIRST_NAMES = readFirstNames();
+	private static final List<String> US_STATES = readUsStates();
+	private static final List<String> US_CITIES = readUsCities();
+	private static final List<String> TEE_NAMES = Arrays.asList("Black", "Blue", "White", "Red");
+	private static final List<String> COURSE_EXTS = Arrays.asList("GC", "Golf Course", "Country Club", "CC", "Pines", "Municipal GC", "");
+	private static final int NUM_COURSES = 100;
+	private static final int NUM_GOLFERS = 100;
+	private static final int NUM_SCORECARDS = 50;
+	private static final int NUM_GOLFERS_PER_SCORECARD = 4;
 
 	@Bean
 	public CommandLineRunner initDatabase(CourseRepository courseRepository, GolferRepository golferRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 
 		return args -> {
 
-			log.info("Initializting database...");
+			if (courseRepository.count() > 0) {
 
-			log.info("Create/pre-load some courses");
-			initCourses(courseRepository);
-			List<Course> courses = courseRepository.findAll();
+				log.info("Nothing to initialize");
+				
+			}else{
 
-			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
-			courses.forEach(course_ -> log.info("+Preloaded: {}", course_));
+				log.info("Initializting database...");
 
-			// tee times start here
-			LocalDateTime startDate = LocalDateTime.of(2024, 3, 25, 10, 30);
-			//LocalDateTime startDate = LocalDateTime.now();
-			//create some golfers
-			initGolfers(golferRepository);
-			int teeTimeCounter = 0;
+				log.info("Create/pre-load {} random courses", NUM_COURSES);
+				initCourses(courseRepository);
+				List<Course> courses = courseRepository.findAll();
+				courses.forEach(c -> log.info("+Preloaded: {}", c));
 
-			List<Golfer> golfers = golferRepository.findAll();
+				log.info("Create/pre-load {} random golfers", NUM_GOLFERS);
+				initGolfers(golferRepository);
+				List<Golfer> golfers = golferRepository.findAll();
+				golfers.forEach(g -> log.info("+Preloaded: {}", g));
 
-			// create scores for every golfer, tee for every course O(n^3)
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					for(Golfer golfer : golfers){
-						Score score = initScore(golfer, tee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
-						golfer.add(score);
-						golferRepository.save(golfer);
+				LocalDateTime teeTime = LocalDateTime.of(2024, 3, 25, 6, 30).withSecond(0);
+				log.info("Create {} random scorecards", NUM_SCORECARDS);
+
+				for(int i=0;i<NUM_SCORECARDS;i++){
+					Scorecard scorecard = new Scorecard(teeTime);
+
+					// select a random course
+					Course course = courses.get(randInt(0, courses.size()-1));
+
+					// and do our best to select NUM_GOLFERS_PER_SCORECARD random golfers
+					// use a Set to avoid duplicates that will violate a unique key constraint
+					Set<Golfer> foursome = new HashSet<>();
+					for(int j=0;j<NUM_GOLFERS_PER_SCORECARD;j++){
+						foursome.add(golfers.get(randInt(0, golfers.size()-1)));
 					}
-					teeTimeCounter++;
+
+					//create a score for each golfer and add it to the scorecard
+					for(Golfer golfer : foursome){
+						// each golfer can play from a random tee
+						Tee tee = (Tee)course.getTees().toArray()[randInt(0, course.getTees().size()-1)];
+						log.debug("Create score for {} on {} tees", tee.getName(), golfer.getEmail());
+						Score score = initScore(golfer, tee, teeTime, scoreRepository);
+						scorecard.add(score);
+					}
+
+					scorecardRepository.save(scorecard);
+
+					// if it's after 1700 skip to tomorrow @ 0630 otherwise increment by 15 min
+					teeTime = teeTime.getHour() > 17 ? teeTime.plusDays(i).withHour(6).withMinute(30) : teeTime.plusMinutes(15);
 				}
+
+				scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
+				scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
+				
+				log.info("Database initialized");
+
 			}
-			golfers.forEach(golfer -> log.info("+Preloaded: " + golfer));
-
-			//add a score for a single golfer
-			Golfer singleGolfer = golfers.get(0);
-			Course singleCourse = courses.get(0);
-			Tee firstTee = singleCourse.getTees().iterator().next();
-			Score singleScore = initScore(singleGolfer, firstTee, startDate.plusDays(teeTimeCounter * -1), scoreRepository);
-			singleGolfer.add(singleScore);
-			golferRepository.save(singleGolfer);
-
-			Scorecard singleCard = new Scorecard(LocalDateTime.now().withMinute(15));
-			singleCard.add(singleScore);
-			scorecardRepository.save(singleCard);
-			log.info("+Preloaded: {}", singleCard);
-
-			// hokey O(n^3)
-			teeTimeCounter = 0;
-			for(Course course : courses){
-				for(Tee tee : course.getTees()){
-					List<Score> scores = scoreRepository.findByTeeIdAndTeeTime(tee.getId(), startDate.plusDays(teeTimeCounter * -1));
-					Scorecard card = new Scorecard(scores.get(0).getTeeTime());
-					for (Score score : scores) {
-						card.add(score);
-					}
-					scorecardRepository.save(card);
-					teeTimeCounter++;
-				}
-			}//*/
-			scoreRepository.findAll().forEach(score -> log.info("+Preloaded " + score));
-			scorecardRepository.findAll().forEach(scorecard -> log.info("+Preloaded " + scorecard));
-			log.info("Database initialized");
 
 		};
 		
 	}
 
-	private static int randInt(int min, int max){
-		return RAND.nextInt(min, max);
-	}
-
-	private static float randFloat(float min, float max){
-		return RAND.nextFloat(min, max);
-	}
-
 	private Score initScore(Golfer golfer, Tee tee, LocalDateTime teeTime, ScoreRepository scoreRepository){
 		// create a scores for the specified golfer, course and the first tee
 		Score score = new Score(golfer, tee, teeTime);
-
 		score.setHoleScore1(createHoleScore(tee.getHole1(), 0, true, true, false));
 		score.setHoleScore2(createHoleScore(tee.getHole2(), 0, true, false, false));
 		score.setHoleScore3(createHoleScore(tee.getHole3(), 0, false, true, true));
@@ -123,17 +128,16 @@ public class LoadDatabase {
 		score.setHoleScore16(createHoleScore(tee.getHole16(), 0, true, true, false));
 		score.setHoleScore17(createHoleScore(tee.getHole17(), 0, false, true, false));
 		score.setHoleScore18(createHoleScore(tee.getHole18(), 0, true, true, false));
-
 		return scoreRepository.save(score);
 	}
 
-	private HoleScore createHoleScore(Hole hole, int penalties, boolean fairway, boolean gir, boolean sandy){
+	private static HoleScore createHoleScore(Hole hole, int penalties, boolean fairway, boolean gir, boolean sandy){
 		HoleScore hs = new HoleScore(
-			hole.getPar() + randInt(-2, 4), //random score between birdie and snowman
-			hole.getPar() > 3 ? randInt(200, hole.getDistance()-60) : 0, // random drive distance 
+			hole.getPar() + randInt(-2, 4), // random score between birdie and snowman
+			hole.getPar() > 3 ? randInt(200, hole.getDistance()-90) : 0, // random drive distance 
 			randInt(0,5),
 			penalties,
-			0,
+			RAND.nextInt(0,2),
 			fairway,
 		 	gir,
 			sandy);
@@ -141,74 +145,99 @@ public class LoadDatabase {
 	}
 
 	private void initGolfers(GolferRepository golferRepository){
-		golferRepository.save(createGolfer("Tauasa", "Timoteo"));
-		golferRepository.save(createGolfer("Jarrod", "Corby"));
-		golferRepository.save(createGolfer("Tiger", "Woods"));
-		golferRepository.save(createGolfer("Ricky", "Fowler"));
-		golferRepository.save(createGolfer("Michael", "Ambrose"));
-		golferRepository.save(createGolfer("Michael", "Pentecost"));
-		golferRepository.save(createGolfer("Pat", "Santora"));
-		golferRepository.save(createGolfer("Nunya", "Bidness"));
-		golferRepository.save(createGolfer("Inya", "Face"));
-		golferRepository.save(createGolfer("John", "Timoeo"));
-		golferRepository.save(createGolfer("Mindya", "Bidness"));
-		golferRepository.save(createGolfer("Slapya", "Face"));
-		golferRepository.save(createGolfer("Downya", "Hatch"));
-		golferRepository.save(createGolfer("Sa", "Luafuluvalu"));
-		golferRepository.save(createGolfer("Upya", "Butt"));
-		golferRepository.save(createGolfer("Inya", "Crack"));
-		golferRepository.save(createGolfer("Krossda", "Street"));
-		golferRepository.save(createGolfer("Krossda", "Line"));
-		golferRepository.save(createGolfer("John", "Doe"));
-		golferRepository.save(createGolfer("Dirty", "Zapatos"));//*/
+		for(int i=0;i<NUM_GOLFERS;i++){
+			golferRepository.save(createGolfer(randString(FIRST_NAMES), randString(SURNAMES)));
+		}
 	}
 
 	private Golfer createGolfer(String firstName, String lastName){
-		return new Golfer(firstName.charAt(0)+lastName+"@tauasa.org".toLowerCase(), firstName, lastName);
+		return new Golfer((firstName.charAt(0)+lastName+"@tauasa.org").toLowerCase(), firstName, lastName);
 	}
 
 	private void initCourses(CourseRepository courseRepository){
-		courseRepository.save(createCourse("Woodcreek GC"));
-		courseRepository.save(createCourse("Diamond Oaks GC"));
-		courseRepository.save(createCourse("Turkey Creek GC"));
-		courseRepository.save(createCourse("Mather GC"));
+		for(int i=0;i<NUM_COURSES; i++){
+			courseRepository.save(createCourse(randString(US_CITIES)+" "+randString(COURSE_EXTS)));
+		}
 	}
 
 	private Course createCourse(String name){
-		Course c = new Course(name);
-		populateCourse(c);
+		Course c = new Course(name, new Location(randString(US_CITIES), randString(US_STATES)));
+		populateTees(c);
 		return c;
 	}
 
-	private void populateCourse(Course c){
-		c.add(createTee(c, "Black", randInt(125, 155), randFloat(70F, 72F)));
-		c.add(createTee(c, "Blue", randInt(120, 125), randFloat(68F, 70F)));
-		c.add(createTee(c, "White", randInt(110, 120), randFloat(66F, 68F)));
-		c.add(createTee(c, "Red", randInt(100, 110), randFloat(62F, 66F)));
+	private void populateTees(Course c){
+		for(String name : TEE_NAMES){
+			Tee tee = createTee(name, randInt(100, 155), randFloat(70F, 72F));
+			c.add(tee);
+		}
 	}
 
-	private Tee createTee(Course course, String name, int slope, float rating){
+	private Tee createTee(String name, int slope, float rating){
 		Tee tee = new Tee(name, slope, rating);
-		tee.setCourse(course);
 		tee.setHole1(new Hole(4, randInt(300, 410), 18));
-		tee.setHole2(new Hole(4, randInt(300, 410), 17));
+		tee.setHole2(new Hole(4, randInt(300, 410), 2));
 		tee.setHole3(new Hole(4, randInt(300, 410), 16));
-		tee.setHole4(new Hole(3, randInt(100, 210), 15));
+		tee.setHole4(new Hole(3, randInt(100, 210), 4));
 		tee.setHole5(new Hole(5, randInt(400, 600), 14));
-		tee.setHole6(new Hole(4, randInt(300, 410), 13));
-		tee.setHole7(new Hole(4, randInt(300, 410), 12));
-		tee.setHole8(new Hole(3, randInt(100, 210), 11));
-		tee.setHole9(new Hole(5, randInt(400, 600), 10));
+		tee.setHole6(new Hole(4, randInt(300, 410), 10));
+		tee.setHole7(new Hole(4, randInt(300, 410), 8));
+		tee.setHole8(new Hole(3, randInt(100, 210), 6));
+		tee.setHole9(new Hole(5, randInt(400, 600), 11));
 		tee.setHole10(new Hole(5, randInt(400, 600), 9));
-		tee.setHole11(new Hole(4, randInt(300, 410), 8));
+		tee.setHole11(new Hole(4, randInt(300, 410), 12));
 		tee.setHole12(new Hole(4, randInt(300, 410), 7));
-		tee.setHole13(new Hole(4, randInt(300, 410), 6));
+		tee.setHole13(new Hole(4, randInt(300, 410), 13));
 		tee.setHole14(new Hole(3, randInt(100, 210), 5));
-		tee.setHole15(new Hole(4, randInt(300, 410), 4));
+		tee.setHole15(new Hole(4, randInt(300, 410), 15));
 		tee.setHole16(new Hole(5, randInt(400, 600), 3));
-		tee.setHole17(new Hole(3, randInt(100, 210), 2));
+		tee.setHole17(new Hole(3, randInt(100, 210), 17));
 		tee.setHole18(new Hole(4, randInt(300, 410), 1));
 		return tee;
 	}
+
+	private static List<String> readSurnames(){
+		return readLinesFromInputStream(LoadDatabase.class.getResourceAsStream("/data/surnames.txt"));
+	}
+
+	private static List<String> readFirstNames(){
+		return readLinesFromInputStream(LoadDatabase.class.getResourceAsStream("/data/first-names.txt"));
+	}
+
+	private static List<String> readUsStates(){
+		return readLinesFromInputStream(LoadDatabase.class.getResourceAsStream("/data/us-states.txt"));
+	}
+
+	private static List<String> readUsCities(){
+		return readLinesFromInputStream(LoadDatabase.class.getResourceAsStream("/data/us-cities.txt"));
+	}
+
+	private static List<String> readLinesFromInputStream(InputStream inputStream){
+		List<String> rows = new ArrayList<>();
+		try (
+			BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				rows.add(line);
+			}
+		}catch(IOException e){
+			//swallow
+		}
+		return rows;
+	}
+
+	private static int randInt(int min, int max){
+		return RAND.nextInt(min, max);
+	}
+
+	private static float randFloat(float min, float max){
+		return RAND.nextFloat(min, max);
+	}
+
+	private static String randString(List<String> list){
+		return list.get(randInt(0, list.size()-1));
+	}
+
+	
 
 }

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import org.tauasa.t2g.util.Stuffs;
+import static org.tauasa.t2g.util.Stuffs.prettyFormatTeeTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -77,7 +77,7 @@ public class Scorecard implements Serializable{
 	@Override
 	public String toString() {
 		return String.format("Scorecard{id: %d, golfers: %d, teeTime: %s}", 
-            this.id, this.scores==null?0:this.scores.size(), Stuffs.formatTeeTime(teeTime));
+            this.id, this.scores==null?0:this.scores.size(), prettyFormatTeeTime(teeTime));
 	}
     
 }

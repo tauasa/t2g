@@ -3,6 +3,8 @@ package org.tauasa.t2g.rest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.tauasa.t2g.util.Stuffs.parseTeeTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.CollectionModel;
@@ -63,7 +65,7 @@ public class ScoreController {
 
 	@GetMapping("/scores/{teeId}/{teeTime}/{golferId}")
 	public EntityModel<Score> one(@PathVariable Long teeId, @PathVariable String teeTime, @PathVariable Long golferId) {
-		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, Stuffs.parseTeeTime(teeTime), golferId);
+		Score score = scoreRepository.findByTeeIdAndTeeTimeAndGolferId(teeId, parseTeeTime(teeTime), golferId);
 		if(score==null){
 			log.debug("No score matching {}-{}-{}", teeId, teeTime, golferId);
 			throw new NotFoundException(teeId, teeTime, golferId);

@@ -46,18 +46,19 @@ public class Course implements Serializable{
     )
 	private Set<Tee> tees;
 
+	@NotNull
 	@Embedded
 	@AttributeOverrides({
   		@AttributeOverride(name = "city", column = @Column(name = "city")),
 		@AttributeOverride(name = "state", column = @Column(name = "state"))
 	})
-	@NotNull
 	private Location location = new Location();
 
 	public Course() {}
 
-	public Course(String name) {
+	public Course(String name, Location location) {
 		this.name = name;
+		this.location=location;
 	}
 
 	public void add(Tee tee){
@@ -75,12 +76,12 @@ public class Course implements Serializable{
 		if (!(o instanceof Course))
 			return false;
 		Course course = (Course) o;
-		return Objects.equals(this.id, course.id) && Objects.equals(this.name, course.name);
+		return Objects.equals(this.id, course.id) && Objects.equals(this.name, course.name) && Objects.equals(this.location, course.location);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.id, this.name);
+		return Objects.hash(this.id, this.name, this.location);
 	}
 
 	@Override

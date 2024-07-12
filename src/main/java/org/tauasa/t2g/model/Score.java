@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.tauasa.t2g.util.Stuffs;
+import static org.tauasa.t2g.util.Stuffs.prettyFormatTeeTime;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -43,7 +43,7 @@ public class Score implements Serializable{
 
 	@Column(name="tee_time", columnDefinition = "TIMESTAMP")
 	private LocalDateTime teeTime;
-	
+
 	@NotNull
 	@Embedded
 	@AttributeOverrides({
@@ -460,7 +460,7 @@ public class Score implements Serializable{
 	@Override
 	public String toString() {
 		return String.format("Score{id: %s, tee: %s, teeTime: %s, golfer: %s, score: %d, putts: %d}", 
-			this.id, this.tee.getId(), Stuffs.formatTeeTime(teeTime), this.golfer, this.calculateScore(), this.calculatePutts());
+			this.id, this.tee.getId(), prettyFormatTeeTime(teeTime), this.golfer, this.calculateScore(), this.calculatePutts());
 	}
 
 }
