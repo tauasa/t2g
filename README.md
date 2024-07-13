@@ -57,7 +57,6 @@ Two methods
 * `Golfer`: add _homeCourse_ member
 * Dashboard (Nuxt?)
 * UI using Munin/Langchain
-* Dockerize
 * USGA Index/HDCP calculation
 * Security stuffs
 
