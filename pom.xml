@@ -10,11 +10,13 @@
 	</parent>
 	<groupId>org.tauasa</groupId>
 	<artifactId>t2g</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>t2g</name>
 	<description>HATEOAS-driven REST service for tracking golf scores</description>
+
 	<properties>
 		<java.version>17</java.version>
+		<postgres.version>42.7.3</postgres.version>
 	</properties>
 
 	<dependencies>
@@ -54,7 +56,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.7.3</version>
+			<version>${postgres.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
@@ -62,14 +64,14 @@
 			<version>6.4.2.Final</version>
 		</dependency>
 
-		<!--getter/setter magic-->
+		<!-- getter/setter magic -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 		</dependency>
 
-		<!--test stuffs-->
+		<!-- test stuffs -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

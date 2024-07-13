@@ -54,9 +54,9 @@ Two methods
 
 ### TODO + WIP
 * Build course repository (@see [FreeGolf Tracker](https://freegolftracker.com/courses/findgolfcourses.php))
-* `Course`: add _location_ member
 * `Golfer`: add _homeCourse_ member
-* UI with dashboard (Nuxt?)
+* Dashboard (Nuxt?)
+* UI using Munin/Langchain
 * Dockerize
 * USGA Index/HDCP calculation
 * Security stuffs

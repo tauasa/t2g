@@ -19,7 +19,6 @@ public interface Stuffs {
 
 	public static String formatTeeTime(LocalDateTime date){
 		if(date==null){
-			//date = LocalDateTime.now();//this is hokey
 			return null;
 		}
 		return date.format(TEE_TIME_FORMATTER);

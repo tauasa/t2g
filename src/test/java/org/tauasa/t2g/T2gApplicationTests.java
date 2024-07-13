@@ -20,10 +20,10 @@ class T2gApplicationTests {
 	public void contextLoads() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mvc.perform(MockMvcRequestBuilders.get("/courses").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mvc.perform(MockMvcRequestBuilders.get("/golfers").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 		mvc.perform(MockMvcRequestBuilders.get("/scores").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 		mvc.perform(MockMvcRequestBuilders.get("/scorecards").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-		mvc.perform(MockMvcRequestBuilders.get("/golfers").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-		mvc.perform(MockMvcRequestBuilders.get("/courses").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
 	}
 
