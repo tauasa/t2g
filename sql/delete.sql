@@ -2,6 +2,7 @@
 /* delete all data without resetting sequences */
 
 delete from public.scorecard_scores;
+delete from public.scorecard;
 delete from public.score;
 delete from public.golfer;
 delete from public.tee;

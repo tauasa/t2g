@@ -38,8 +38,8 @@ public class LoadDatabase {
 	private static final List<String> TEE_NAMES = Arrays.asList("Black", "Blue", "White", "Red");
 	private static final List<String> COURSE_EXTS = Arrays.asList("GC", "Golf Course", "Country Club", "CC", "Pines", "Municipal GC", "");
 	private static final List<String> DOMAINS = Arrays.asList("tauasa.org", "gmail.com", "yahoo.com", "icloud.com", "mustard.edu", "att.org", "hamdsandwish.netx");
-	private static final int NUM_COURSES = 1000;
-	private static final int NUM_GOLFERS = 500;
+	private static final long NUM_COURSES = 1000;
+	private static final long NUM_GOLFERS = 500;
 	private static final int NUM_SCORECARDS = 200;
 	private static final int NUM_GOLFERS_PER_SCORECARD = 4;
 
@@ -58,14 +58,14 @@ public class LoadDatabase {
 
 				if(courseRepository.count() < NUM_COURSES){
 					log.info("Create {} random courses", NUM_COURSES);
-					initCourses(courseRepository);
+					initCourses(courseRepository, NUM_COURSES-courseRepository.count());
 				}
 				List<Course> courses = courseRepository.findAll();
 				courses.forEach(c -> log.info("+Preloaded: {}", c));
 
 				if(golferRepository.count() < NUM_GOLFERS){
 					log.info("Create/pre-load {} random golfers", NUM_GOLFERS);
-					initGolfers(golferRepository);
+					initGolfers(golferRepository, NUM_GOLFERS-golferRepository.count());
 				}
 				List<Golfer> golfers = golferRepository.findAll();
 				golfers.forEach(g -> log.info("+Preloaded: {}", g));
@@ -149,8 +149,8 @@ public class LoadDatabase {
 		return hs;
 	}
 
-	private void initGolfers(GolferRepository golferRepository){
-		for(int i=0;i<NUM_GOLFERS;i++){
+	private void initGolfers(GolferRepository golferRepository, long num){
+		for(int i=0;i<num;i++){
 			golferRepository.save(createGolfer(randString(FIRST_NAMES), randString(SURNAMES)));
 		}
 	}
@@ -162,8 +162,8 @@ public class LoadDatabase {
 			firstName, lastName);
 	}
 
-	private void initCourses(CourseRepository courseRepository){
-		for(int i=0;i<NUM_COURSES; i++){
+	private void initCourses(CourseRepository courseRepository, long num){
+		for(int i=0;i<num; i++){
 			courseRepository.save(createCourse(randString(US_CITIES)+" "+randString(COURSE_EXTS)));
 		}
 	}
