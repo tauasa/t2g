@@ -37,55 +37,60 @@ public class LoadDatabase {
 	private static final List<String> US_CITIES = readUsCities();
 	private static final List<String> TEE_NAMES = Arrays.asList("Black", "Blue", "White", "Red");
 	private static final List<String> COURSE_EXTS = Arrays.asList("GC", "Golf Course", "Country Club", "CC", "Pines", "Municipal GC", "");
-	private static final int NUM_COURSES = 100;
-	private static final int NUM_GOLFERS = 100;
-	private static final int NUM_SCORECARDS = 50;
+	private static final List<String> DOMAINS = Arrays.asList("tauasa.org", "gmail.com", "yahoo.com", "icloud.com", "mustard.edu", "att.org", "hamdsandwish.netx");
+	private static final int NUM_COURSES = 1000;
+	private static final int NUM_GOLFERS = 500;
+	private static final int NUM_SCORECARDS = 200;
 	private static final int NUM_GOLFERS_PER_SCORECARD = 4;
 
 	@Bean
 	public CommandLineRunner initDatabase(CourseRepository courseRepository, GolferRepository golferRepository, ScoreRepository scoreRepository, ScorecardRepository scorecardRepository) {
 
-		return args -> {
+		return (String[] args) -> {
 
-			if (courseRepository.count() > 0) {
+			if (scorecardRepository.count() > NUM_SCORECARDS) {
 
-				log.info("Nothing to initialize");
+				log.info("Database previously initialized");
 				
 			}else{
 
-				log.info("Initializting database...");
+				log.info("Populating database with random data...");
 
-				log.info("Create/pre-load {} random courses", NUM_COURSES);
-				initCourses(courseRepository);
+				if(courseRepository.count() < NUM_COURSES){
+					log.info("Create {} random courses", NUM_COURSES);
+					initCourses(courseRepository);
+				}
 				List<Course> courses = courseRepository.findAll();
 				courses.forEach(c -> log.info("+Preloaded: {}", c));
 
-				log.info("Create/pre-load {} random golfers", NUM_GOLFERS);
-				initGolfers(golferRepository);
+				if(golferRepository.count() < NUM_GOLFERS){
+					log.info("Create/pre-load {} random golfers", NUM_GOLFERS);
+					initGolfers(golferRepository);
+				}
 				List<Golfer> golfers = golferRepository.findAll();
 				golfers.forEach(g -> log.info("+Preloaded: {}", g));
 
-				LocalDateTime teeTime = LocalDateTime.of(2024, 3, 25, 6, 30).withSecond(0);
-				log.info("Create {} random scorecards", NUM_SCORECARDS);
+				LocalDateTime teeTime = LocalDateTime.now().minusDays(30).withHour(6).withMinute(30).withSecond(0);
+				log.info("Create/pre-load {} random scorecards", NUM_SCORECARDS);
 
 				for(int i=0;i<NUM_SCORECARDS;i++){
 					Scorecard scorecard = new Scorecard(teeTime);
 
 					// select a random course
-					Course course = courses.get(randInt(0, courses.size()-1));
+					Course course = (Course)randObj(courses);
 
-					// and do our best to select NUM_GOLFERS_PER_SCORECARD random golfers
-					// use a Set to avoid duplicates that will violate a unique key constraint
+					// select NUM_GOLFERS_PER_SCORECARD random golfers using a Set to 
+					// avoid possible duplicates that violates a unique constraint
 					Set<Golfer> foursome = new HashSet<>();
 					for(int j=0;j<NUM_GOLFERS_PER_SCORECARD;j++){
 						foursome.add(golfers.get(randInt(0, golfers.size()-1)));
 					}
 
-					//create a score for each golfer and add it to the scorecard
+					// create a score for each golfer and add it to the scorecard
 					for(Golfer golfer : foursome){
-						// each golfer can play from a random tee
-						Tee tee = (Tee)course.getTees().toArray()[randInt(0, course.getTees().size()-1)];
-						log.debug("Create score for {} on {} tees", tee.getName(), golfer.getEmail());
+						// each golfer plays from a random tee
+						Tee tee = (Tee)randObj(new ArrayList<>(course.getTees()));
+						log.debug("Create/pre-load score for {} on {} tees", tee.getName(), golfer.getEmail());
 						Score score = initScore(golfer, tee, teeTime, scoreRepository);
 						scorecard.add(score);
 					}
@@ -151,7 +156,10 @@ public class LoadDatabase {
 	}
 
 	private Golfer createGolfer(String firstName, String lastName){
-		return new Golfer((firstName.charAt(0)+lastName+"@tauasa.org").toLowerCase(), firstName, lastName);
+		return new Golfer(
+			(firstName.charAt(0)+lastName+randInt(100,999)
+			+"@"+randString(DOMAINS)).toLowerCase(), 
+			firstName, lastName);
 	}
 
 	private void initCourses(CourseRepository courseRepository){
@@ -168,8 +176,7 @@ public class LoadDatabase {
 
 	private void populateTees(Course c){
 		for(String name : TEE_NAMES){
-			Tee tee = createTee(name, randInt(100, 155), randFloat(70F, 72F));
-			c.add(tee);
+			c.add(createTee(name, randInt(100, 155), randFloat(70F, 72F)));
 		}
 	}
 
@@ -235,6 +242,10 @@ public class LoadDatabase {
 	}
 
 	private static String randString(List<String> list){
+		return list.get(randInt(0, list.size()-1));
+	}
+
+	private static Object randObj(List<? extends Object> list){
 		return list.get(randInt(0, list.size()-1));
 	}
 

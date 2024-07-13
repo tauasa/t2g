@@ -44,7 +44,7 @@ public class GolferController {
 				.map(golferAssembler::toModel) //
 				.collect(Collectors.toList());
 		
-				log.debug("Scores: {}", golfers.size());
+				log.debug("Golfers: {}", golfers.size());
 
 		return CollectionModel.of(golfers, linkTo(methodOn(GolferController.class).all()).withSelfRel());
 	}

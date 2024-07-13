@@ -16,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -28,7 +29,8 @@ import lombok.Setter;
 public class Scorecard implements Serializable{
 
     @Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scorecardId")
+    @SequenceGenerator(name = "scorecardId", sequenceName = "scorecard_seq")
 	private Long id;
 
     @OneToMany(

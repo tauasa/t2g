@@ -46,7 +46,7 @@
 			<version>2.5.0</version>
 		</dependency>
 
-		<!-- database stuffs. uncomment to use H2database -->
+		<!-- database stuffs -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

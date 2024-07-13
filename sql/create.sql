@@ -1,21 +1,342 @@
+-- DROP SCHEMA public;
 
-/* JPA generated create statements */
+-- CREATE SCHEMA public AUTHORIZATION pg_database_owner;
+-- COMMENT ON SCHEMA public IS 'standard public schema';
 
-create sequence course_seq 		start with 5 	increment by 3;
-create sequence golfer_seq 		start with 13 	increment by 5;
-create sequence score_seq 		start with 123 	increment by 1;
-create sequence scorecard_seq 	start with 321 	increment by 2;
-create sequence tee_seq 		start with 10 	increment by 5;
+-- DROP SEQUENCE public.course_seq;
 
-create table course (id bigint not null, name varchar(255) not null, city varchar(255), state varchar(255), primary key (id));
-create table golfer (id bigint not null, email varchar(255), first_name varchar(255) not null, last_name varchar(255) not null, primary key (id));
-create table score (hole10_drive integer, hole10_fairway boolean, hole10_gir boolean, hole10_mulligans integer, hole10_penalties integer, hole10_putts integer, hole10_sandy boolean, hole10_strokes integer, hole11_drive integer, hole11_fairway boolean, hole11_gir boolean, hole11_mulligans integer, hole11_penalties integer, hole11_putts integer, hole11_sandy boolean, hole11_strokes integer, hole12_drive integer, hole12_fairway boolean, hole12_gir boolean, hole12_mulligans integer, hole12_penalties integer, hole12_putts integer, hole12_sandy boolean, hole12_strokes integer, hole13_drive integer, hole13_fairway boolean, hole13_gir boolean, hole13_mulligans integer, hole13_penalties integer, hole13_putts integer, hole13_sandy boolean, hole13_strokes integer, hole14_drive integer, hole14_fairway boolean, hole14_gir boolean, hole14_mulligans integer, hole14_penalties integer, hole14_putts integer, hole14_sandy boolean, hole14_strokes integer, hole15_drive integer, hole15_fairway boolean, hole15_gir boolean, hole15_mulligans integer, hole15_penalties integer, hole15_putts integer, hole15_sandy boolean, hole15_strokes integer, hole16_drive integer, hole16_fairway boolean, hole16_gir boolean, hole16_mulligans integer, hole16_penalties integer, hole16_putts integer, hole16_sandy boolean, hole16_strokes integer, hole17_drive integer, hole17_fairway boolean, hole17_gir boolean, hole17_mulligans integer, hole17_penalties integer, hole17_putts integer, hole17_sandy boolean, hole17_strokes integer, hole18_drive integer, hole18_fairway boolean, hole18_gir boolean, hole18_mulligans integer, hole18_penalties integer, hole18_putts integer, hole18_sandy boolean, hole18_strokes integer, hole1_drive integer, hole1_fairway boolean, hole1_gir boolean, hole1_mulligans integer, hole1_penalties integer, hole1_putts integer, hole1_sandy boolean, hole1_strokes integer, hole2_drive integer, hole2_fairway boolean, hole2_gir boolean, hole2_mulligans integer, hole2_penalties integer, hole2_putts integer, hole2_sandy boolean, hole2_strokes integer, hole3_drive integer, hole3_fairway boolean, hole3_gir boolean, hole3_mulligans integer, hole3_penalties integer, hole3_putts integer, hole3_sandy boolean, hole3_strokes integer, hole4_drive integer, hole4_fairway boolean, hole4_gir boolean, hole4_mulligans integer, hole4_penalties integer, hole4_putts integer, hole4_sandy boolean, hole4_strokes integer, hole5_drive integer, hole5_fairway boolean, hole5_gir boolean, hole5_mulligans integer, hole5_penalties integer, hole5_putts integer, hole5_sandy boolean, hole5_strokes integer, hole6_drive integer, hole6_fairway boolean, hole6_gir boolean, hole6_mulligans integer, hole6_penalties integer, hole6_putts integer, hole6_sandy boolean, hole6_strokes integer, hole7_drive integer, hole7_fairway boolean, hole7_gir boolean, hole7_mulligans integer, hole7_penalties integer, hole7_putts integer, hole7_sandy boolean, hole7_strokes integer, hole8_drive integer, hole8_fairway boolean, hole8_gir boolean, hole8_mulligans integer, hole8_penalties integer, hole8_putts integer, hole8_sandy boolean, hole8_strokes integer, hole9_drive integer, hole9_fairway boolean, hole9_gir boolean, hole9_mulligans integer, hole9_penalties integer, hole9_putts integer, hole9_sandy boolean, hole9_strokes integer, golfer_pk bigint, id bigint not null, tee_pk bigint, tee_time timestamp(6), primary key (id), unique (golfer_pk, tee_pk, tee_time));
-create table scorecard (id bigint not null, tee_time timestamp(6) not null, primary key (id));
-create table scorecard_scores (scorecard_id bigint not null, scores_id bigint not null unique, primary key (scorecard_id, scores_id));
-create table tee (hole10_dist integer, hole10_hdcp integer, hole10_par integer, hole11_dist integer, hole11_hdcp integer, hole11_par integer, hole12_dist integer, hole12_hdcp integer, hole12_par integer, hole13_dist integer, hole13_hdcp integer, hole13_par integer, hole14_dist integer, hole14_hdcp integer, hole14_par integer, hole15_dist integer, hole15_hdcp integer, hole15_par integer, hole16_dist integer, hole16_hdcp integer, hole16_par integer, hole17_dist integer, hole17_hdcp integer, hole17_par integer, hole18_dist integer, hole18_hdcp integer, hole18_par integer, hole1_dist integer, hole1_hdcp integer, hole1_par integer, hole2_dist integer, hole2_hdcp integer, hole2_par integer, hole3_dist integer, hole3_hdcp integer, hole3_par integer, hole4_dist integer, hole4_hdcp integer, hole4_par integer, hole5_dist integer, hole5_hdcp integer, hole5_par integer, hole6_dist integer, hole6_hdcp integer, hole6_par integer, hole7_dist integer, hole7_hdcp integer, hole7_par integer, hole8_dist integer, hole8_hdcp integer, hole8_par integer, hole9_dist integer, hole9_hdcp integer, hole9_par integer, rating float(24) not null check ((rating>=60) and (rating<=80)), slope integer not null check ((slope<=155) and (slope>=55)), course_pk bigint, id bigint not null, name varchar(255) not null, primary key (id));
+CREATE SEQUENCE public.course_seq
+	INCREMENT BY 50
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE public.golfer_seq;
 
-alter table if exists score add constraint FK_golfer foreign key (golfer_pk) references golfer;
-alter table if exists score add constraint FK_tee foreign key (tee_pk) references tee;
-alter table if exists tee add constraint FK_course foreign key (course_pk) references course;
-alter table if exists scorecard_scores add constraint FK_score foreign key (scores_id) references score;
-alter table if exists scorecard_scores add constraint FK_scorecard foreign key (scorecard_id) references scorecard;
+CREATE SEQUENCE public.golfer_seq
+	INCREMENT BY 50
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE public.score_seq;
+
+CREATE SEQUENCE public.score_seq
+	INCREMENT BY 50
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE public.scorecard_seq;
+
+CREATE SEQUENCE public.scorecard_seq
+	INCREMENT BY 50
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;
+-- DROP SEQUENCE public.tee_seq;
+
+CREATE SEQUENCE public.tee_seq
+	INCREMENT BY 50
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START 1
+	CACHE 1
+	NO CYCLE;-- public.course definition
+
+-- Drop table
+
+-- DROP TABLE public.course;
+
+CREATE TABLE public.course (
+	id int8 NOT NULL,
+	city varchar(255) NULL,
+	"name" varchar(255) NOT NULL,
+	state varchar(255) NULL,
+	CONSTRAINT course_pkey PRIMARY KEY (id)
+);
+
+
+-- public.golfer definition
+
+-- Drop table
+
+-- DROP TABLE public.golfer;
+
+CREATE TABLE public.golfer (
+	id int8 NOT NULL,
+	email varchar(255) NULL,
+	first_name varchar(255) NOT NULL,
+	last_name varchar(255) NOT NULL,
+	CONSTRAINT golfer_pkey PRIMARY KEY (id),
+	CONSTRAINT uniqueindex UNIQUE (email)
+);
+
+
+-- public.scorecard definition
+
+-- Drop table
+
+-- DROP TABLE public.scorecard;
+
+CREATE TABLE public.scorecard (
+	id int8 NOT NULL,
+	tee_time timestamp(6) NOT NULL,
+	CONSTRAINT scorecard_pkey PRIMARY KEY (id)
+);
+
+
+-- public.tee definition
+
+-- Drop table
+
+-- DROP TABLE public.tee;
+
+CREATE TABLE public.tee (
+	hole10_dist int4 NULL,
+	hole10_hdcp int4 NULL,
+	hole10_par int4 NULL,
+	hole11_dist int4 NULL,
+	hole11_hdcp int4 NULL,
+	hole11_par int4 NULL,
+	hole12_dist int4 NULL,
+	hole12_hdcp int4 NULL,
+	hole12_par int4 NULL,
+	hole13_dist int4 NULL,
+	hole13_hdcp int4 NULL,
+	hole13_par int4 NULL,
+	hole14_dist int4 NULL,
+	hole14_hdcp int4 NULL,
+	hole14_par int4 NULL,
+	hole15_dist int4 NULL,
+	hole15_hdcp int4 NULL,
+	hole15_par int4 NULL,
+	hole16_dist int4 NULL,
+	hole16_hdcp int4 NULL,
+	hole16_par int4 NULL,
+	hole17_dist int4 NULL,
+	hole17_hdcp int4 NULL,
+	hole17_par int4 NULL,
+	hole18_dist int4 NULL,
+	hole18_hdcp int4 NULL,
+	hole18_par int4 NULL,
+	hole1_dist int4 NULL,
+	hole1_hdcp int4 NULL,
+	hole1_par int4 NULL,
+	hole2_dist int4 NULL,
+	hole2_hdcp int4 NULL,
+	hole2_par int4 NULL,
+	hole3_dist int4 NULL,
+	hole3_hdcp int4 NULL,
+	hole3_par int4 NULL,
+	hole4_dist int4 NULL,
+	hole4_hdcp int4 NULL,
+	hole4_par int4 NULL,
+	hole5_dist int4 NULL,
+	hole5_hdcp int4 NULL,
+	hole5_par int4 NULL,
+	hole6_dist int4 NULL,
+	hole6_hdcp int4 NULL,
+	hole6_par int4 NULL,
+	hole7_dist int4 NULL,
+	hole7_hdcp int4 NULL,
+	hole7_par int4 NULL,
+	hole8_dist int4 NULL,
+	hole8_hdcp int4 NULL,
+	hole8_par int4 NULL,
+	hole9_dist int4 NULL,
+	hole9_hdcp int4 NULL,
+	hole9_par int4 NULL,
+	rating float4 NOT NULL,
+	slope int4 NOT NULL,
+	course_pk int8 NULL,
+	id int8 NOT NULL,
+	"name" varchar(255) NOT NULL,
+	CONSTRAINT tee_pkey PRIMARY KEY (id),
+	CONSTRAINT tee_rating_check CHECK (((rating >= (60)::double precision) AND (rating <= (80)::double precision))),
+	CONSTRAINT tee_slope_check CHECK (((slope <= 155) AND (slope >= 55))),
+	CONSTRAINT fkpo9c5sihfferatbq2p66y7qgt FOREIGN KEY (course_pk) REFERENCES public.course(id)
+);
+
+
+-- public.score definition
+
+-- Drop table
+
+-- DROP TABLE public.score;
+
+CREATE TABLE public.score (
+	hole10_drive int4 NULL,
+	hole10_fairway bool NULL,
+	hole10_gir bool NULL,
+	hole10_mulligans int4 NULL,
+	hole10_penalties int4 NULL,
+	hole10_putts int4 NULL,
+	hole10_sandy bool NULL,
+	hole10_strokes int4 NULL,
+	hole11_drive int4 NULL,
+	hole11_fairway bool NULL,
+	hole11_gir bool NULL,
+	hole11_mulligans int4 NULL,
+	hole11_penalties int4 NULL,
+	hole11_putts int4 NULL,
+	hole11_sandy bool NULL,
+	hole11_strokes int4 NULL,
+	hole12_drive int4 NULL,
+	hole12_fairway bool NULL,
+	hole12_gir bool NULL,
+	hole12_mulligans int4 NULL,
+	hole12_penalties int4 NULL,
+	hole12_putts int4 NULL,
+	hole12_sandy bool NULL,
+	hole12_strokes int4 NULL,
+	hole13_drive int4 NULL,
+	hole13_fairway bool NULL,
+	hole13_gir bool NULL,
+	hole13_mulligans int4 NULL,
+	hole13_penalties int4 NULL,
+	hole13_putts int4 NULL,
+	hole13_sandy bool NULL,
+	hole13_strokes int4 NULL,
+	hole14_drive int4 NULL,
+	hole14_fairway bool NULL,
+	hole14_gir bool NULL,
+	hole14_mulligans int4 NULL,
+	hole14_penalties int4 NULL,
+	hole14_putts int4 NULL,
+	hole14_sandy bool NULL,
+	hole14_strokes int4 NULL,
+	hole15_drive int4 NULL,
+	hole15_fairway bool NULL,
+	hole15_gir bool NULL,
+	hole15_mulligans int4 NULL,
+	hole15_penalties int4 NULL,
+	hole15_putts int4 NULL,
+	hole15_sandy bool NULL,
+	hole15_strokes int4 NULL,
+	hole16_drive int4 NULL,
+	hole16_fairway bool NULL,
+	hole16_gir bool NULL,
+	hole16_mulligans int4 NULL,
+	hole16_penalties int4 NULL,
+	hole16_putts int4 NULL,
+	hole16_sandy bool NULL,
+	hole16_strokes int4 NULL,
+	hole17_drive int4 NULL,
+	hole17_fairway bool NULL,
+	hole17_gir bool NULL,
+	hole17_mulligans int4 NULL,
+	hole17_penalties int4 NULL,
+	hole17_putts int4 NULL,
+	hole17_sandy bool NULL,
+	hole17_strokes int4 NULL,
+	hole18_drive int4 NULL,
+	hole18_fairway bool NULL,
+	hole18_gir bool NULL,
+	hole18_mulligans int4 NULL,
+	hole18_penalties int4 NULL,
+	hole18_putts int4 NULL,
+	hole18_sandy bool NULL,
+	hole18_strokes int4 NULL,
+	hole1_drive int4 NULL,
+	hole1_fairway bool NULL,
+	hole1_gir bool NULL,
+	hole1_mulligans int4 NULL,
+	hole1_penalties int4 NULL,
+	hole1_putts int4 NULL,
+	hole1_sandy bool NULL,
+	hole1_strokes int4 NULL,
+	hole2_drive int4 NULL,
+	hole2_fairway bool NULL,
+	hole2_gir bool NULL,
+	hole2_mulligans int4 NULL,
+	hole2_penalties int4 NULL,
+	hole2_putts int4 NULL,
+	hole2_sandy bool NULL,
+	hole2_strokes int4 NULL,
+	hole3_drive int4 NULL,
+	hole3_fairway bool NULL,
+	hole3_gir bool NULL,
+	hole3_mulligans int4 NULL,
+	hole3_penalties int4 NULL,
+	hole3_putts int4 NULL,
+	hole3_sandy bool NULL,
+	hole3_strokes int4 NULL,
+	hole4_drive int4 NULL,
+	hole4_fairway bool NULL,
+	hole4_gir bool NULL,
+	hole4_mulligans int4 NULL,
+	hole4_penalties int4 NULL,
+	hole4_putts int4 NULL,
+	hole4_sandy bool NULL,
+	hole4_strokes int4 NULL,
+	hole5_drive int4 NULL,
+	hole5_fairway bool NULL,
+	hole5_gir bool NULL,
+	hole5_mulligans int4 NULL,
+	hole5_penalties int4 NULL,
+	hole5_putts int4 NULL,
+	hole5_sandy bool NULL,
+	hole5_strokes int4 NULL,
+	hole6_drive int4 NULL,
+	hole6_fairway bool NULL,
+	hole6_gir bool NULL,
+	hole6_mulligans int4 NULL,
+	hole6_penalties int4 NULL,
+	hole6_putts int4 NULL,
+	hole6_sandy bool NULL,
+	hole6_strokes int4 NULL,
+	hole7_drive int4 NULL,
+	hole7_fairway bool NULL,
+	hole7_gir bool NULL,
+	hole7_mulligans int4 NULL,
+	hole7_penalties int4 NULL,
+	hole7_putts int4 NULL,
+	hole7_sandy bool NULL,
+	hole7_strokes int4 NULL,
+	hole8_drive int4 NULL,
+	hole8_fairway bool NULL,
+	hole8_gir bool NULL,
+	hole8_mulligans int4 NULL,
+	hole8_penalties int4 NULL,
+	hole8_putts int4 NULL,
+	hole8_sandy bool NULL,
+	hole8_strokes int4 NULL,
+	hole9_drive int4 NULL,
+	hole9_fairway bool NULL,
+	hole9_gir bool NULL,
+	hole9_mulligans int4 NULL,
+	hole9_penalties int4 NULL,
+	hole9_putts int4 NULL,
+	hole9_sandy bool NULL,
+	hole9_strokes int4 NULL,
+	golfer_pk int8 NULL,
+	id int8 NOT NULL,
+	tee_pk int8 NULL,
+	tee_time timestamp NULL,
+	CONSTRAINT score_golfer_pk_tee_pk_tee_time_key UNIQUE (golfer_pk, tee_pk, tee_time),
+	CONSTRAINT score_pkey PRIMARY KEY (id),
+	CONSTRAINT fkb22le2v1wa6e3m4t72emfj6r7 FOREIGN KEY (tee_pk) REFERENCES public.tee(id),
+	CONSTRAINT fkldw9849q9m50djqpjp37ymt52 FOREIGN KEY (golfer_pk) REFERENCES public.golfer(id)
+);
+
+
+-- public.scorecard_scores definition
+
+-- Drop table
+
+-- DROP TABLE public.scorecard_scores;
+
+CREATE TABLE public.scorecard_scores (
+	scorecard_id int8 NOT NULL,
+	scores_id int8 NOT NULL,
+	CONSTRAINT scorecard_scores_pkey PRIMARY KEY (scorecard_id, scores_id),
+	CONSTRAINT scorecard_scores_scores_id_key UNIQUE (scores_id),
+	CONSTRAINT fkmv441gs2l8596p17bf3g5gbcg FOREIGN KEY (scorecard_id) REFERENCES public.scorecard(id),
+	CONSTRAINT fkq007s7hhoocg7n3eo9oqdwwnr FOREIGN KEY (scores_id) REFERENCES public.score(id)
+);

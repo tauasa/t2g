@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,8 +33,9 @@ import lombok.Setter;
 public class Course implements Serializable{
 
 	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courseId")
+    @SequenceGenerator(name = "courseId", sequenceName = "course_seq")
+    private Long id;
 
 	@NotBlank
 	private String name;
