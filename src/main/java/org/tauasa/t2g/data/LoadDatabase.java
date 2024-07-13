@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -238,7 +239,8 @@ public class LoadDatabase {
 	}
 
 	private static float randFloat(float min, float max){
-		return RAND.nextFloat(min, max);
+		DecimalFormat df = new DecimalFormat("##.#");
+		return Float.parseFloat(df.format(RAND.nextFloat(min, max)));
 	}
 
 	private static String randString(List<String> list){
